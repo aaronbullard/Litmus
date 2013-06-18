@@ -26,8 +26,7 @@
 
   {{-- ===== CSS ===== --}}
   @section('styles')
-    {{Asset::container('bootstrapper')->styles()}}
-    {{Asset::container('bootstrapper')->scripts()}}
+
   @yield_section
 
   {{-- Page stylesheet --}}

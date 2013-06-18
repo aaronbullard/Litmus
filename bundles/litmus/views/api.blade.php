@@ -1,13 +1,10 @@
-@layout('modelo::master')
+@layout('litmus::layout')
 
-  @section('title')About Us@endsection
+@section('description')This is my API page!@endsection
 
-  @section('description')Some description for the meta tag here@endsection
 
-@section('content')
+@extends('content')
 
-	@include('litmus::partials.navbar')
-
-</section>
 
 @endsection
+
