@@ -39,6 +39,14 @@ return array(
 
 	'bootstrapper' => array('auto' => true),
 
+	'aware' => array(
+		  'autoloads' => array(
+		    'map' => array(
+		      'Aware' => '(:bundle)/model.php'
+		    ),
+		  )
+		),
+
 	'litmus'	=> array(
 		'location'		=> 'litmus',
 		'handles'		=> 'api',
