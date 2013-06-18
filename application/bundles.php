@@ -47,6 +47,8 @@ return array(
 		  )
 		),
 
+	'modelo' => array('auto' => true),
+
 	'litmus'	=> array(
 		'location'		=> 'litmus',
 		'handles'		=> 'api',
@@ -54,6 +56,7 @@ return array(
 		'directories'	=> array(
 				'(:bundle)/models',
 				'(:bundle)/controllers',
+				'(:bundle)/libraries',
 			),
 
 		),
