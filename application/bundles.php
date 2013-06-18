@@ -37,4 +37,8 @@ return array(
 
 	'docs' => array('handles' => 'docs'),
 
+	'bootstrapper' => array('auto' => true),
+
+	'litmus'	=> array('auto' => true),
+
 );
