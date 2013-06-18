@@ -39,6 +39,16 @@ return array(
 
 	'bootstrapper' => array('auto' => true),
 
-	'litmus'	=> array('auto' => true),
+	'litmus'	=> array(
+		'location'		=> 'litmus',
+		'handles'		=> 'api',
+		'auto' 			=> true,
+		'directories'	=> array(
+				'(:bundle)/models',
+				'(:bundle)/controllers',
+			),
+
+		),
 
 );
+
