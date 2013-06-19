@@ -37,7 +37,9 @@ return array(
 
 	'docs' => array('handles' => 'docs'),
 
+
 	'bootstrapper' => array('auto' => true),
+
 
 	'aware' => array(
 		  'autoloads' => array(
@@ -47,19 +49,25 @@ return array(
 		  )
 		),
 
+
 	'modelo' => array('auto' => true),
+
 
 	'litmus'	=> array(
 		'location'		=> 'litmus',
 		'handles'		=> 'api',
-		'auto' 			=> true,
-		'directories'	=> array(
-				'(:bundle)/models',
-				'(:bundle)/controllers',
-				'(:bundle)/libraries',
-			),
-
+		'autoloads' 	=> array(
+			'directories'	=> array(
+									'(:bundle)/models',
+									'(:bundle)/controllers',
+									'(:bundle)/libraries',
+								),
+			'map'			=> array(
+									'LitmusHandler'	=> '(:bundle)/libraries/LitmusHandler.php',
+								),
 		),
+	),
+		
 
 );
 

@@ -10,9 +10,28 @@
 
 	@section('styles')
 		{{Asset::container('bootstrapper')->styles()}}
-		{{Asset::container('bootstrapper')->scripts()}}
+		<style>
+			body {
+			  padding-top: 60px;
+			}
+			@media (max-width: 979px) {
+			  body {
+			    padding-top: 0px;
+			  }
+			}
+		</style>
 	@endsection
 
-	@section('content')
+	@section('header')
 		@include('litmus::partials.navbar')
+	@endsection
+
+
+
+	@section('footer')
+		<div class="well">My Footer</div>
+	@endsection
+
+	@section('page_scripts')
+		{{Asset::container('bootstrapper')->scripts()}}
 	@endsection
