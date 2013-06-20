@@ -1,5 +1,7 @@
 <?php
 
-Route::get('/', 'litmus::home@index');
+Route::controller('litmus::admin');
 
-Route::get('api', 'litmus::api@index');
+Route::controller('litmus::api');
+
+Route::controller('litmus::file');

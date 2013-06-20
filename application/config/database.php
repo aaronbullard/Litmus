@@ -69,10 +69,11 @@ return array(
 
 		'mysql' => array(
 			'driver'   => 'mysql',
-			'host'     => '127.0.0.1',
-			'database' => 'database',
+			'host'     => 'localhost',
+                        'unix_socket'   => '/Applications/MAMP/tmp/mysql/mysql.sock',
+			'database' => 'litmus',
 			'username' => 'root',
-			'password' => '',
+			'password' => 'root',
 			'charset'  => 'utf8',
 			'prefix'   => '',
 		),

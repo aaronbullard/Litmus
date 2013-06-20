@@ -1,6 +1,6 @@
 <?php
 
-class Litmus_Home_Controller extends Base_Controller{
+class Litmus_Admin_Controller extends Base_Controller{
 	
 
 	public $restful = true;

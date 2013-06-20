@@ -52,10 +52,11 @@ return array(
 
 	'modelo' => array('auto' => true),
 
+	'appapi' => array('handles' => 'api'),
 
 	'litmus'	=> array(
 		'location'		=> 'litmus',
-		'handles'		=> 'api',
+		'handles'		=> '/',
 		'autoloads' 	=> array(
 			'directories'	=> array(
 									'(:bundle)/models',
