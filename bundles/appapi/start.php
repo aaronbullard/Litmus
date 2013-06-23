@@ -1,12 +1,13 @@
 <?php
 
 Autoloader::directories(array(
-    path('app').'bundles/appapi/controllers',
-    path('app').'bundles/appapi/models',
-    path('app').'bundles/appapi/views',
+  //  path('bundle').'appapi/controllers',
+    path('bundle').'appapi/models',
+    path('bundle').'appapi/views',
 ));
 
 
 Autoloader::map(array(
-    'AppApi'    => path('app').'bundles/appapi/models/appapi.php',
+	'AppApi'				=> path('bundle').'appapi/models/appapi.php',
+  //  'Appapi_Api_Controller'	=> path('bundle').'appapi/controllers/api.php',
 ));

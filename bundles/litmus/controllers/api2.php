@@ -1,5 +1,5 @@
 <?php
-
+/*
 class Litmus_Api_Controller extends Base_Controller{
 	
 
@@ -30,4 +30,4 @@ class Litmus_Api_Controller extends Base_Controller{
 
 	}
 
-}
+}*/
