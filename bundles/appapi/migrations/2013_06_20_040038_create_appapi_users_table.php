@@ -9,7 +9,7 @@ class Appapi_Create_Appapi_Users_Table {
 	 */
 	public function up()
 	{
-		Schema::table('appapi_tokens', function($table){
+		Schema::table('appapi_users', function($table){
 			$table->create();
 			$table->increments('id');
 			$table->string('email');
@@ -20,8 +20,8 @@ class Appapi_Create_Appapi_Users_Table {
 			$table->string('state', 2);
 			$table->string('zipcode', 5);
 			$table->string('phone', 10);
-			$table->string('account', 64)->unique();
-			$table->string('token', 64);
+			$table->string('account', 64)->nullable()->unique();
+			$table->string('token', 64)->nullable();
 			$table->timestamps();
 		});
 	}
@@ -33,7 +33,7 @@ class Appapi_Create_Appapi_Users_Table {
 	 */
 	public function down()
 	{
-		Schema::drop('appapi_tokens');
+		Schema::drop('appapi_users');
 	}
 
 }
