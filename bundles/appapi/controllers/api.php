@@ -18,7 +18,17 @@ class Appapi_Api_Controller extends Base_Controller{
 
 	
 	public function get_index(){
-		echo "hello.";exit;
+		$account = Input::get('account');
+		$token	 = Input::get('token');
+		
+		$bool = User::validate_credentials($account, $token);
+		
+		if( $bool ){
+			return Response::json(true);
+		}else{
+			return Response::json(false);
+		}
+			
 	}
 	
 	
@@ -49,13 +59,20 @@ class Appapi_Api_Controller extends Base_Controller{
 			//Save user
 			$user = new User( $data );
 			$user->save();
+
+			/**
+			 * Generate Account and Token
+			 */
+			$user = $user->generate_account_hash( Config::get('appapi::config.private_key') );
+			$user->save();
 			
-			$message = "User added successfully!";
-			return Redirect::to('api/register')->with('message', $message)->with_input();
-			
+			/**
+			 * Email Account and Token to new user
+			 */
+
+			$status = "User added successfully!  Login credentials have been sent to: '{$user->email}'.";
+			return Redirect::to('api/register')->with('status', $status);
 		}
-		
-		
 	}
 	
 
