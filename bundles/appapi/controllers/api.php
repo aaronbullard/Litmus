@@ -10,17 +10,20 @@ class Appapi_Api_Controller extends Base_Controller{
 	
 	public function __construct(){
 		
-		foreach( Config::get('appapi::config.register') as $key=>$value){
-			$this->user_table[] = $key;
+		foreach( Config::get('appapi::config.form') as $array){
+			$this->user_table[] = $array['name'];
 		}
 		
 	}
 
-	
-	public function get_index(){
-		$account = Input::get('account');
-		$token	 = Input::get('token');
-		
+	/**
+	 * 
+	 * This is only a test method
+	 */
+	public function get_validate($account, $token){
+//		$account = Input::get('account');
+//		$token	 = Input::get('token');
+
 		$bool = User::validate_credentials($account, $token);
 		
 		if( $bool ){
@@ -34,7 +37,7 @@ class Appapi_Api_Controller extends Base_Controller{
 	
 	public function get_register(){
 		
-		return View::make('appapi::register')->with_register(Config::get('appapi::config.register'));
+		return View::make('appapi::form')->with_form(Config::get('appapi::config.form'));
 	}
 	
 	

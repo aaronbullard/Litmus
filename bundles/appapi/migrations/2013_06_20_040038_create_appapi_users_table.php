@@ -13,15 +13,15 @@ class Appapi_Create_Appapi_Users_Table {
 			$table->create();
 			$table->increments('id');
 			$table->string('email');
-			$table->string('fname');
-			$table->string('lname');
+			$table->string('firstname');
+			$table->string('lastname');
 			$table->string('street');
 			$table->string('city');
 			$table->string('state', 2);
-			$table->string('zipcode', 5);
-			$table->string('phone', 10);
-			$table->string('account', 64)->nullable()->unique();
-			$table->string('token', 64)->nullable();
+			$table->integer('zipcode');
+			$table->string('phone', 10)->nullable();
+			$table->string('account', 32)->nullable()->unique();
+			$table->string('token', 32)->nullable();
 			$table->timestamps();
 		});
 	}
