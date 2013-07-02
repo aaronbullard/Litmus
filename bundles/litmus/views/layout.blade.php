@@ -10,6 +10,7 @@
 
 	@section('styles')
 		{{Asset::container('bootstrapper')->styles()}}
+		{{Asset::container('styles')->styles()}}
 		<style>
 			body {
 			  padding-top: 60px;
@@ -34,4 +35,5 @@
 
 	@section('page_scripts')
 		{{Asset::container('bootstrapper')->scripts()}}
+		{{Asset::container('scripts')->scripts()}}
 	@endsection

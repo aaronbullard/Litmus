@@ -1,20 +1,22 @@
-<div id="api-register">
+<div id="image-upload">
 	
-	@include('appapi::message')
+	@include('litmus::partials.message')
 	
-	{{ Form::horizontal_open('api/register', 'POST') }}
+	<?php 
+		echo Form::horizontal_open('image/sample', 'POST');
 
-		{{ Form::token() }}
+			echo Form::token();
 
-		<?php for($a=0; $a < count($form)-2; $a++):
-			echo Form::control_group(
-					Form::label($form[$a]['name'], $form[$a]['label']),
-					Form::text($form[$a]['name'], Input::old($form[$a]['name']) )
-			); 
-		endfor; ?>
+			foreach($fields as $field){
+				echo Form::control_group(
+						Form::label($field['name'], $field['label']),
+						Form::$field['type']($field['name'], Input::old($field['name']) )
+				); 
+			}
+
+			echo Form::actions(array(Button::primary_submit('Submit'), Form::button('Cancel')));
 		
-		{{ Form::submit('Register') }}
-		
-	{{ Form::close() }}
+		echo Form::close();
+	?>
 
 </div>
