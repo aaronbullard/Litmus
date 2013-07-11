@@ -3,6 +3,19 @@
 
 class LitmusHandler{
 	
+	public static function average_color( $image ){
+
+		$im 	= imagecreatefrompng( $image );
+		
+
+		for($x=1;$x<=$width;$x++){
+		    for($y=1;$y<=$height;$y++){
+		    	$rgb 	= imagecolorat($im, 10, 15);
+		    }
+		}
+
+	}
+
 
 	public static function average_pixel(array $array){
 		//array(4) { ["red"]=> int(255) ["green"]=> int(250) ["blue"]=> int(247) ["alpha"]=> int(0) }

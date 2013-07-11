@@ -7,6 +7,7 @@ class Litmus_Image_Controller extends Base_Controller{
 	
 	protected $user_table = array();
 	
+
 	public function __construct(){
 		
 		Bundle::start('appapi');
@@ -17,7 +18,11 @@ class Litmus_Image_Controller extends Base_Controller{
 		
 	}
 	
-	public function get_index(){}
+
+	public function get_index(){
+		return $this->get_view();
+	}
+
 
 	public function post_sample(){
 
@@ -27,15 +32,19 @@ class Litmus_Image_Controller extends Base_Controller{
 		
 		$validate = User::validate_credentials($acct, $token);
 		
-		if( $validate ){
-		
+		if( !$validate ){
+			$json = new Rest;
+			$json->status = 'error';
+			$json->message = 'Your account credentials failed.';
+			return Response::json($json);
+		}else{
+
 			$scale		= Input::get('scale');
 			$sample		= Input::file('sample');
 			$control	= Input::file('control');
-		}else{
-		
 			
-			
+			//Get average color of sample
+
 		}
 		
 		
