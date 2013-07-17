@@ -51,7 +51,7 @@ return array(
 
 
 	'modelo' => array('auto' => true),
-
+		
 	'appapi' => array('handles'	=> 'api'),
 
 	'litmus'	=> array(
@@ -68,7 +68,7 @@ return array(
 								),
 		),
 	),
-		
-
+	
+	
 );
 
