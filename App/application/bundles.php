@@ -52,6 +52,23 @@ return array(
 
 	'modelo' => array('auto' => true),
 		
+	'appapi' => array('handles'	=> 'api'),
 
+	'litmus'	=> array(
+		'location'		=> 'litmus',
+		'handles'		=> '/',
+		'autoloads' 	=> array(
+			'directories'	=> array(
+									'(:bundle)/models',
+									'(:bundle)/controllers',
+									'(:bundle)/libraries',
+								),
+			'map'			=> array(
+									'LitmusHandler'	=> '(:bundle)/libraries/LitmusHandler.php',
+								),
+		),
+	),
+	
+	
 );
 
