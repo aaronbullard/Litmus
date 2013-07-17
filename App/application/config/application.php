@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://localhost:8888/litmus/public',
+	'url' => 'http://localhost:8888/Litmus/App/public',
 
 	/*
 	|--------------------------------------------------------------------------
