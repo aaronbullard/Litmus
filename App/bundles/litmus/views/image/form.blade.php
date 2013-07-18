@@ -3,7 +3,7 @@
 	@include('litmus::partials.message')
 	
 	<?php 
-		echo Form::horizontal_open('image/sample', 'POST');
+		echo Form::horizontal_open_for_files('image/sample', 'POST');
 
 			echo Form::token();
 

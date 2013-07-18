@@ -1,18 +1,32 @@
 <?php
 
 
-class LitmusHandler{
+abstract class LitmusHandler{
 	
-	public static function average_color( $image ){
+	
+	const MAX_COLOR_DIFFERENCE			= 441.67295593; //sqrt( pow(255,2) + pow(255,2) + pow(255,2) );
+	const MAX_COLOR_DIFFERENCE_ALPHA	= 510; //sqrt( pow(255,2) + pow(255,2) + pow(255,2) + pow(255,2));
 
-		$im 	= imagecreatefrompng( $image );
+	
+	public static function average_color($image){
 		
+		//Get array of colors
+		$im 	= imagecreatefromjpeg($image);
 
-		for($x=1;$x<=$width;$x++){
-		    for($y=1;$y<=$height;$y++){
-		    	$rgb 	= imagecolorat($im, 10, 15);
+		$width	= imagesx($im);
+		$height	= imagesy($im);
+
+		$rgb = array();
+		for($x=0; $x<$width; $x++){
+		    for($y=0; $y<$height; $y++){
+		    	$index = imagecolorat($im, $x, $y);
+				$rgb[] = imagecolorsforindex($im, $index);
 		    }
 		}
+
+		$avg_clr = self::average_pixel($rgb);
+		
+		return $avg_clr;
 
 	}
 
@@ -47,16 +61,15 @@ class LitmusHandler{
 		}
 
 		$avg = array(
-					'red'	=> $r / $count,
-					'green'	=> $g / $count,
-					'blue'	=> $b / $count,
-					'alpha'	=> $a / $count,
+					'red'	=> round($r / $total),
+					'green'	=> round($g / $total),
+					'blue'	=> round($b / $total),
+					'alpha'	=> round($a / $total),
 				);
 
 		return (array)$avg;
 
 	}
-
 
 
 	public static function difference(array $rgb1, array $rgb2){

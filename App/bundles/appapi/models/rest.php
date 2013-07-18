@@ -3,7 +3,7 @@
 class Rest{
 
 	public $status;
-	public $data = null;
-	public $message;
+	public $data = NULL;
+	public $message = NULL;
 
 }
