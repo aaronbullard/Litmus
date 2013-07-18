@@ -8,4 +8,5 @@ Autoloader::directories(array(
 
 Autoloader::map(array(
 	'User'	=> path('bundle').'appapi/models/user.php',
+	'Rest'	=> path('bundle').'appapi/models/rest.php',
 ));

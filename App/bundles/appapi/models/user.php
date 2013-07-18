@@ -4,6 +4,11 @@ class User extends Eloquent{
 	
 	public static $table = 'appapi_users';
 	
+	public static $hidden = array('id', 'token');
+	
+	public static $accessible = array('email', 'firstname', 'lastname', 'street',
+										'city', 'state', 'zipcode', 'phone',
+										'account', 'created_at', 'updated_at');
 	
 	public static function validate($data){
 		//set form rules from config

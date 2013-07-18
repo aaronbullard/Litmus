@@ -19,25 +19,29 @@ class Litmus_Image_Controller extends Base_Controller{
 	}
 	
 
+	
 	public function get_index(){
 		return $this->get_view();
 	}
 
 
+	
 	public function post_sample(){
-/*
+
 		//Validate account
-		$acct	= Input::get('account');
-		$token	= Input::get('token');
-*/		
-		$validate = true;//User::validate_credentials($acct, $token);
+		$account = Input::get('account');
+		$token	 = Input::get('token');
 		
-		$json = new Rest;
+		$validate = true;//User::validate_credentials($account, $token);
+		
+		$rest = new Rest;
 		
 		if( !$validate ){
-			$json->status = 'error';
-			$json->message = 'Your account credentials failed.';
-			return Response::json($json);
+			
+			//Login failed.
+			$rest->status = 'error';
+			$rest->message = 'Login credentials are not valid.';
+			
 		}else{
 			
 			//$scale		= Input::get('scale');
@@ -72,20 +76,16 @@ class Litmus_Image_Controller extends Base_Controller{
 			 */
 
 			//return result object
-			$json->status			= 'success';
-			$json->message			= '';
-			$json->data['sample']	= $avgClr['sample'];
-			$json->data['results']	= $results;
-
-			echo "<pre>";
-			print_r($json);
-			exit;
-
+			$rest->status			= 'success';
+			$rest->message			= '';
+			$rest->data['sample']	= $avgClr['sample'];
+			$rest->data['result']	= $results;
 		}
 		
-		
-
+		return Response::json($rest);
 	}
+	
+	
 	
 	public function get_view(){
 	
