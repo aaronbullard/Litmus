@@ -18,5 +18,4 @@ class Litmus_Admin_Controller extends Base_Controller{
 		return View::make('litmus::home.register')->with_form($form);
 	}
 	
-
 }

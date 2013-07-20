@@ -11,7 +11,7 @@
 	</div>
 
 	<div>
-		<img src="{{url('bundles/litmus/img/PH_scale.jpg')}}" />
+		<img src="{{url('bundles/litmus/assets/img/PH_scale.jpg')}}" />
 	</div>
 
 @endsection

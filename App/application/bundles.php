@@ -69,6 +69,10 @@ return array(
 		),
 	),
 	
+	'mockup'	=> array(
+		'auto'		=> true,
+		'handles'	=> 'mockup',
+	),
 	
 );
 

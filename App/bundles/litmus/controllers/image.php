@@ -92,14 +92,9 @@ class Litmus_Image_Controller extends Base_Controller{
 		$data = array();
 		
 		$data['fields'] = Config::get('litmus::config.form.image');
-		$data['title']	= "Image Upload";
-		$data['lead']	= "Upload your sample image for analysis";
+		$form = View::make('litmus::image.form', $data)->render();
 		
-		Asset::container('scripts')->add('image','bundles/litmus/js/image_form.js');
-		
-		$form = View::make('litmus::image.form', $data);
-		
-		return View::make('litmus::image.upload', $data)->with('form', $form);	
+		return $form;
 		
 	}
 
