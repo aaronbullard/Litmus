@@ -1,3 +1,5 @@
 <?php
 
-Route::get( array('(:bundle)', '(:bundle)/home'), 'mockup::home@form');
+Route::get( array('(:bundle)', '(:bundle)/form'), 'mockup::home@form');
+
+Route::post('(:bundle)/form', 'mockup::home@form');

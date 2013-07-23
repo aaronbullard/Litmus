@@ -21,18 +21,22 @@ class Litmus_Image_Controller extends Base_Controller{
 
 	
 	public function get_index(){
-		return $this->get_view();
+		return $this->get_form();
 	}
 
 
 	
-	public function post_sample(){
+	public function get_analysis(){
 
 		//Validate account
-		$account = Input::get('account');
-		$token	 = Input::get('token');
+		$account	= Input::get('account');
+		$token		= Input::get('token');
 		
-		$validate = true;//User::validate_credentials($account, $token);
+		$sample		= Input::get('sample');
+		$control	= Input::get('control');
+		$scale		= Input::get('scale');
+		
+		$validate = User::validate_credentials($account, $token);
 		
 		$rest = new Rest;
 		
@@ -43,13 +47,9 @@ class Litmus_Image_Controller extends Base_Controller{
 			$rest->message = 'Login credentials are not valid.';
 			
 		}else{
-			
-			//$scale		= Input::get('scale');
-			$sample		= Input::file('sample');
-			$control	= Input::has('control') ? Input::file('control') : NULL;
 
 			//Get average color of sample
-			$avgClr['sample']	= LitmusHandler::average_color($sample['tmp_name']);
+			$avgClr['sample']	= LitmusHandler::average_color($sample); //$avgClr['sample']	= LitmusHandler::average_color($sample['tmp_name']);
 			//$avgClr['control']	= LitmusHandler::average_color($control);
 			
 			//Get colors from scale
@@ -87,12 +87,17 @@ class Litmus_Image_Controller extends Base_Controller{
 	
 	
 	
-	public function get_view(){
+	public function get_form(){
 	
 		$data = array();
 		
 		$data['fields'] = Config::get('litmus::config.form.image');
-		$form = View::make('litmus::image.form', $data)->render();
+		
+		unset($data['fields'][0]);
+		unset($data['fields'][1]);
+		
+		$data['url']	= Input::has('url') ? Input::get('url') : '';
+		$form			= View::make('litmus::image.form', $data)->render();
 		
 		return $form;
 		

@@ -2,10 +2,10 @@
 	
 	@include('litmus::partials.message')
 	
-	<?php 
-		echo Form::horizontal_open_for_files('image/sample', 'POST');
+	<?php
+		echo Form::horizontal_open_for_files($url, 'POST');
 
-			echo Form::token();
+			//echo Form::token();
 
 			foreach($fields as $field){
 				echo Form::control_group(

@@ -1,6 +1,6 @@
 @layout('litmus::layout')
 
-@section('description')Litmus Image Upload@endsection
+@section('description')Litmus API Response@endsection
 
 @section('content')
 
@@ -10,7 +10,6 @@
 	</div>
 	
 
-	{{ $form }}
+	{{ $code }}
 
 @endsection
-

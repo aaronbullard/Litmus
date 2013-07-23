@@ -4,6 +4,8 @@ Route::get('/', 'litmus::admin@index');
 
 Route::controller('litmus::admin');
 
-Route::controller('litmus::image');
+//Route::controller('litmus::image');
 
-Route::get('image/view', 'litmus::image@view');
+Route::get('image/form', 'litmus::image@form');
+
+Route::get('image/analysis', 'litmus::image@analysis');
