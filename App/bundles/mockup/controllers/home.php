@@ -36,13 +36,27 @@ class Mockup_Home_Controller extends Base_Controller{
 		
 		$response = $litmus->set_sample_url($sample_url)->set_scaleID($scaleID)->analyze();
 		
+		function recurseTree($var){
+			$out = '<li>';
+			foreach($var as $k => $v){
+			  if(is_array($v) || is_object($v)){
+				$out .= $k." => <ul>".recurseTree($v)."</ul>";
+			  }else{
+				$out .= $k." => ".$v."<br>";
+			  }
+			}
+			return $out.'</li>';
+		  }
+
+		  $string = '<ul>'.recurseTree($response).'</ul>';
+
 		$data = array();
 		$data['title']		= "Image Analysis";
-		$data['lead']		= "Response from litmus/image/anaysis";
-		$data['content']	= "<div class='container'><pre>".json_encode($response)."</pre></div>";
+		$data['lead']		= "Response from Litmus API";
+		$data['content']	= "<div class='container'><pre><code>".$string."</code></pre></div>";
 		
 		return View::make('mockup::pages.home', $data);
 		
 	}
-
+	
 }

@@ -57,8 +57,6 @@ class Litmus{
 	}
 
 
-
-
 	public function analyze($data = array()){
 		
 		//handle mass data assignment
