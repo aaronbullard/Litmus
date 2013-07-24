@@ -28,27 +28,30 @@ class Mockup_Home_Controller extends Base_Controller{
 		$scaleID	= Input::get('scale_id');
 		$sample		= Input::file('sample');
 		$control	= Input::has('control') ? Input::file('control') : NULL;
-			
+
 		$sample_url = $sample['tmp_name'];
 		$control_url= $control['tmp_name'];
 		
 		$litmus = new Litmus(self::LITMUS_ACCOUNT, self::LITMUS_TOKEN);
 		
 		$response = $litmus->set_sample_url($sample_url)->set_scaleID($scaleID)->analyze();
-		
-		function recurseTree($var){
-			$out = '<li>';
-			foreach($var as $k => $v){
-			  if(is_array($v) || is_object($v)){
-				$out .= $k." => <ul>".recurseTree($v)."</ul>";
-			  }else{
-				$out .= $k." => ".$v."<br>";
-			  }
-			}
-			return $out.'</li>';
-		  }
 
-		  $string = '<ul>'.recurseTree($response).'</ul>';
+		function recurseTree($var){
+			if(is_array($var) || is_object($var)){
+				$out = '<li>';
+				foreach($var as $k => $v){
+				  if(is_array($v) || is_object($v)){
+					$out .= $k." => <ul>".recurseTree($v)."</ul>";
+				  }else{
+					$out .= $k." => ".$v."<br>";
+				  }
+				}
+				return $out.'</li>';
+			}
+			return $var;
+		}
+
+		$string = '<ul>'.recurseTree($response).'</ul>';
 
 		$data = array();
 		$data['title']		= "Image Analysis";

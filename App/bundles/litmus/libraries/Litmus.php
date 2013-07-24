@@ -74,7 +74,7 @@ class Litmus{
 		$query = http_build_query($array);
 		
 		$response = file_get_contents($this->url['analyze'].'?'.$query);
-		
+
 		return json_decode($response);
 		
 	}
