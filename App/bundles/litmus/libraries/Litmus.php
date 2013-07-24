@@ -90,7 +90,7 @@ class Litmus{
 		
 		$this->url = array(
 			'validate'	=> URL::to('api/validate'),
-			'analyze'	=> URL::to('image/analysis'),
+			'analyze'	=> URL::to('litmus/analysis'),
 		);
 		
 	}

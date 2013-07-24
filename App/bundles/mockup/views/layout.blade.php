@@ -1,7 +1,7 @@
 @layout('modelo::master')
 
 	@section('title')
-		{{Config::get('litmus::config.app_name')}}
+		{{Config::get('mockup::mockup.app_name')}}
 	@endsection
 
 
@@ -31,7 +31,7 @@
 
 	@section('footer')
 		<div class="well">
-			<div class='container'>My Footer</div>
+			<div class='container'>Beta Testing</div>
 		</div>
 	@endsection
 

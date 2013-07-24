@@ -1,11 +1,9 @@
 <?php
 
-Route::get('/', 'litmus::admin@index');
+Route::get('litmus/admin', 'litmus::admin@index');
 
-Route::controller('litmus::admin');
+Route::get('litmus/admin/register', 'litmus::admin@register');
 
-//Route::controller('litmus::image');
+Route::get('litmus/form', 'litmus::image@form');
 
-Route::get('image/form', 'litmus::image@form');
-
-Route::get('image/analysis', 'litmus::image@analysis');
+Route::get('litmus/analysis', 'litmus::image@analysis');

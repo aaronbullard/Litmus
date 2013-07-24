@@ -109,6 +109,7 @@ class Appapi_Api_Controller extends Base_Controller{
 		return Response::json($rest);
 	}
 	
+	
 	public function get_validate($account, $token){
 
 		$rest = new Rest;
@@ -127,6 +128,9 @@ class Appapi_Api_Controller extends Base_Controller{
 		
 		return Response::json($rest);	
 	}
+	
+	
+	
 	
 	/**
 	 * Check if user account credentials are valid before proceeding.

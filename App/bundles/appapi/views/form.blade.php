@@ -2,9 +2,7 @@
 	
 	@include('appapi::message')
 	
-	{{ Form::horizontal_open('api/register', 'POST') }}
-
-		{{ Form::token() }}
+	{{ Form::horizontal_open(URL::current(), 'POST') }}
 
 		<?php for($a=0; $a < count($form)-2; $a++):
 			echo Form::control_group(
@@ -13,7 +11,7 @@
 			); 
 		endfor; ?>
 		
-		{{ Form::submit('Register') }}
+			{{ Form::control_group( Form::label(NULL,NULL), Form::submit('Register') ) }}
 		
 	{{ Form::close() }}
 

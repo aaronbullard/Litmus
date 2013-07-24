@@ -15,15 +15,15 @@ class Mockup_Home_Controller extends Base_Controller{
 
 		$data['title']	= "Image Upload";
 		$data['lead']	= "Upload your sample image for analysis";
-		$post_url		= http_build_query( array('url'=> URL::to('mockup/form')) );
-		$data['form']	= file_get_contents( URL::to('image/form').'?'.$post_url);
+		$post_url		= http_build_query( array('url'=> URL::to('mockup/results')) );
+		$data['content']= file_get_contents( URL::to('litmus/form').'?'.$post_url);
 		
-		return View::make('litmus::image.upload', $data);
+		return View::make('mockup::pages.home', $data);
 		
 	}
 	
 	
-	public function post_form(){
+	public function post_results(){
 		
 		$scaleID	= Input::get('scale_id');
 		$sample		= Input::file('sample');
@@ -37,18 +37,12 @@ class Mockup_Home_Controller extends Base_Controller{
 		$response = $litmus->set_sample_url($sample_url)->set_scaleID($scaleID)->analyze();
 		
 		$data = array();
-		$data['title']	= "Image Analysis";
-		$data['lead']	= "Response from litmus/image/anaysis";
-		$data['code']	= "<div class='container'><pre>".json_encode($response)."</pre></div>";
+		$data['title']		= "Image Analysis";
+		$data['lead']		= "Response from litmus/image/anaysis";
+		$data['content']	= "<div class='container'><pre>".json_encode($response)."</pre></div>";
 		
-		return View::make('mockup::code', $data);
+		return View::make('mockup::pages.home', $data);
 		
 	}
-	
-	
-	
-	
-	
 
-	
 }

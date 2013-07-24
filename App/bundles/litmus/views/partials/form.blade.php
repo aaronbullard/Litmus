@@ -1,6 +1,6 @@
 <div id="image-upload">
 	
-	@include('litmus::partials.message')
+	@include('mockup::partials.message')
 	
 	<?php
 		echo Form::horizontal_open_for_files($url, 'POST');

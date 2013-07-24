@@ -7,15 +7,17 @@ class Litmus_Admin_Controller extends Base_Controller{
 
 	public function get_index(){
 
-		return View::make('litmus::home.home');
+		$data['content'] = "Make your admin page";
+		
+		return View::make('litmus::admin.page', $data);
 
 	}
 	
 	public function get_register(){
 	
-		$form = file_get_contents(URL::to('api/register'));
+		$data['content'] = file_get_contents(URL::to('api/register'));
 		
-		return View::make('litmus::home.register')->with_form($form);
+		return View::make('litmus::admin.page', $data);
 	}
 	
 }

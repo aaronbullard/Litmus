@@ -10,37 +10,37 @@
          <span class="icon-bar"></span>
        </a>
 
-       <a class="brand" href="#">Litmus</a>
+       <a class="brand" href="#">{{Config::get('mockup::mockup.app_name')}}</a>
        <div class="nav-collapse collapse" id="main-menu">
 
         <ul class="nav" id="main-menu-left">
-
-          <li><a onclick="pageTracker._link(this.href); return false;" href="#">One</a></li>
-
-          <li><a id="swatch-link" href="#">Two</a></li>
-
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Drop Down One <b class="caret"></b></a>
+		  
+		 <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="{{ URL::to('mockup') }}">Mockup <b class="caret"></b></a>
             <ul class="dropdown-menu" id="swatch-menu">
-              <li><a href="../default/">Default</a></li>
-              <li class="divider"></li>
-              <li><a href="../amelia/">Amelia</a></li>
-              <li><a href="../cerulean/">Cerulean</a></li>
-              <li><a href="../cosmo/">Cosmo</a></li>
-            </ul>
+              <li><a href="{{ URL::to('mockup') }}">Register</a></li>
+			  <li><a href="{{ URL::to('mockup') }}">Upload</a></li>
+			</ul>
           </li>
 
-          <li class="dropdown" id="preview-menu">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Drop Down Two <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a target="_blank" href="bootstrap.min.css">bootstrap.min.css</a></li>
-              <li><a target="_blank" href="bootstrap.css">bootstrap.css</a></li>
+		  <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="{{ URL::to('litmus/admin') }}">Litmus <b class="caret"></b></a>
+            <ul class="dropdown-menu" id="swatch-menu">
+              <li><a href="{{ URL::to('litmus/admin') }}">Admin</a></li>
+			  <li><a href="{{ URL::to('litmus/admin/register') }}">Register</a></li>
               <li class="divider"></li>
-              <li><a target="_blank" href="variables.less">variables.less</a></li>
-              <li><a target="_blank" href="bootswatch.less">bootswatch.less</a></li>
+              <li><a href="{{ URL::to('litmus/form') }}">Form</a></li>
             </ul>
           </li>
-
+		  
+		  <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="{{ URL::to('api/register') }}">User Api <b class="caret"></b></a>
+            <ul class="dropdown-menu" id="swatch-menu">
+              <li><a href="{{ URL::to('api/register') }}">Register</a></li>
+              <li><a href="{{ URL::to('api/user/eea0ef13df8d2a60b53d5c4574d6331c/47360959dd2a037c3f564a59fe31eadf') }}">User's info</a></li>
+            </ul>
+          </li>
+			
         </ul>
 <!--
         <ul class="nav pull-right" id="main-menu-right">

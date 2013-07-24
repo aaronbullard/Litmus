@@ -18,14 +18,13 @@ class Litmus_Image_Controller extends Base_Controller{
 		
 	}
 	
-
 	
-	public function get_index(){
-		return $this->get_form();
-	}
-
-
-	
+	/**
+	 * Route to analyze images and get a JSON result.  This is the main doorway
+	 * for clients to submit their images for analysis.
+	 * 
+	 * @return json
+	 */
 	public function get_analysis(){
 
 		//Validate account
@@ -85,8 +84,11 @@ class Litmus_Image_Controller extends Base_Controller{
 		return Response::json($rest);
 	}
 	
-	
-	
+	/**
+	 * Address for third parties to incorporate an image upload form.
+	 * 
+	 * @return html
+	 */
 	public function get_form(){
 	
 		$data = array();
@@ -97,7 +99,7 @@ class Litmus_Image_Controller extends Base_Controller{
 		unset($data['fields'][1]);
 		
 		$data['url']	= Input::has('url') ? Input::get('url') : '';
-		$form			= View::make('litmus::image.form', $data)->render();
+		$form			= View::make('litmus::partials.form', $data)->render();
 		
 		return $form;
 		
