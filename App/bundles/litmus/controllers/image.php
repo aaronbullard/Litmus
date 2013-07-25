@@ -35,21 +35,30 @@ class Litmus_Image_Controller extends Base_Controller{
 		$control	= Input::get('control');
 		$scale		= Input::get('scale');
 		
-		$validate = User::validate_credentials($account, $token);
+		$validate	= User::validate_credentials($account, $token);
 		
-		$rest = new Rest;
+		$rest		= new Rest;
 		
 		if( !$validate ){
 			
 			//Login failed.
-			$rest->status = 'error';
+			$rest->status  = 'error';
 			$rest->message = 'Login credentials are not valid.';
 			
 		}else{
 
 			//Get average color of sample
-			$avgClr['sample']	= LitmusHandler::average_color($sample); //$avgClr['sample']	= LitmusHandler::average_color($sample['tmp_name']);
-			//$avgClr['control']	= LitmusHandler::average_color($control);
+			$avgClr['sample']	= LitmusHandler::average_color($sample);
+
+			
+			//Get analysis for control
+			$control_results = array();
+			if( $control ){
+				$control_results['color']		= $avgClr['control'] = LitmusHandler::average_color($control);
+				$control_results['vector']		= LitmusHandler::var_vector($avgClr['sample'], $avgClr['control']);
+				$control_results['magnitude']	= LitmusHandler::var_magnitude($avgClr['sample'], $avgClr['control']);
+				$control_results['normalized']	= $mag_to_control / LitmusHandler::MAX_COLOR_DIFFERENCE;
+			}
 			
 			//Get colors from scale
 			/**
@@ -61,24 +70,17 @@ class Litmus_Image_Controller extends Base_Controller{
 			$scale[] = array('red'=>0, 'green'=>255, 'blue'=>0, 'alpha'=>0);
 			$scale[] = array('red'=>0, 'green'=>0, 'blue'=>255, 'alpha'=>0);
 			$scale[] = array('red'=>190, 'green'=>200, 'blue'=>219, 'alpha'=>0);
+			$scale_results = LitmusHandler::scale_comparison($avgClr['sample'], $scale);
 			
-			//Compare color to scale
-			$results = array();
-			foreach($scale as $index => $color){
-				$results[$index]['color'] = $color;
-				$results[$index]['difference']['magnitude'] = LitmusHandler::difference($avgClr['sample'], $color);
-				$results[$index]['difference']['normalized'] = $results[$index]['difference']['magnitude'] / LitmusHandler::MAX_COLOR_DIFFERENCE;
-			}
 			
-			/*
-			 * rank results
-			 */
-
+			
 			//return result object
-			$rest->status			= 'success';
-			$rest->message			= '';
-			$rest->data['sample']	= $avgClr['sample'];
-			$rest->data['result']	= $results;
+			$time							= date('M d, Y H:i:s');
+			$rest->status					= 'success';
+			$rest->message					= 'Account: '.$account.' @ '.$time;
+			$rest->data['sample']			= $avgClr['sample'];
+			$rest->data['result']['control']= $control_results;
+			$rest->data['result']['scales']	= $scale_results;
 		}
 		
 		return Response::json($rest);

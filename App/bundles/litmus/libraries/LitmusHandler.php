@@ -8,11 +8,29 @@ abstract class LitmusHandler{
 	const MAX_COLOR_DIFFERENCE_ALPHA	= 510; //sqrt( pow(255,2) + pow(255,2) + pow(255,2) + pow(255,2));
 
 	
-	public static function average_color($image){
+	public static function average_color($image_url, $mime = 'jpg'){
 		
 		//Get array of colors
-		$im 	= imagecreatefromjpeg($image);
-
+		switch($mime){
+			case 'jpg':
+				$im = imagecreatefromjpeg($image_url);
+			break;
+		
+			case 'gif':
+				$im	= imagecreatefromgif($image_url);
+			break;
+		
+			case 'png':
+				$im	= imagecreatefrompng($image_url);
+			break;
+			
+			case 'bmp':
+				$im	= imagecreatefromwbmp($image_url);
+			break;
+				return "The image type is not supported.";
+			default:
+		}
+		
 		$width	= imagesx($im);
 		$height	= imagesy($im);
 
@@ -71,19 +89,48 @@ abstract class LitmusHandler{
 
 	}
 
-
-	public static function difference(array $rgb1, array $rgb2){
-
+	
+	public static function var_vector(array $rgb1, array $rgb2){
 		//get delta between pixels on r, g, b
 		$dr = $rgb2['red'] - $rgb1['red'];
 		$dg = $rgb2['green'] - $rgb1['green'];
 		$db = $rgb2['blue'] - $rgb1['blue'];
 
-		$magnitude = sqrt( pow($dr, 2) + pow($dg, 2) + pow($db, 2) );
+		$vector = array(
+			'red'	=> $dr,
+			'green'	=> $dg,
+			'blue'	=> $db
+		);
+
+		return $vector;
+	}	
+	
+
+	public static function var_magnitude(array $rgb1, array $rgb2){
+
+		$vec		= self::var_vector($rgb1, $rgb2);
+		$magnitude	= sqrt( pow($vec['red'], 2) + pow($vec['green'], 2) + pow($vec['blue'], 2) );
 
 		return $magnitude;
-
 	}
-
-
+	
+	
+	public static function scale_comparison(array $rgb, array $scale){
+		
+		//Compare color to scale = array($rgb1, $rgb2, $rgb3);
+		$results = array();
+		foreach($scale as $index => $color){
+			$results[$index]['color'] = $color;
+			$results[$index]['var']['vector']		= self::var_vector($color, $rgb);
+			$results[$index]['var']['magnitude']	= self::var_magnitude($color, $rgb);
+			$results[$index]['var']['normalized']	= $results[$index]['var']['magnitude'] / LitmusHandler::MAX_COLOR_DIFFERENCE;
+		}
+		
+		/*
+		* rank results
+		*/
+		
+		return $results;
+	}
+	
 }//end LitmusHandler.php

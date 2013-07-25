@@ -34,7 +34,10 @@ class Mockup_Home_Controller extends Base_Controller{
 		
 		$litmus = new Litmus(self::LITMUS_ACCOUNT, self::LITMUS_TOKEN);
 		
-		$response = $litmus->set_sample_url($sample_url)->set_scaleID($scaleID)->analyze();
+		$response = $litmus->set_sample_url($sample_url)
+							->set_control_url($control_url)
+							->set_scaleID($scaleID)
+							->analyze();
 
 		function recurseTree($var){
 			if(is_array($var) || is_object($var)){

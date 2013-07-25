@@ -80,9 +80,9 @@ class Litmus{
 	}
 	
 	
-	/**
+	/******************
 	 * PRIVATE METHODS
-	 */
+	 *****************/
 	
 	private function init_urls(){
 		
