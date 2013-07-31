@@ -25,17 +25,26 @@ class Mockup_Home_Controller extends Base_Controller{
 	
 	public function post_results(){
 		
-		$scaleID	= Input::get('scale_id');
-		$sample		= Input::file('sample');
-		$control	= Input::has('control') ? Input::file('control') : NULL;
-
-		$sample_url = $sample['tmp_name'];
-		$control_url= $control['tmp_name'];
+		/*
+		 * NEED TO VALIDATE FORM WITH RULES
+		 */
 		
+		$sample		= is_array( Input::file('sample') ) ? Input::file('sample') : array('tmp_name' => NULL);
+		$control	= is_array( Input::file('control') ) ? Input::file('control') : array('tmp_name' => NULL);
+		$scaleID	= Input::has('scale_id') ? Input::get('scale_id') : NULL;
+
+		$url['sample']	= $sample['tmp_name'];
+		$url['control']	= $control['tmp_name'];
+		/*
+		echo File::extension($sample['name']);exit;
+		
+		Input::upload($sample['tmp_name'], path('bundle').'mockup/upload', $sample['filename']);
+		$url['sample'] = path('bundle').'mockup/upload/'.$sample['name'];
+		*/
 		$litmus = new Litmus(self::LITMUS_ACCOUNT, self::LITMUS_TOKEN);
 		
-		$response = $litmus->set_sample_url($sample_url)
-							->set_control_url($control_url)
+		$response = $litmus->set_sample_url($url['sample'])
+							->set_control_url($url['control'])
 							->set_scaleID($scaleID)
 							->analyze();
 

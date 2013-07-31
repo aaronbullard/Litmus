@@ -8,9 +8,15 @@
 			//echo Form::token();
 
 			foreach($fields as $field){
+				
+				$attributes = array();
+				
+				$attributes['value'] = is_array(Input::old($field['name']) ) ? Input::old($field['name']) : NULL;
+				
 				echo Form::control_group(
 						Form::label($field['name'], $field['label']),
-						Form::$field['type']($field['name'], Input::old($field['name']) )
+						Form::$field['type']($field['name'], NULL, $attributes)
+						
 				); 
 			}
 

@@ -8,27 +8,35 @@ abstract class LitmusHandler{
 	const MAX_COLOR_DIFFERENCE_ALPHA	= 510; //sqrt( pow(255,2) + pow(255,2) + pow(255,2) + pow(255,2));
 
 	
-	public static function average_color($image_url, $mime = 'jpg'){
+	public static function average_color($image_url){
+		
+		//$mime = mime_content_type($image_url);
+		$mime = File::extension($image_url);
+		
+//return Laravel\Response::json($mime);exit;
+//File::is('jpg', $image_url);  File::extension($image_url);
 		
 		//Get array of colors
 		switch($mime){
-			case 'jpg':
+			case 'image/jpeg':
 				$im = imagecreatefromjpeg($image_url);
 			break;
 		
-			case 'gif':
+			case 'image/gif':
 				$im	= imagecreatefromgif($image_url);
 			break;
 		
-			case 'png':
+			case 'image/png':
 				$im	= imagecreatefrompng($image_url);
 			break;
 			
-			case 'bmp':
+			case 'image/wbmp':
 				$im	= imagecreatefromwbmp($image_url);
 			break;
-				return "The image type is not supported.";
+				
 			default:
+				return "The image type is not supported.";
+			break;
 		}
 		
 		$width	= imagesx($im);
@@ -39,7 +47,9 @@ abstract class LitmusHandler{
 		    for($y=0; $y<$height; $y++){
 		    	$index = imagecolorat($im, $x, $y);
 				$rgb[] = imagecolorsforindex($im, $index);
+	//			$count++;
 		    }
+	//	if( $count >300 ){ continue; }
 		}
 
 		$avg_clr = self::average_pixel($rgb);

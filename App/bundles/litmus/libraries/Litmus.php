@@ -6,7 +6,6 @@ Interface Litmus_i{
 	public function set_sample($image);
 	public function set_control($image);
 	public function set_scaleID($scaleID);
-	
 	public function get_analysis($data = array());
 }
 
@@ -73,7 +72,21 @@ class Litmus{
 		
 		$query = http_build_query($array);
 		
-		$response = file_get_contents($this->url['analyze'].'?'.$query);
+		try{
+
+			$response = file_get_contents($this->url['analyze'].'?'.$query);
+//print_r($response);exit;
+			if( ! $response ){
+				throw new Exception("Query was not successful.");
+			}
+	
+		}catch( Exception $e ){
+			
+			$response = $e->getMessage();
+			
+		}
+
+	 
 
 		return json_decode($response);
 		
