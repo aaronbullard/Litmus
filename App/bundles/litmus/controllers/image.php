@@ -47,17 +47,16 @@ class Litmus_Image_Controller extends Base_Controller{
 			
 		}else{
 
-			//Get average color of sample
-			$avgClr['sample']	= LitmusHandler::average_color($sample);
-
+			//collect results
+			$data = array();
 			
+			//Get average color of sample
+			$data['sample']['color'] = LitmusHandler::average_color($sample);
+
 			//Get analysis for control
-			$control_results = array();
 			if( $control ){
-				$control_results['color']		= $avgClr['control'] = LitmusHandler::average_color($control);
-				$control_results['vector']		= LitmusHandler::var_vector($avgClr['sample'], $avgClr['control']);
-				$control_results['magnitude']	= LitmusHandler::var_magnitude($avgClr['sample'], $avgClr['control']);
-				$control_results['normalized']	= $mag_to_control / LitmusHandler::MAX_COLOR_DIFFERENCE;
+				$data['control']['color']	= LitmusHandler::average_color($control);
+				$data['control']			= LitmusHandler::compare($data['sample']['color'], $data['control']['color']);
 			}
 			
 			//Get colors from scale
@@ -70,17 +69,17 @@ class Litmus_Image_Controller extends Base_Controller{
 			$scale[] = array('red'=>0, 'green'=>255, 'blue'=>0, 'alpha'=>0);
 			$scale[] = array('red'=>0, 'green'=>0, 'blue'=>255, 'alpha'=>0);
 			$scale[] = array('red'=>190, 'green'=>200, 'blue'=>219, 'alpha'=>0);
-			$scale_results = LitmusHandler::scale_comparison($avgClr['sample'], $scale);
 			
-			
+			foreach($scale as $color){
+				$data['scale'][] = LitmusHandler::compare($data['sample']['color'], $color);
+			}
+
 			
 			//return result object
-			$time							= date('M d, Y H:i:s');
-			$rest->status					= 'success';
-			$rest->message					= 'Account: '.$account.' @ '.$time;
-			$rest->data['sample']			= $avgClr['sample'];
-			$rest->data['result']['control']= $control_results;
-			$rest->data['result']['scales']	= $scale_results;
+			$time			= date('M d, Y H:i:s');
+			$rest->status	= 'success';
+			$rest->data		= $data;
+			$rest->message	= 'Account: '.$account.' @ '.$time;
 		}
 		
 		return Response::json($rest);

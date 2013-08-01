@@ -8,58 +8,7 @@ abstract class LitmusHandler{
 	const MAX_COLOR_DIFFERENCE_ALPHA	= 510; //sqrt( pow(255,2) + pow(255,2) + pow(255,2) + pow(255,2));
 
 	
-	public static function average_color($image_url){
-		
-		//$mime = mime_content_type($image_url);
-		$mime = File::extension($image_url);
-		
-//return Laravel\Response::json($mime);exit;
-//File::is('jpg', $image_url);  File::extension($image_url);
-		
-		//Get array of colors
-		switch($mime){
-			case 'image/jpeg':
-				$im = imagecreatefromjpeg($image_url);
-			break;
-		
-			case 'image/gif':
-				$im	= imagecreatefromgif($image_url);
-			break;
-		
-			case 'image/png':
-				$im	= imagecreatefrompng($image_url);
-			break;
-			
-			case 'image/wbmp':
-				$im	= imagecreatefromwbmp($image_url);
-			break;
-				
-			default:
-				return "The image type is not supported.";
-			break;
-		}
-		
-		$width	= imagesx($im);
-		$height	= imagesy($im);
-
-		$rgb = array();
-		for($x=0; $x<$width; $x++){
-		    for($y=0; $y<$height; $y++){
-		    	$index = imagecolorat($im, $x, $y);
-				$rgb[] = imagecolorsforindex($im, $index);
-	//			$count++;
-		    }
-	//	if( $count >300 ){ continue; }
-		}
-
-		$avg_clr = self::average_pixel($rgb);
-		
-		return $avg_clr;
-
-	}
-
-
-	public static function average_pixel(array $array){
+	protected static function get_average_pixel(array $array){
 		//array(4) { ["red"]=> int(255) ["green"]=> int(250) ["blue"]=> int(247) ["alpha"]=> int(0) }
 
 		$total 	= count($array);
@@ -100,6 +49,51 @@ abstract class LitmusHandler{
 	}
 
 	
+	public static function average_color($image_url){
+		
+		$mime = mime_content_type($image_url);
+		
+		//Get array of colors
+		switch($mime){
+			case 'image/jpeg':
+				$im = imagecreatefromjpeg($image_url);
+			break;
+		
+			case 'image/gif':
+				$im	= imagecreatefromgif($image_url);
+			break;
+		
+			case 'image/png':
+				$im	= imagecreatefrompng($image_url);
+			break;
+			
+			case 'image/wbmp':
+				$im	= imagecreatefromwbmp($image_url);
+			break;
+				
+			default:
+				return "The image type is not supported.";
+			break;
+		}
+		
+		$width	= imagesx($im);
+		$height	= imagesy($im);
+
+		$rgb = array();
+		for($x=0; $x<$width; $x++){
+		    for($y=0; $y<$height; $y++){
+		    	$index = imagecolorat($im, $x, $y);
+				$rgb[] = imagecolorsforindex($im, $index);
+		    }
+		}
+
+		$avg_clr = self::get_average_pixel($rgb);
+		
+		return $avg_clr;
+
+	}
+
+	
 	public static function var_vector(array $rgb1, array $rgb2){
 		//get delta between pixels on r, g, b
 		$dr = $rgb2['red'] - $rgb1['red'];
@@ -125,22 +119,16 @@ abstract class LitmusHandler{
 	}
 	
 	
-	public static function scale_comparison(array $rgb, array $scale){
+	public static function compare(array $rgb1, array $rgb2){
 		
-		//Compare color to scale = array($rgb1, $rgb2, $rgb3);
-		$results = array();
-		foreach($scale as $index => $color){
-			$results[$index]['color'] = $color;
-			$results[$index]['var']['vector']		= self::var_vector($color, $rgb);
-			$results[$index]['var']['magnitude']	= self::var_magnitude($color, $rgb);
-			$results[$index]['var']['normalized']	= $results[$index]['var']['magnitude'] / LitmusHandler::MAX_COLOR_DIFFERENCE;
-		}
+		$data				= array();
 		
-		/*
-		* rank results
-		*/
+		$data['color']		= $rgb2;
+		$data['vector']		= self::var_vector($rgb1, $rgb2);
+		$data['magnitude']	= self::var_magnitude($rgb1, $rgb2);
+		$data['normalized']	= $data['magnitude'] / self::MAX_COLOR_DIFFERENCE;
 		
-		return $results;
+		return $data;
 	}
 	
 }//end LitmusHandler.php
