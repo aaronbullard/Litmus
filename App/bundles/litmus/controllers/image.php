@@ -46,44 +46,53 @@ class Litmus_Image_Controller extends Base_Controller{
 			$rest->message = 'Login credentials are not valid.';
 			
 		}else{
+			
+			try{
+				//collect results
+				$data = array();
 
-			//collect results
-			$data = array();
-			
-			//Get average color of sample
-			$data['sample']['color'] = LitmusHandler::average_color($sample);
+				//Get average color of sample
+				$data['sample']['color'] = LitmusHandler::average_color($sample);
 
-			//Get analysis for control
-			if( $control ){
-				$data['control']['color']	= LitmusHandler::average_color($control);
-				$data['control']			= LitmusHandler::compare($data['sample']['color'], $data['control']['color']);
-			}
-			
-			//Get colors from scale
-			/**
-			 * 
-			 * TEMP CODE
-			 */
-			$scale   = array();
-			$scale[] = array('red'=>255, 'green'=>0, 'blue'=>0, 'alpha'=>0);
-			$scale[] = array('red'=>0, 'green'=>255, 'blue'=>0, 'alpha'=>0);
-			$scale[] = array('red'=>0, 'green'=>0, 'blue'=>255, 'alpha'=>0);
-			$scale[] = array('red'=>190, 'green'=>200, 'blue'=>219, 'alpha'=>0);
-			
-			foreach($scale as $color){
-				$data['scale'][] = LitmusHandler::compare($data['sample']['color'], $color);
-			}
+				//Get analysis for control
+				if( $control ){
+					$data['control']['color']	= LitmusHandler::average_color($control);
+					$data['control']			= LitmusHandler::compare($data['sample']['color'], $data['control']['color']);
+				}
 
+				//Get colors from scale
+				/**
+				 * 
+				 * TEMP CODE
+				 */
+				$scale   = array();
+				$scale[] = array('red'=>255, 'green'=>0, 'blue'=>0, 'alpha'=>0);
+				$scale[] = array('red'=>0, 'green'=>255, 'blue'=>0, 'alpha'=>0);
+				$scale[] = array('red'=>0, 'green'=>0, 'blue'=>255, 'alpha'=>0);
+				$scale[] = array('red'=>190, 'green'=>200, 'blue'=>219, 'alpha'=>0);
+
+				foreach($scale as $color){
+					$data['scale'][] = LitmusHandler::compare($data['sample']['color'], $color);
+				}
+
+
+				//return result object
+				$time			= date('M d, Y H:i:s');
+				$rest->status	= 'success';
+				$rest->data		= $data;
+				$rest->message	= 'Account: '.$account.' @ '.$time;
 			
-			//return result object
-			$time			= date('M d, Y H:i:s');
-			$rest->status	= 'success';
-			$rest->data		= $data;
-			$rest->message	= 'Account: '.$account.' @ '.$time;
-		}
+			}catch(Exception $e){
+				
+				$rest->status = 'error';
+				$rest->message = $e->getMessage();
+				
+			}// end try/catch
+		}//end if/else
 		
 		return Response::json($rest);
-	}
+	}// end Litmus_Image_Controller::get_analysis()
+	
 	
 	/**
 	 * Address for third parties to incorporate an image upload form.

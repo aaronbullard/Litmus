@@ -79,19 +79,21 @@ abstract class LitmusHandler{
 		$width	= imagesx($im);
 		$height	= imagesy($im);
 
-		$rgb = array();
-		$count = 0;
+		$pixels = $width * $height;
+		
+		//memory fails after 22500 pixels!!!
+		
+		$rgb	= array();
+		$count	= 0;
 		for($x=0; $x<$width; $x++){
 		    for($y=0; $y<$height; $y++){
 		    	$index = imagecolorat($im, $x, $y);
 				$rgb[] = imagecolorsforindex($im, $index);
-				$count++;
-				if( $count > 22500 ){ break; }
 		    }
 		}
 
 		$avg_clr = self::get_average_pixel($rgb);
-		
+
 		return $avg_clr;
 
 	}
