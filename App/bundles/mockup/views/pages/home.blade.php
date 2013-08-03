@@ -8,7 +8,8 @@
 		<h3>{{ $title }}</h3>
 		<p class="lead">{{ $lead }}</p>
 		
-		{{ $content }}	
+		{{ $content }}
+
 	</div>
 
 @endsection

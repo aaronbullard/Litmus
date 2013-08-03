@@ -80,10 +80,13 @@ abstract class LitmusHandler{
 		$height	= imagesy($im);
 
 		$rgb = array();
+		$count = 0;
 		for($x=0; $x<$width; $x++){
 		    for($y=0; $y<$height; $y++){
 		    	$index = imagecolorat($im, $x, $y);
 				$rgb[] = imagecolorsforindex($im, $index);
+				$count++;
+				if( $count > 22500 ){ break; }
 		    }
 		}
 
