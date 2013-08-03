@@ -10,7 +10,7 @@
          <span class="icon-bar"></span>
        </a>
 
-       <a class="brand" href="#">{{Config::get('mockup::mockup.app_name')}}</a>
+       <a class="brand" href="{{ URL::to('mockup') }}">{{Config::get('mockup::mockup.app_name')}}</a>
        <div class="nav-collapse collapse" id="main-menu">
 
         <ul class="nav" id="main-menu-left">
@@ -18,7 +18,6 @@
 		 <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="{{ URL::to('mockup') }}">Mockup <b class="caret"></b></a>
             <ul class="dropdown-menu" id="swatch-menu">
-              <li><a href="{{ URL::to('mockup') }}">Register</a></li>
 			  <li><a href="{{ URL::to('mockup') }}">Upload</a></li>
 			</ul>
           </li>

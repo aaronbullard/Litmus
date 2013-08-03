@@ -1,24 +1,23 @@
 <?php
 
 
-Interface Litmus_i{
-
-	public function set_sample($image);
-	public function set_control($image);
+interface Litmus_i{
 	public function set_scaleID($scaleID);
-	public function get_analysis($data = array());
-}
+	public function set_sample_url($image);
+	public function set_control_url($image);
+	public function analyze($data = array());
+}// end interface Litmus_i
 
-class Litmus{
+
+class Litmus implements Litmus_i{
 	
-	private $account;
-	private $token;
+	protected $account;
+	protected $token;
+	protected $data = array(); //array('sample'=>$image_url, 'control'=>$image_url, 'scaleID'=>$integer)
+	protected $url = array();
 	
-	private $data = array(); //array('sample'=>$image_url, 'control'=>$image_url, 'scaleID'=>$integer)
 	
-	private $url = array();
-	
-	public function __construct($account, $token){
+	function __construct($account, $token){
 		
 		//Initialize urls
 		$this->init_urls();
@@ -36,24 +35,26 @@ class Litmus{
 			$this->account  = $account;
 			$this->token	= $token;
 		}
-		
-	}
+
+	}// end Litmus::__construct()
 	
 	
 	public function set_scaleID($scaleID){
 		$this->data['scaleID'] = $scaleID;
 		return $this;
-	}
+	}// end Litmus::set_scaleID
+	
 	
 	public function set_sample_url($sample_url){
 		$this->data['sample'] = $sample_url;
 		return $this;
-	}
+	}// end Litmus::set_sample_url
+	
 	
 	public function set_control_url($control_url){
 		$this->data['control'] = $control_url;
 		return $this;
-	}
+	}// end Litmus::set_control_url
 
 
 	public function analyze($data = array()){
@@ -75,7 +76,7 @@ class Litmus{
 		try{
 
 			$response = file_get_contents($this->url['analyze'].'?'.$query);
-//print_r($response);exit;
+
 			if( ! $response ){
 				throw new Exception("Query was not successful.");
 			}
@@ -85,28 +86,27 @@ class Litmus{
 			$response = $e->getMessage();
 			
 		}
-
-	 
-
+		
 		return json_decode($response);
 		
-	}
+	}// end Litmus::analyze()
 	
 	
 	/******************
 	 * PRIVATE METHODS
 	 *****************/
 	
-	private function init_urls(){
+	protected function init_urls(){
 		
 		$this->url = array(
 			'validate'	=> URL::to('api/validate'),
 			'analyze'	=> URL::to('litmus/analysis'),
 		);
 		
-	}
+	}// end Litmus::init_urls()
 	
-	private function validate_account($account, $token){
+	
+	protected function validate_account($account, $token){
 		
 		$filename = $this->url['validate'].'/'.$account.'/'.$token;
 		
@@ -114,10 +114,10 @@ class Litmus{
 		
 		return json_decode($json);
 		
-	}
+	}// end Litmus::validate_account()
 	
 	
-	private function mass_data_assignment($data = array()){
+	protected function mass_data_assignment($data = array()){
 		
 		if( !empty($data) ){
 			//set sample
@@ -135,6 +135,8 @@ class Litmus{
 		}
 		
 		return $this;
-	}
+	}// end Litmus::mass_data_assignment
 
-}
+}// end class Litmus
+
+// end Litmus.php

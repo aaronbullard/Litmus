@@ -2,13 +2,13 @@
 
 class Mockup_Home_Controller extends Base_Controller{
 	
-
+	
 	public $restful = true;
 	
+	private $upload_path;
+
 	const LITMUS_ACCOUNT	= 'eea0ef13df8d2a60b53d5c4574d6331c';
 	const LITMUS_TOKEN		= '47360959dd2a037c3f564a59fe31eadf';
-	
-	private $upload_path;
 	
 	public function __construct() {
 		$this->upload_path = path('bundle').'mockup/upload';
@@ -29,32 +29,39 @@ class Mockup_Home_Controller extends Base_Controller{
 	
 	
 	public function post_results(){
-		
+
 		/*
 		 * NEED TO VALIDATE FORM WITH RULES
 		 */
 		
-		$sample		= is_array( Input::file('sample') ) ? Input::file('sample') : array();
-		$control	= is_array( Input::file('control') ) ? Input::file('control') : array('tmp_name' => NULL);
+		$url		= array();
 		$scaleID	= Input::has('scale_id') ? Input::get('scale_id') : NULL;
 
-		$url['sample']	= $sample['tmp_name'];
-		$url['control']	= $control['tmp_name'];
-
-		//save files
+		//save files if exists
 		foreach( array('sample', 'control') as $image){
-			$name	= Input::file($image.'.name');
-			$ext	= strtolower( File::extension($name) );
-			Input::upload($image, $this->upload_path, $image.".".$ext);
-		}
-		
-		$litmus = new Litmus(self::LITMUS_ACCOUNT, self::LITMUS_TOKEN);
+			if( File::exists(Input::file($image.'.tmp_name')) ){
+
+				$name		= Input::file($image.'.name');
+				$ext		= strtolower( File::extension($name) );
+				$url[$image]= $this->upload_path.'/'.$image.".".$ext;
 				
-		$response = $litmus->set_sample_url($this->upload_path.'/sample.jpg')
-							->set_control_url($this->upload_path.'/control.jpg')
+				Input::upload($image, $this->upload_path, $image.".".$ext);
+			}
+		}//end foreach
+
+		
+		//handle if no control
+		$url['control'] = isset( $url['control'] ) ? $url['control'] : $url['sample'];
+		
+		//analyze images submitted
+		$litmus = new Litmus(self::LITMUS_ACCOUNT, self::LITMUS_TOKEN);
+	
+		$response = $litmus->set_sample_url($url['sample'])
+							->set_control_url($url['control'])
 							->set_scaleID($scaleID)
 							->analyze();
-
+		
+		//recursive function for outputting a heirarchial data tree
 		function recurseTree($var){
 			if(is_array($var) || is_object($var)){
 				$out = '<li>';
