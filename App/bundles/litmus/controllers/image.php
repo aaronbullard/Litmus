@@ -56,8 +56,9 @@ class Litmus_Image_Controller extends Base_Controller{
 
 				//Get analysis for control
 				if( $control ){
-					$data['control']['color']	= LitmusHandler::average_color($control);
-					$data['control']			= LitmusHandler::compare($data['sample']['color'], $data['control']['color']);
+					$data['control']['submit']['color']	= LitmusHandler::average_color($control);
+					$data['control']['actual']['color']	= array('red'=>0, 'green'=>0, 'blue'=>255);
+					$data['control'] = LitmusHandler::compare($data['control']['actual']['color'], $data['control']['submit']['color']);
 				}
 
 				//Get colors from scale
@@ -66,10 +67,10 @@ class Litmus_Image_Controller extends Base_Controller{
 				 * TEMP CODE
 				 */
 				$scale   = array();
-				$scale[] = array('red'=>255, 'green'=>0, 'blue'=>0, 'alpha'=>0);
-				$scale[] = array('red'=>0, 'green'=>255, 'blue'=>0, 'alpha'=>0);
-				$scale[] = array('red'=>0, 'green'=>0, 'blue'=>255, 'alpha'=>0);
-				$scale[] = array('red'=>190, 'green'=>200, 'blue'=>219, 'alpha'=>0);
+				$scale[] = array('red'=>255, 'green'=>0, 'blue'=>0);
+				$scale[] = array('red'=>0, 'green'=>255, 'blue'=>0);
+				$scale[] = array('red'=>0, 'green'=>0, 'blue'=>255);
+				$scale[] = array('red'=>190, 'green'=>200, 'blue'=>219);
 
 				foreach($scale as $color){
 					$data['scale'][] = LitmusHandler::compare($data['sample']['color'], $color);

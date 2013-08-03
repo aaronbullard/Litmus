@@ -7,6 +7,7 @@ abstract class LitmusHandler{
 	const MAX_COLOR_DIFFERENCE			= 441.67295593; //sqrt( pow(255,2) + pow(255,2) + pow(255,2) );
 	const MAX_COLOR_DIFFERENCE_ALPHA	= 510; //sqrt( pow(255,2) + pow(255,2) + pow(255,2) + pow(255,2));
 	
+	
 	public static function average_color($image_url){
 		
 		$mime = mime_content_type($image_url);
@@ -30,7 +31,7 @@ abstract class LitmusHandler{
 			break;
 				
 			default:
-				return "The image type is not supported.";
+				throw new Exception("An image of '$mime' mime type is not supported.");
 			break;
 		}
 		
@@ -51,7 +52,7 @@ abstract class LitmusHandler{
 				$r += $rgba['red'];
 				$g += $rgba['green'];
 				$b += $rgba['blue'];
-				$a += $rgba['alpha'];
+				//$a += $rgba['alpha'];
 				$total++;
 				
 				unset($index);
@@ -65,7 +66,7 @@ abstract class LitmusHandler{
 					'red'	=> round($r / $total),
 					'green'	=> round($g / $total),
 					'blue'	=> round($b / $total),
-					'alpha'	=> round($a / $total),
+					//'alpha'	=> round($a / $total),
 				);
 		
 		unset($r); unset($g); unset($b); unset($a);
@@ -74,11 +75,11 @@ abstract class LitmusHandler{
 	}
 
 	
-	public static function var_vector(array $rgb1, array $rgb2){
+	private static function var_vector(array $rgb1, array $rgb2){
 		//get delta between pixels on r, g, b
-		$dr = $rgb2['red'] - $rgb1['red'];
+		$dr = $rgb2['red']	 - $rgb1['red'];
 		$dg = $rgb2['green'] - $rgb1['green'];
-		$db = $rgb2['blue'] - $rgb1['blue'];
+		$db = $rgb2['blue']  - $rgb1['blue'];
 
 		$vector = array(
 			'red'	=> $dr,
@@ -90,9 +91,9 @@ abstract class LitmusHandler{
 	}	
 	
 
-	public static function var_magnitude(array $rgb1, array $rgb2){
+	private static function var_magnitude(array $var_vector){
 
-		$vec		= self::var_vector($rgb1, $rgb2);
+		$vec		= $var_vector;
 		$magnitude	= sqrt( pow($vec['red'], 2) + pow($vec['green'], 2) + pow($vec['blue'], 2) );
 
 		return $magnitude;
@@ -105,10 +106,11 @@ abstract class LitmusHandler{
 		
 		$data['color']		= $rgb2;
 		$data['vector']		= self::var_vector($rgb1, $rgb2);
-		$data['magnitude']	= self::var_magnitude($rgb1, $rgb2);
+		$data['magnitude']	= self::var_magnitude($data['vector']);
 		$data['normalized']	= $data['magnitude'] / self::MAX_COLOR_DIFFERENCE;
 		
 		return $data;
 	}
+	
 	
 }//end LitmusHandler.php
