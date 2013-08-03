@@ -6,54 +6,12 @@ abstract class LitmusHandler{
 	
 	const MAX_COLOR_DIFFERENCE			= 441.67295593; //sqrt( pow(255,2) + pow(255,2) + pow(255,2) );
 	const MAX_COLOR_DIFFERENCE_ALPHA	= 510; //sqrt( pow(255,2) + pow(255,2) + pow(255,2) + pow(255,2));
-
-	
-	protected static function get_average_pixel(array $array){
-		//array(4) { ["red"]=> int(255) ["green"]=> int(250) ["blue"]=> int(247) ["alpha"]=> int(0) }
-
-		$total 	= count($array);
-
-		$red 	= array();
-		$grn	= array();
-		$blu	= array();
-		$alp 	= array();
-
-		$r = 0;
-		$g = 0;
-		$b = 0;
-		$a = 0;
-
-		foreach( $array as $rgb ){
-			//make separate arrays
-			$red[] 	= $rgb['red'];
-			$grn[] 	= $rgb['green'];
-			$blu[] 	= $rgb['blue'];
-			$alp[] 	= $rgb['alpha'];
-
-			//add total for each color
-			$r += $rgb['red'];
-			$g += $rgb['green'];
-			$b += $rgb['blue'];
-			$a += $rgb['alpha'];
-		}
-
-		$avg = array(
-					'red'	=> round($r / $total),
-					'green'	=> round($g / $total),
-					'blue'	=> round($b / $total),
-					'alpha'	=> round($a / $total),
-				);
-
-		return (array)$avg;
-
-	}
-
 	
 	public static function average_color($image_url){
 		
 		$mime = mime_content_type($image_url);
 		
-		//Get array of colors
+		//Get image based on mime and set to $im
 		switch($mime){
 			case 'image/jpeg':
 				$im = imagecreatefromjpeg($image_url);
@@ -76,26 +34,43 @@ abstract class LitmusHandler{
 			break;
 		}
 		
+		//Begin getting average
 		$width	= imagesx($im);
 		$height	= imagesy($im);
-
-		$pixels = $width * $height;
 		
-		//memory fails after 22500 pixels!!!
+		$total = $r = $g = $b = $a = 0;
 		
-		$rgb	= array();
-		$count	= 0;
 		for($x=0; $x<$width; $x++){
 		    for($y=0; $y<$height; $y++){
-		    	$index = imagecolorat($im, $x, $y);
-				$rgb[] = imagecolorsforindex($im, $index);
-		    }
-		}
+				
+				//get rgba array at index
+		    	$index	= imagecolorat($im, $x, $y);
+				$rgba	= imagecolorsforindex($im, $index);
+				
+				//add total for each color
+				$r += $rgba['red'];
+				$g += $rgba['green'];
+				$b += $rgba['blue'];
+				$a += $rgba['alpha'];
+				$total++;
+				
+				unset($index);
+				unset($rgba);
+		    }// end for $y
+		}// end for $x
+		
+		unset($im);
+		
+		$avg = array(
+					'red'	=> round($r / $total),
+					'green'	=> round($g / $total),
+					'blue'	=> round($b / $total),
+					'alpha'	=> round($a / $total),
+				);
+		
+		unset($r); unset($g); unset($b); unset($a);
 
-		$avg_clr = self::get_average_pixel($rgb);
-
-		return $avg_clr;
-
+		return (array)$avg;
 	}
 
 	
