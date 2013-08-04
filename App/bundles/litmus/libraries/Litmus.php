@@ -2,7 +2,7 @@
 
 
 interface Litmus_i{
-	public function set_scaleID($scaleID);
+	public function set_scale_id($scale_id);
 	public function set_sample_url($image);
 	public function set_control_url($image);
 	public function analyze($data = array());
@@ -39,10 +39,10 @@ class Litmus implements Litmus_i{
 	}// end Litmus::__construct()
 	
 	
-	public function set_scaleID($scaleID){
-		$this->data['scaleID'] = $scaleID;
+	public function set_scale_id($scale_id){
+		$this->data['scale_id'] = $scale_id;
 		return $this;
-	}// end Litmus::set_scaleID
+	}// end Litmus::set_scale_id
 	
 	
 	public function set_sample_url($sample_url){
@@ -70,7 +70,7 @@ class Litmus implements Litmus_i{
 		$array				= $this->data;
 		$array['account']	= $this->account;
 		$array['token']		= $this->token;
-		
+
 		$query = http_build_query($array);
 		
 		try{

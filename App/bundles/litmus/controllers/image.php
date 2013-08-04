@@ -30,16 +30,12 @@ class Litmus_Image_Controller extends Base_Controller{
 		//Validate account
 		$account	= Input::get('account');
 		$token		= Input::get('token');
-		
-		$sample		= Input::get('sample');
-		$control	= Input::get('control');
-		$scale		= Input::get('scale');
-		
+
 		$validate	= User::validate_credentials($account, $token);
 		
 		$rest		= new Rest;
 		
-		if( !$validate ){
+		if( ! $validate ){
 			
 			//Login failed.
 			$rest->status  = 'error';
@@ -52,28 +48,30 @@ class Litmus_Image_Controller extends Base_Controller{
 				$data = array();
 
 				//Get average color of sample
-				$data['sample']['color'] = LitmusHandler::average_color($sample);
-
+				if( Input::has('sample') ){
+					$sample					= Input::get('sample');
+					$data['sample']['url']	= $sample;
+					$data['sample']['color']= LitmusHandler::average_color($sample);
+				}
+	//return Response::json($data);
+				
 				//Get analysis for control
-				if( $control ){
+				if( Input::has('control') ){
+					$control							= Input::get('control');
+					$data['control']['url']				= $control;
 					$data['control']['submit']['color']	= LitmusHandler::average_color($control);
 					$data['control']['actual']['color']	= array('red'=>0, 'green'=>0, 'blue'=>255);
 					$data['control'] = LitmusHandler::compare($data['control']['actual']['color'], $data['control']['submit']['color']);
 				}
 
-				//Get colors from scale
-				/**
-				 * 
-				 * TEMP CODE
-				 */
-				$scale   = array();
-				$scale[] = array('red'=>255, 'green'=>0, 'blue'=>0);
-				$scale[] = array('red'=>0, 'green'=>255, 'blue'=>0);
-				$scale[] = array('red'=>0, 'green'=>0, 'blue'=>255);
-				$scale[] = array('red'=>190, 'green'=>200, 'blue'=>219);
-
-				foreach($scale as $color){
-					$data['scale'][] = LitmusHandler::compare($data['sample']['color'], $color);
+				
+				//If scale set, get colors from scale
+				if( Input::has('scale_id') ){
+					$scale_id	= Input::get('scale_id');
+					$scale		= Config::get('litmus::config.scale');// JAB Change this after creating a scale table.
+					foreach($scale as $color){
+						$data['scale'][] = LitmusHandler::compare($data['sample']['color'], $color);
+					}
 				}
 
 

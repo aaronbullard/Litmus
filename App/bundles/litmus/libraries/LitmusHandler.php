@@ -10,8 +10,8 @@ abstract class LitmusHandler{
 	
 	public static function average_color($image_url){
 		
-		$mime = mime_content_type($image_url);
-		
+		$mime = image_type_to_mime_type( exif_imagetype ( $image_url ) );
+
 		//Get image based on mime and set to $im
 		switch($mime){
 			case 'image/jpeg':
@@ -23,7 +23,7 @@ abstract class LitmusHandler{
 			break;
 		
 			case 'image/png':
-				$im	= imagecreatefrompng($image_url);
+				$im	=imagecreatefrompng($image_url);
 			break;
 			
 			case 'image/wbmp':

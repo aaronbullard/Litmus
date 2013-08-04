@@ -50,5 +50,13 @@ return array(
 						),
 		
 	),
+	
+	
+	'scale'   => array(
+						array('red'=>255, 'green'=>0, 'blue'=>0),
+						array('red'=>0, 'green'=>255, 'blue'=>0),
+						array('red'=>0, 'green'=>0, 'blue'=>255),
+						array('red'=>190, 'green'=>200, 'blue'=>219),
+	),
 
 );//end bundles/litmus/config/config.php
