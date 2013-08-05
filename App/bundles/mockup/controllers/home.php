@@ -21,14 +21,15 @@ class Mockup_Home_Controller extends Base_Controller{
 
 		$filepath = $this->upload_path.'/'.$name;
 
-		$mime = mime_content_type($filepath);
+		//$mime = mime_content_type($filepath);
+
+		$mime = image_type_to_mime_type( exif_imagetype ( $filepath ) );
 		
 		$file_contents = File::get($filepath);
 
-		header("Content-type: {$mime}");
-
+		header("Content-Type: {$mime}");
 		header("Content-Disposition: attachment; filename='{$name}'");
-		
+
 		return $file_contents;
 	}
 	
@@ -86,12 +87,13 @@ class Mockup_Home_Controller extends Base_Controller{
 		$tabs				= array(array('Swatch', '#swatch', 'active'),
 									array('Code', '#code')
 									);
-		
 		$data['tabs']		= View::make('mockup::partials.tabs')->with('tabs', $tabs)->render();
 		
 		$data['code']		= $string;
 		$data['response']	= $response;
 
+		Asset::container('scripts')->add('colorbox', 'bundles/mockup/assets/js/colorbox.js');
+		
 		return View::make('mockup::pages.result', $data);
 		
 	}

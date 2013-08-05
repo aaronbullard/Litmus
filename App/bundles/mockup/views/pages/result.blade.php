@@ -14,25 +14,42 @@
 			
 			<div class="tab-pane active" id="swatch">
 				
-				<p>
-					Image:
-					<img src="{{ $response->data->sample->url }}" />
-				</p>
+				<div class="well well-small">
+					<p>Image:</p>
+					<p>
+						<canvas id="myCanvas">
+							<text>Scroll over this.  If nothing happens, your browser does not support HTML5.</text>
+						</canvas>
+						<img id="image_actual" class="hide" src="{{ $response->data->sample->url }}" />
+						<input id="image_url" type="hidden" name="image" value="{{ $response->data->sample->url }}" />
+					</p>
+				</div>
 				
-				<p>Sample: Average: r->{{$response->data->sample->color->red}},
-							g->{{$response->data->sample->color->green}},
-							b->{{$response->data->sample->color->blue}}
-				</p>
-				<p style="height:100px; width:100px; 
-				   background-color: rgb({{$response->data->sample->color->red}},
-										{{$response->data->sample->color->green}},
-										{{$response->data->sample->color->blue}});">	
-				</p>
+				<div class="well well-small">
+					<p>Analysis:</p>
+					<p style="height:150px; width:150px; padding:10px; border-radius: 5px;
+					   background-color: rgb({{$response->data->sample->color->red}},
+											{{$response->data->sample->color->green}},
+											{{$response->data->sample->color->blue}});">
+						<text>Color: ({{$response->data->sample->color->red}},
+											{{$response->data->sample->color->green}},
+											{{$response->data->sample->color->blue}})
+						</text>
+					</p>
+				</div>
 				
 				@if( isset($response->data->scale) )
 					@foreach($response->data->scale as $scale)
-						<p>Scale: r->{{$scale->color->red}}, g->{{$scale->color->green}}, b->{{$scale->color->blue}}</p>
-						<p style="height:100px; width:100px; background-color: rgb({{$scale->color->red}}, {{$scale->color->green}}, {{$scale->color->blue}});"></p>
+					<div class="well well-small">
+						<p style="height:150px; width:150px; padding:10px; border-radius: 5px;
+						   background-color: rgb({{$scale->color->red}}, 
+												{{$scale->color->green}},
+												{{$scale->color->blue}});">
+							<text>Color: ({{$scale->color->red}}, {{$scale->color->green}}, {{$scale->color->blue}})</text><br>
+							<text>Magnitude: {{ round($scale->magnitude) }}</text><br>
+							<text>Normalized: {{ round($scale->normalized,3) * 100 }}%</text>
+						</p>
+					</div>
 					@endforeach
 				@endif
 				

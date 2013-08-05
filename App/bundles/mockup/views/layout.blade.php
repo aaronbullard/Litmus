@@ -30,7 +30,7 @@
 
 
 	@section('footer')
-		<div class="well">
+		<div class="form-actions">
 			<div class='container'>Beta Testing</div>
 		</div>
 	@endsection
