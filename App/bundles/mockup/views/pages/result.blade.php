@@ -16,8 +16,8 @@
 				
 				<div class="well well-small">
 					<p>Image:</p>
-					<p>
-						<canvas id="myCanvas">
+					<p id="pCanvas">
+						<canvas id="myCanvas" >
 							<text>Scroll over this.  If nothing happens, your browser does not support HTML5.</text>
 						</canvas>
 						<img id="image_actual" class="hide" src="{{ $response->data->sample->url }}" />
