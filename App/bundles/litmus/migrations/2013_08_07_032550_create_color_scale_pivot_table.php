@@ -9,15 +9,17 @@ class Litmus_Create_Color_Scale_Pivot_Table {
 	 */
 	public function up()
 	{
-		Schema::create('color_scale', function($table){
+		Schema::table('color_scale', function($table){
 			
-			$table->engine = 'InnoDB';
-			
+			$table->create();
 			$table->increments('id');
-			$table->integer('color_id');
-			$table->integer('scale_id');
+			$table->integer('color_id')->unsigned();
+			$table->integer('scale_id')->unsigned();
 			$table->timestamps();
 
+		});
+		
+		Schema::table('color_scale', function($table){
 			$table->foreign('color_id')->references('id')
 										->on('colors')
 										->on_update('cascade')
@@ -26,8 +28,9 @@ class Litmus_Create_Color_Scale_Pivot_Table {
 										->on('scales')
 										->on_update('cascade')
 										->on_delete('cascade');
-			 
+			
 		});
+		
 	}
 
 	/**

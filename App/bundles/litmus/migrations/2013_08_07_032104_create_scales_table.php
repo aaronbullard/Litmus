@@ -13,8 +13,8 @@ class Litmus_Create_Scales_Table {
 			$table->create();
 			$table->increments('id');
 			$table->string('title');
-			$table->text('description');
-			$table->string('account', 32)->nullable()->unique();
+			$table->text('description')->nullable();
+			$table->string('account', 32);
 			$table->timestamps();
 		});
 		
@@ -23,6 +23,7 @@ class Litmus_Create_Scales_Table {
 										->on('appapi_users')
 										->on_update('cascade')
 										->on_delete('cascade');
+			$table->unique( array('title', 'account') );
 		});
 	}
 

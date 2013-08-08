@@ -10,7 +10,6 @@ class Litmus_Create_Colors_Table {
 	public function up()
 	{
 		
-		
 		Schema::table('colors', function($table){
 			$table->create();
 			$table->increments('id');

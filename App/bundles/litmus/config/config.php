@@ -48,6 +48,26 @@ return array(
 												'rule'	=> 'integer',
 											),
 						),
+						'palette'	=> array(
+											array(
+												'name'	=>	'title',
+												'label'	=>	'Palette Name',
+												'type'	=>	'text',
+												'rule'	=>	'required',
+											),
+											array(
+												'name'	=>	'description',
+												'label'	=>	'Brief Description',
+												'type'	=>	'textarea',
+												'rule'	=>	'size:200',
+											),
+											array(
+												'name'	=>	'account',
+												'label'	=>	NULL,
+												'type'	=>	'hidden',
+												'rule'	=>	'size:32',
+											),
+						),
 		
 	),
 	

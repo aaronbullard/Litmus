@@ -1,9 +1,15 @@
 <?php
 
-class Color extends Eloquent{
+class Color extends Aware{
 	
 	
 	public static $timestamps = true;
+	
+	
+	public static $rules = array(
+								//'name' => 'required',
+								//'email' => 'required|email'
+							  );
 	
 	
 	public function scales(){

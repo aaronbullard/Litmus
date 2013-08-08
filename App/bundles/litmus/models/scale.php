@@ -1,6 +1,6 @@
 <?php
 
-class Scale extends Eloquent{
+class Scale extends Aware{
 	
 	
 	public static $timestamps = true;

@@ -13,3 +13,9 @@
 		</ul>
 	</p>
 @endif
+
+@if( Session::get('error') )
+	<p class='alert alert-error'>
+		{{ Session::get('error') }}
+	</p>
+@endif
