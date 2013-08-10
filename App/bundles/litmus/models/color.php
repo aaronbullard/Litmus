@@ -21,4 +21,5 @@ class Color extends Aware{
 		return $this->belongs_to('User');
 	}
 	
+	
 }
