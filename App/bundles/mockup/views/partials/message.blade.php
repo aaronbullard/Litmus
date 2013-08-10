@@ -5,13 +5,9 @@
 @endif
 
 @if( $errors->has() )
-	<p class='errors'>
-		<ul>
-			@foreach( $errors->all('<span class="alert alert-error">:message</span>') as $key=>$value )
-				<li>{{ $value }}</li>
-			@endforeach
-		</ul>
-	</p>
+	@foreach( $errors->all() as $key=>$value )
+		<p class='alert alert-error'>{{ $value }}</p>
+	@endforeach
 @endif
 
 @if( Session::get('error') )

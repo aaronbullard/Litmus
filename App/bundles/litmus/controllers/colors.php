@@ -61,18 +61,17 @@ class Litmus_Colors_Controller extends Base_Controller{
 		return $this->layout($data);
 	}
 	
+	
 	public function get_create($palette_id){
-		
-		$data = array();
-		
+	
 		$data['title']	= "Create Color";
 		$data['lead']	= "Add a color to your palette";
 		
 		$data['tabs'][]	= array('All', URL::to('litmus/palettes/'.$palette_id.'/colors'));
-		$data['tabs'][]	= array('View', URL::to('litmus/palettes/'.$palette_id.'/colors/create'), 'active');
+		$data['tabs'][]	= array('Add', URL::to('litmus/palettes/'.$palette_id.'/colors/create'), 'active');
 		
-		$data['url']		= URL::to('litmus/palettes/'.$palette_id.'/colors');
-		$data['verb']		= 'POST';
+		$data['url']	= URL::to('litmus/palettes/'.$palette_id.'/colors');
+		$data['verb']	= 'POST';
 		$data['fields']	= Config::get('litmus::config.form.color');
 		$data['content']= View::make('litmus::partials.form', $data)->render();
 		
@@ -83,26 +82,29 @@ class Litmus_Colors_Controller extends Base_Controller{
 	public function post_store($palette_id){
 		
 		$input = Input::all();
-		
+
 		$validation = Validator::make($input, $this->rules);
  
 		if ($validation->fails()){
-			$messages = $validation->errors->get('<p>:message</p>');
-			return Redirect::back()->with('error', $messages)->with_input(); //Need to send errors back...
+			return Redirect::back()->with('errors', $validation->errors)->with_input(); //Need to send errors back...
 		}
-		
-		
+
 		try{
 
 			$object = Color::create( $input );
-			
+			$attach = Scale::find($palette_id)->attach($object);
+			if( ! $attach ){
+				throw new Exception("There was an error inserting the color into palette!");
+			}
 		}catch(Exception $e){
 			return Redirect::back()->with('error', "There was an error with your submission!  Please try again.")->with_input();
 		}
 		
 		
-		if( $object ){
-			return Redirect::to('litmus/palette/'.$palette_id.'/colors/'.$object)->with('status', 'Your color was submitted successfully!')->with_input();
+		if( $object->id ){
+			
+			return Redirect::to('litmus/palette/'.$palette_id.'/colors/'.$object->id)
+					->with('status', 'Your color was submitted successfully!')->with_input();
 		}
 	}
 	
