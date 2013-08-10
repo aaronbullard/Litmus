@@ -5,6 +5,7 @@ class Color extends Aware{
 	
 	public static $timestamps = true;
 	
+	public static $hidden = array('id', 'account', 'created_at', 'updated_at', 'pivot');
 	
 	public static $rules = array(
 								//'name' => 'required',

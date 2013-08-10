@@ -6,7 +6,9 @@ class Scale extends Aware{
 	public static $timestamps = true;
 	
 	
-	public function colors($select = array('colors.*')){
+	public static $hidden = array('id', 'account', 'created_at');
+	
+	public function colors($select = array('*')){
 		
 		if( isset($select) ){
 			foreach($select as $key => $val){

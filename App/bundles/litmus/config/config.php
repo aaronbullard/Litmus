@@ -68,6 +68,44 @@ return array(
 												'rule'	=>	'size:32',
 											),
 						),
+						'color'		=> array(
+											array(
+												'name'	=>	'name',
+												'label'	=>	'Color\'s Name',
+												'type'	=>	'text',
+												'rule'	=>	'required',
+											),
+											array(
+												'name'	=>	'red',
+												'label'	=>	'Red',
+												'type'	=>	'text',
+												'rule'	=>	'required',
+											),
+											array(
+												'name'	=>	'green',
+												'label'	=>	'Green',
+												'type'	=>	'text',
+												'rule'	=>	'required',
+											),
+											array(
+												'name'	=>	'blue',
+												'label'	=>	'Blue',
+												'type'	=>	'text',
+												'rule'	=>	'required',
+											),
+											array(
+												'name'	=>	'alpha',
+												'label'	=>	'Alpha',
+												'type'	=>	'text',
+												'rule'	=>	'',
+											),
+											array(
+												'name'	=>	'hex',
+												'label'	=>	'Hex',
+												'type'	=>	'text',
+												'rule'	=>	'',
+											),
+						),
 		
 	),
 	

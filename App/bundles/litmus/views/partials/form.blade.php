@@ -3,15 +3,17 @@
 	@include('mockup::partials.message')
 	
 	<?php
-		$url = isset($url) ? $url : NULL;
-		echo Form::horizontal_open_for_files($url, 'POST');
+		$url	= isset( $url )	? $url	: NULL;
+		$verb	= isset( $verb )? $verb	: 'POST';
+		echo Form::horizontal_open_for_files($url, $verb);
 
 			//echo Form::token();
 
 			foreach($fields as $field){
 				
 				$attributes = array();
-				$attributes['value'] = Input::had($field['name']) ? Input::old($field['name']) : NULL;
+				$attributes['value'] = isset($object) ? $object->$field['name'] : NULL;
+				$attributes['value'] = Input::had($field['name']) ? Input::old($field['name']) : $attributes['value'];
 
 				echo Form::control_group(
 						Form::label($field['name'], $field['label']),
