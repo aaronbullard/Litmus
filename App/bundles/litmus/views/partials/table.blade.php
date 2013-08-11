@@ -1,22 +1,26 @@
-<table class="table table-striped table-hover">
+@if( !empty($objects) )
+	<table class="table table-striped table-hover" data-provides="rowlink">
 
-	<tr>
-		<th>View</th>
-		@foreach( $objects[0]->to_array() as $key => $val )
-		<th>{{ ucfirst($key) }}</th>
-		@endforeach
-	
-	</tr>
+		<tr>
+			@foreach( $objects[0]->to_array() as $key => $val )
+			<th>{{ ucfirst($key) }}</th>
+			@endforeach
+		</tr>
 
-	@foreach($objects as $obj)
-	
-	<tr>
-		<td><a class="btn btn-link" href="{{ URL::current().'/'.$obj->id }}"><i class="icon icon-eye-open"></i></a></td>
-		@foreach($obj->to_array() as $key => $val)
-			<td>{{ $val }}</td>
+		@foreach($objects as $obj)
+
+		<tr style="cursor: pointer;" onClick="window.location.assign('{{ URL::current().'/'.$obj->id }}')">
+			@foreach($obj->to_array() as $key => $val)
+				<td>{{ $val }}</td>
+			@endforeach
+		</tr>
+
 		@endforeach
-	</tr>
-	
-	@endforeach
-	
-</table>
+
+	</table>
+@else
+
+	<p class='lead text-center'>There are no records to display.</p>
+
+@endif
+

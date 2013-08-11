@@ -152,7 +152,6 @@ class Appapi_Api_Controller extends Base_Controller{
 			$rest->data['result']	= FALSE;
 			$rest->message			= 'Login credentials are not valid.';
 			return Response::json($rest);
-			exit;
 		}
 	}
 

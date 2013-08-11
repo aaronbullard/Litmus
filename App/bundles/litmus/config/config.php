@@ -61,12 +61,6 @@ return array(
 												'type'	=>	'textarea',
 												'rule'	=>	'size:200',
 											),
-											array(
-												'name'	=>	'account',
-												'label'	=>	NULL,
-												'type'	=>	'hidden',
-												'rule'	=>	'size:32',
-											),
 						),
 						'color'		=> array(
 											array(

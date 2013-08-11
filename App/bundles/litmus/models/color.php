@@ -5,7 +5,7 @@ class Color extends Aware{
 	
 	public static $timestamps = true;
 	
-	public static $hidden = array('id', 'account', 'created_at', 'updated_at', 'pivot');
+	public static $hidden = array('id', 'palette_id', 'created_at', 'updated_at');
 	
 	public static $rules = array(
 								//'name' => 'required',
@@ -13,8 +13,8 @@ class Color extends Aware{
 							  );
 	
 	
-	public function scales(){
-		return $this->has_many_and_belongs_to('Scale');
+	public function palette(){
+		return $this->belongs_to('Palette');
 	}
 	
 	

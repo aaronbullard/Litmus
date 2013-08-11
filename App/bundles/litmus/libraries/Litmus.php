@@ -29,6 +29,7 @@ class Litmus implements Litmus_i{
 		
 		//Validate account
 		$json = $this->validate_account($account, $token);
+		print_r($json);exit;
 		if( !$json->data->result ){
 			throw new Exception($json->message);
 		}else{
@@ -109,9 +110,9 @@ class Litmus implements Litmus_i{
 	protected function validate_account($account, $token){
 		
 		$filename = $this->url['validate'].'/'.$account.'/'.$token;
-		
+
 		$json = file_get_contents($filename);
-		
+
 		return json_decode($json);
 		
 	}// end Litmus::validate_account()

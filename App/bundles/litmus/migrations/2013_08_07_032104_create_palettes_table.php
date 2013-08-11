@@ -1,6 +1,6 @@
 <?php
 
-class Litmus_Create_Scales_Table {
+class Litmus_Create_Palettes_Table {
 
 	/**
 	 * Make changes to the database.
@@ -9,21 +9,21 @@ class Litmus_Create_Scales_Table {
 	 */
 	public function up()
 	{
-		Schema::table('scales', function($table){
+		Schema::table('palettes', function($table){
 			$table->create();
 			$table->increments('id');
 			$table->string('title');
 			$table->text('description')->nullable();
-			$table->string('account', 32);
+			$table->integer('user_id')->unsigned();
 			$table->timestamps();
 		});
 		
-		Schema::table('scales', function($table){
-			$table->foreign('account')->references('account')
+		Schema::table('palettes', function($table){
+			$table->foreign('user_id')->references('id')
 										->on('appapi_users')
 										->on_update('cascade')
 										->on_delete('cascade');
-			$table->unique( array('title', 'account') );
+			$table->unique( array('title', 'user_id') );
 		});
 	}
 
@@ -34,7 +34,7 @@ class Litmus_Create_Scales_Table {
 	 */
 	public function down()
 	{
-		Schema::drop('scales');
+		Schema::drop('palettes');
 	}
 
 }
