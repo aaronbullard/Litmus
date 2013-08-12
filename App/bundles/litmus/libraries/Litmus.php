@@ -29,12 +29,12 @@ class Litmus implements Litmus_i{
 		
 		//Validate account
 		$json = $this->validate_account($account, $token);
-		print_r($json);exit;
-		if( !$json->data->result ){
-			throw new Exception($json->message);
-		}else{
+
+		if( $json->data->results ){
 			$this->account  = $account;
 			$this->token	= $token;
+		}else{
+			throw new Exception($json->message);
 		}
 
 	}// end Litmus::__construct()
@@ -113,8 +113,7 @@ class Litmus implements Litmus_i{
 
 		$json = file_get_contents($filename);
 
-		return json_decode($json);
-		
+		return json_decode($json);		
 	}// end Litmus::validate_account()
 	
 	

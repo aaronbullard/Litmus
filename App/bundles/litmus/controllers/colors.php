@@ -95,17 +95,20 @@ class Litmus_Colors_Controller extends Base_Controller{
 
 		try{
 
-			$object = Color::create( $input );
-			$attach = Palette::find($palette_id)->attach($object);
+			$object = new Color();
+			$object = $object->fill( $input );
+			$attach = Palette::find($palette_id)->colors()->insert($object);
+			
 			if( ! $attach ){
 				throw new Exception("There was an error inserting the color into palette!");
 			}
 		}catch(Exception $e){
+
 			return Redirect::back()->with('error', "There was an error with your submission!  Please try again.")->with_input();
 		}
 		
 		if( $object->id ){
-			return Redirect::to('litmus/palette/'.$palette_id.'/colors/'.$object->id)
+			return Redirect::to('litmus/palettes/'.$palette_id.'/colors/'.$object->id)
 					->with('status', 'Your color was submitted successfully!')->with_input();
 		}
 	}
