@@ -2,7 +2,7 @@
 
 class User extends Eloquent{
 	
-	public static $table = 'appapi_users';
+	public static $table = 'users';
 	
 	public static $hidden = array('id', 'token');
 	
@@ -14,7 +14,7 @@ class User extends Eloquent{
 	public static function validate($data){
 		//set form rules from config
 		$rules = array();
-		$form = Config::get('appapi::config.form');
+		$form = Config::get('litmus::config.form.user');
 		foreach( $form as $array ){
 			$rules[$array['name']] = $array['rule'];
 		}

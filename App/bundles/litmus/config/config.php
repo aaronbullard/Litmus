@@ -15,7 +15,67 @@ return array(
 											),
 	),
 	
+	'private_key'	=> 'reset_this_key',
+	
 	'form'		=> array(
+						'user'		=>array(
+											array(
+												'name'	=> 'email',
+												'label'	=> 'Email',
+												'type'	=> 'text',
+												'rule'	=> 'unique:users|required|email',
+											),
+											array(
+												'name'	=> 'firstname',
+												'label'	=> 'First Name',
+												'type'	=> 'text',
+												'rule'	=> 'required',
+											),
+											array(
+												'name'	=> 'lastname',
+												'label'	=> 'Last Name',
+												'type'	=> 'text',
+												'rule'	=> 'required',
+											),
+											array(
+												'name'	=> 'street',
+												'label'	=> 'Street Address',
+												'type'	=> 'text',
+												'rule'	=> 'required',
+											),
+											array(
+												'name'	=> 'city',
+												'label'	=> 'City',
+												'type'	=> 'text',
+												'rule'	=> 'required',
+											),
+											array(
+												'name'	=> 'state',
+												'label'	=> 'State',
+												'type'	=> 'text',
+												'rule'	=> 'required|size:2|alpha',
+											),
+											array(
+												'name'	=> 'zipcode',
+												'label'	=> 'Zipcode',
+												'type'	=> 'text',
+												'rule'	=> 'required|min:5|numeric',
+											),
+											array(
+												'name'	=> 'phone',
+												'label'	=> 'Phone',
+												'type'	=> 'text',
+												'rule'	=> 'match:^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$^',
+											),
+											array(
+												'name'	=> 'account',
+												'rule'	=> 'unique:appapi_users',
+											),
+											array(
+												'name'	=> 'token',
+												'rule'	=> '',
+											),
+						),
 						'image'		=> array(
 											array(
 												'name'	=> 'account',
@@ -43,8 +103,8 @@ return array(
 											),
 											array(
 												'name'	=> 'scale_id',
-												'label'	=> 'Scale ID',
-												'type'	=> 'text',
+												'label'	=> 'Palettes',
+												'type'	=> 'select',
 												'rule'	=> 'integer',
 											),
 						),
@@ -93,12 +153,12 @@ return array(
 												'type'	=>	'number',
 												'rule'	=>	'integer|min:0|max:255',
 											),
-											array(
+									/*		array(
 												'name'	=>	'hex',
 												'label'	=>	'Hex',
 												'type'	=>	'text',
 												'rule'	=>	'match:/^[#][0-9A-F]+$/',
-											),
+											), */
 						),
 		
 	),

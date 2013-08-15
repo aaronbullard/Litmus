@@ -14,10 +14,11 @@ Route::get('litmus/palettes/(:num)/edit',	'litmus::palettes@edit');
 Route::put('litmus/palettes/(:num)',		'litmus::palettes@update');
 Route::delete('litmus/palettes/(:num)',		'litmus::palettes@destroy');
 
-//table redirects
+//table redirects for BELONGS TO
 Route::get('litmus/palettes/(:num)/colors/(:num)/palette', function(){
 	return Redirect::to_route('palettes');
 });
+
 
 // Colors Controller
 Route::get('litmus/palettes/(:num)/colors',				array('as' => 'colors', 'uses' => 'litmus::colors@index'));
@@ -30,5 +31,4 @@ Route::delete('litmus/palettes/(:num)/colors/(:num)',	'litmus::colors@destroy');
 
 
 Route::get('litmus/form', 'litmus::image@form');
-
 Route::get('litmus/analysis', 'litmus::image@analysis');

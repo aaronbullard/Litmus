@@ -35,6 +35,10 @@ class Litmus_Colors_Controller extends Base_Controller{
 		$data['tabs'][]	= array('Add', URL::current().'/create');
 		
 		$data['table']['objects'] = $palette->colors()->get();
+		
+		foreach( $data['table']['objects'] as $color){
+			$color->image = "<div style='background-color:rgb($color->red, $color->green, $color->blue)'>&nbsp</div>";
+		}
 
 		$data['content'] = View::make('litmus::partials.table', $data['table'])->render();
 

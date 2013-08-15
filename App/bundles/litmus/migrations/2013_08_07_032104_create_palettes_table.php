@@ -20,11 +20,36 @@ class Litmus_Create_Palettes_Table {
 		
 		Schema::table('palettes', function($table){
 			$table->foreign('user_id')->references('id')
-										->on('appapi_users')
+										->on('users')
 										->on_update('cascade')
 										->on_delete('cascade');
 			$table->unique( array('title', 'user_id') );
 		});
+		
+		$seed = array(
+			array(
+				'title'	=> 'Revlon\'s Palette',
+				'description' => 'Collection of colors used in foundation.',
+				'user_id'	=> 1
+			),
+			array(
+				'title'	=> 'Colgates\'s Palette',
+				'description' => 'Collection of teeth colors used for teeth whitening programs.',
+				'user_id'	=> 1
+			),
+			array(
+				'title'	=> 'Clairol\'s Palette',
+				'description' => 'Collection of colors used for hair dyeing.',
+				'user_id'	=> 1
+			),
+		);
+		
+		foreach($seed as $rec){
+			Palette::create($rec);
+		}
+		
+		
+		
 	}
 
 	/**

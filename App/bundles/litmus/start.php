@@ -1,3 +1,3 @@
 <?php
 
-Bundle::start('appapi');
+//Bundle::start('appapi');

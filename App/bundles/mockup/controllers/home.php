@@ -8,12 +8,18 @@ class Mockup_Home_Controller extends Base_Controller{
 	private $upload_path;
 	private $image_url;
 
-	const LITMUS_ACCOUNT	= 'eea0ef13df8d2a60b53d5c4574d6331c';
-	const LITMUS_TOKEN		= '47360959dd2a037c3f564a59fe31eadf';
+	private $LITMUS_ACCOUNT;
+	private $LITMUS_TOKEN;
 	
 	public function __construct() {
 		$this->upload_path = path('bundle').'mockup/upload';
 		$this->image_url   = URL::to('mockup/image');
+		
+		$this->LITMUS_ACCOUNT = User::find(1)->account;
+		$this->LITMUS_TOKEN = User::find(1)->token;
+		
+		// Define main assets
+		Asset::container('styles')->add('style', 'bundles/litmus/assets/amelia/bootstrap.min.css');
 	}
 	
 	
@@ -70,13 +76,17 @@ class Mockup_Home_Controller extends Base_Controller{
 
 		
 		//analyze images submitted
-		$litmus = new Litmus(self::LITMUS_ACCOUNT, self::LITMUS_TOKEN);
+		$litmus = new Litmus($this->LITMUS_ACCOUNT, $this->LITMUS_TOKEN);
 	
 		if( isset($url['sample']) ){ $litmus->set_sample_url( $url['sample'] ); }
 		if( isset($url['control']) ){ $litmus->set_control_url( $url['control'] ); }
 		if( Input::has('scale_id') ){ $litmus->set_scale_id( Input::get('scale_id') ); }
-		
+
 		$response = $litmus->analyze();
+
+		if( $response->status == 'error' ){
+			echo $response->message;exit;
+		}
 		
 		//recursive function for outputting a heirarchial data tree
 		$string = "<ul>".Mockup\Util::recursiveTree($response)."</ul>";

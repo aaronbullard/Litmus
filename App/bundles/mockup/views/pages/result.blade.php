@@ -45,6 +45,7 @@
 						   background-color: rgb({{$scale->color->red}}, 
 												{{$scale->color->green}},
 												{{$scale->color->blue}});">
+							<text>Name: {{ $scale->color->name }}</text><br>
 							<text>Color: ({{$scale->color->red}}, {{$scale->color->green}}, {{$scale->color->blue}})</text><br>
 							<text>Magnitude: {{ round($scale->magnitude) }}</text><br>
 							<text>Normalized: {{ round($scale->normalized,3) * 100 }}%</text>

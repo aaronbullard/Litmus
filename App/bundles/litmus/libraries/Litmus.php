@@ -27,7 +27,12 @@ class Litmus implements Litmus_i{
 			throw new Exception("Class Litmus requires an account and token for initialization.");
 		}
 		
+		$this->account  = $account;
+		$this->token	= $token;
+		
+		
 		//Validate account
+		/*
 		$json = $this->validate_account($account, $token);
 
 		if( $json->data->results ){
@@ -36,7 +41,7 @@ class Litmus implements Litmus_i{
 		}else{
 			throw new Exception($json->message);
 		}
-
+		*/
 	}// end Litmus::__construct()
 	
 	
@@ -76,19 +81,24 @@ class Litmus implements Litmus_i{
 		
 		try{
 
-			$response = file_get_contents($this->url['analyze'].'?'.$query);
+			$json		= file_get_contents($this->url['analyze'].'?'.$query);
+			$response	= json_decode($json);
 
 			if( ! $response ){
-				throw new Exception("Query was not successful.");
+				throw new Exception("There was a problem with the query.");
 			}
 	
 		}catch( Exception $e ){
 			
-			$response = $e->getMessage();
+			$rest = new Rest();
+			$rest->status = 'error';
+			$rest->data	  = NULL;
+			$rest->message = $e->getMessage();
 			
+			$response = $rest;
 		}
-		
-		return json_decode($response);
+
+		return $response;
 		
 	}// end Litmus::analyze()
 	

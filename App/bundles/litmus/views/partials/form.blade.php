@@ -11,14 +11,20 @@
 
 			foreach($fields as $field){
 				
-				$attributes = array();
-				$attributes['value'] = isset($object) ? $object->$field['name'] : NULL;
-				$attributes['value'] = Input::had($field['name']) ? Input::old($field['name']) : $attributes['value'];
+				if( isset($field['values']) ){
+					$form	= Form::$field['type']($field['name'], $field['values']);
+				}else{
+					$attributes = array();
+					$attributes['value'] = isset($object) && isset($object->{$field['name']}) ? $object->{$field['name']} : NULL;
+					$attributes['value'] = Input::had($field['name']) ? Input::old($field['name']) : $attributes['value'];
 
-				echo Form::control_group(
-						Form::label($field['name'], $field['label']),
-						Form::$field['type']($field['name'], $attributes['value'], $attributes)
-				); 
+					$form	= Form::$field['type']($field['name'], $attributes['value'], $attributes);
+					
+				}
+				
+				$label	= Form::label($field['name'], $field['label']);
+				echo Form::control_group($label, $form); 
+				
 			}
 
 			echo Form::actions(array(Button::primary_submit('Submit'), Form::button('Cancel')));

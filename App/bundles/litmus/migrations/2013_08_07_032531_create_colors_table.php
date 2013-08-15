@@ -29,6 +29,31 @@ class Litmus_Create_Colors_Table {
 										->on_update('cascade')
 										->on_delete('cascade');
 		});
+		
+		$seed = array();
+		for($r = 1; $r < 256; $r = $r*10){
+			$array = array();
+			$array['red'] = $r;
+			for($g = 1; $g < 256; $g = $g*10){
+				$array['green'] = $g;
+				for($b = 1; $b < 256; $b = $b*10){
+					$array['blue'] = $b;
+					$array['name'] = "rgb($r, $g, $b)";
+					$seed[] = $array;
+				}
+			}
+		}
+		
+		
+		foreach (Palette::all() as $p ){
+			foreach( $seed as $rec ){
+				$color = new Color;
+				$color->fill($rec);
+				$p->colors()->insert($color);
+			}	
+		}
+		
+		
 	}
 
 	/**

@@ -52,7 +52,7 @@ return array(
 
 	'modelo' => array('auto' => true),
 		
-	'appapi' => array('handles'	=> 'api'),
+	//'appapi' => array('handles'	=> 'api'),
 
 	'litmus'	=> array(
 		'location'		=> 'litmus',

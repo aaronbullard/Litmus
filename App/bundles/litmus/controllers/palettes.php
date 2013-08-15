@@ -10,9 +10,13 @@ class Litmus_Palettes_Controller extends Base_Controller{
 	
 	
 	public function __construct() {
-		$fields = Config::get('litmus::config.form.palette');
-		foreach($fields as $field){
-			$this->rules[$field['name']] = $field['rule']; 
+		//Run if request is 'POST' or 'PUT'
+		$verb = Request::method();
+		if ( $verb === 'POST' || $verb === 'PUT' ){
+			$fields = Config::get('litmus::config.form.palette');
+			foreach($fields as $field){
+				$this->rules[$field['name']] = $field['rule']; 
+			}
 		}
 	}
 	
@@ -153,7 +157,7 @@ class Litmus_Palettes_Controller extends Base_Controller{
 		}
 		
 		if( $result ){
-			return Redirect::to('litmus/palettes/'.$id)->with('status', 'Your palette was updated successfully!')->with_input();
+			return Redirect::to('litmus/palettes/'.$id)->with('status', 'Your palette was updated successfully!');
 		}else{
 			return Redirect::back()->with('error', "There was an error with your submission!  Please try again.")->with_input();
 		}

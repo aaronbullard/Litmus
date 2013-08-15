@@ -26,7 +26,9 @@ class Litmus_Admin_Controller extends Base_Controller{
 		$data['title']		= "Registration Page";
 		$data['lead']		= "Sign up for a Litmus Account";
 		
-		$data['content'] = file_get_contents(URL::to('api/register'));
+		//$data['content'] = file_get_contents(URL::to('api/register'));
+		$fields = Config::get('litmus::config.form.user');
+		$data['content'] = View::make('litmus::partials.form')->with('fields', $fields)->render();
 		
 		return View::make('litmus::admin.page', $data);
 	}

@@ -9,9 +9,7 @@ class Litmus_Image_Controller extends Base_Controller{
 	
 
 	public function __construct(){
-		
-		Bundle::start('appapi');
-		
+
 		foreach( Config::get('litmus::config.form.image') as $array){
 			$this->user_table[] = $array['name'];
 		}
@@ -32,7 +30,7 @@ class Litmus_Image_Controller extends Base_Controller{
 		$token		= Input::get('token');
 
 		$validate	= User::validate_credentials($account, $token);
-		
+
 		$rest		= new Rest;
 		
 		if( ! $validate ){
@@ -68,11 +66,16 @@ class Litmus_Image_Controller extends Base_Controller{
 				//If scale set, get colors from scale
 				if( Input::has('scale_id') ){
 					$scale_id	= Input::get('scale_id');
-					$scale		= Config::get('litmus::config.scale');// JAB Change this after creating a scale table.
+					$scale		= Palette::find($scale_id)->colors()->get();
 					foreach($scale as $color){
-						$data['scale'][] = LitmusHandler::compare($data['sample']['color'], $color);
+						$color_array = array('name'=>$color->name, 'red'=>$color->red, 'green'=>$color->green, 'blue'=>$color->blue);
+						$data['scale'][] = LitmusHandler::compare($data['sample']['color'], $color_array);
 					}
 				}
+				
+				usort($data['scale'], function($a, $b){
+					return strcmp($a['magnitude'], $b['magnitude']);
+				});
 
 
 				//return result object
@@ -88,7 +91,7 @@ class Litmus_Image_Controller extends Base_Controller{
 				
 			}// end try/catch
 		}//end if/else
-		
+
 		return Response::json($rest);
 	}// end Litmus_Image_Controller::get_analysis()
 	
@@ -106,6 +109,12 @@ class Litmus_Image_Controller extends Base_Controller{
 		
 		unset($data['fields'][0]);
 		unset($data['fields'][1]);
+		
+		foreach( Palette::all() as $palette){
+			$id		= $palette->id;
+			$title	= $palette->title;
+			$data['fields'][4]['values'][$id] = $title;
+		}
 		
 		$data['url']	= Input::has('url') ? Input::get('url') : '';
 		$form			= View::make('litmus::partials.form', $data)->render();
