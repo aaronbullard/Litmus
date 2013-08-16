@@ -35,7 +35,7 @@ class Litmus_Palettes_Controller extends Base_Controller{
 		$data['tabs'][]	= array('All', URL::to('litmus/palettes'), 'active');
 		$data['tabs'][]	= array('Add', URL::to('litmus/palettes/create'));
 		
-		$data['table']['objects'] = Palette::where('user_id', '=', 1)->get(); //   DEVELOPMENT!!!!!!!!!!!!!
+		$data['table']['objects'] = Palette::all(); //   DEVELOPMENT!!!!!!!!!!!!!
 
 		$data['content']	= View::make('litmus::partials.table', $data['table'])->render();
 

@@ -10,6 +10,10 @@ class User extends Eloquent{
 										'city', 'state', 'zipcode', 'phone',
 										'account', 'created_at', 'updated_at');
 	
+	public function palettes(){
+		return $this->has_many('Palette');
+	}
+	
 	
 	public static function validate($data){
 		//set form rules from config

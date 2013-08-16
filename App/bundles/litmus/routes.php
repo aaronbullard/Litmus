@@ -1,8 +1,17 @@
 <?php
 
-Route::get('litmus/admin', 'litmus::admin@index');
+// Users Controller
+Route::get('litmus/users',					'litmus::users@index');
+Route::get('litmus/users/create',			'litmus::users@create');
+Route::post('litmus/users',					'litmus::users@store');
+Route::get('litmus/users/(:num)',			'litmus::users@show');
+Route::put('litmus/users/(:num)',			'litmus::users@update');
 
-Route::get('litmus/admin/register', 'litmus::admin@register');
+Route::get('litmus/users/(:num)/palettes',	'litmus::users@palettes');
+//table redirects for BELONGS TO
+Route::get('litmus/users/(:num)/palettes/(:num)', function($user_id, $palette_id){
+	return Redirect::to( 'litmus/palettes/'.$palette_id );
+});
 
 
 // Palettes Controller
