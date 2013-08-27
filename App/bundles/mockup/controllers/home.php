@@ -20,6 +20,7 @@ class Mockup_Home_Controller extends Base_Controller{
 		
 		// Define main assets
 		Asset::container('styles')->add('style', 'bundles/litmus/assets/amelia/bootstrap.min.css');
+
 	}
 	
 	
@@ -27,16 +28,9 @@ class Mockup_Home_Controller extends Base_Controller{
 
 		$filepath = $this->upload_path.'/'.$name;
 
-		//$mime = mime_content_type($filepath);
-
-		$mime = image_type_to_mime_type( exif_imagetype ( $filepath ) );
+		//$mime = image_type_to_mime_type( exif_imagetype ( $filepath ) );
 		
-		$file_contents = File::get($filepath);
-
-		header("Content-Type: {$mime}");
-		header("Content-Disposition: attachment; filename='{$name}'");
-
-		return $file_contents;
+		return Response::download($filepath, $name);
 	}
 	
 	
@@ -56,10 +50,17 @@ class Mockup_Home_Controller extends Base_Controller{
 	
 	public function post_results(){
 
-		/*
-		 * NEED TO VALIDATE FORM WITH RULES
-		 */
+		$rules = array(
+			'sample' => 'required|image'
+		);
 		
+		//Validate input		
+		$validation = Validator::make( Input::all(), $rules );
+
+		if( $validation->fails() ){
+			return Redirect::back()->with_errors($validation)->with_input();
+		}
+
 		$url		= array();
 		//save files if exists
 		foreach( array('sample', 'control') as $image){

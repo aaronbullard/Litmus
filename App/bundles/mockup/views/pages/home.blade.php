@@ -8,6 +8,8 @@
 		<h3>{{ $title }}</h3>
 		<p class="lead">{{ $lead }}</p>
 		
+		@include('mockup::partials.message')
+		
 		{{ $content }}
 
 	</div>

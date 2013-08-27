@@ -32,13 +32,14 @@
             </ul>
           </li>
 		  
-		  <li class="dropdown">
+<!--		  <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="{{ URL::to('api/register') }}">User Api <b class="caret"></b></a>
             <ul class="dropdown-menu" id="swatch-menu">
               <li><a href="{{ URL::to('api/register') }}">Register</a></li>
               <li><a href="{{ URL::to('api/user/eea0ef13df8d2a60b53d5c4574d6331c/47360959dd2a037c3f564a59fe31eadf') }}">User's info</a></li>
             </ul>
-          </li>
+          </li> 
+-->
 			
         </ul>
 <!--
