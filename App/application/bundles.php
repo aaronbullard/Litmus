@@ -56,7 +56,7 @@ return array(
 
 	'litmus'	=> array(
 		'location'		=> 'litmus',
-		'handles'		=> '/',
+		'handles'		=> 'litmus',
 		'autoloads' 	=> array(
 			'directories'	=> array(
 									'(:bundle)/models',
