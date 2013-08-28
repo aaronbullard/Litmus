@@ -14,8 +14,8 @@ return array(
 	*/
 
 	//'url' => 'http://192.168.1.13:8888/Litmus/App/public',
-	'url' => 'http://localhost:8888/Litmus/App/public',
-	//'url' => 'http://www.bullardgroupllc.com/litmus/App/public',
+	//'url' => 'http://localhost:8888/Litmus/App/public',
+	'url' => 'http://www.bullardgroupllc.com/litmus/app/public',
 
 	/*
 	|--------------------------------------------------------------------------

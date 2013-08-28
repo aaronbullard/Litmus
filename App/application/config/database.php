@@ -66,14 +66,24 @@ return array(
 			'database' => 'application',
 			'prefix'   => '',
 		),
-
+/*
 		'mysql' => array(
 			'driver'   => 'mysql',
 			'host'     => 'localhost',
             'unix_socket'   => '/Applications/MAMP/tmp/mysql/mysql.sock',
 			'database' =>  'litmus',
-			'username' => 'root',
+			'username' => 'jabullardlitmus',
 			'password' => 'root',
+			'charset'  => 'utf8',
+			'prefix'   => '',
+		),
+*/
+		'mysql' => array(
+			'driver'   => 'mysql',
+			'host'     => '68.178.216.114',
+			'database' => 'jabullardlitmus',
+			'username' => 'jabullardlitmus',
+			'password' => 'USna2000!',
 			'charset'  => 'utf8',
 			'prefix'   => '',
 		),
