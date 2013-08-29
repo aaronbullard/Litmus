@@ -102,7 +102,7 @@ class Litmus_Image_Controller extends Base_Controller{
 	 * @return html
 	 */
 	public function get_form(){
-	
+
 		$data = array();
 		
 		$data['fields'] = Config::get('litmus::config.form.image');

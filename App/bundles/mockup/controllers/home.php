@@ -42,7 +42,7 @@ class Mockup_Home_Controller extends Base_Controller{
 		$data['lead']	= "Upload your sample image for analysis";
 		$post_url		= http_build_query( array('url'=> URL::to('mockup/results')) );
 		$data['content']= file_get_contents( URL::to('litmus/form').'?'.$post_url);
-		
+	
 		return View::make('mockup::pages.home', $data);
 		
 	}
