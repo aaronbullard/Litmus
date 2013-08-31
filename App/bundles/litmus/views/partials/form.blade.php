@@ -1,6 +1,6 @@
 <div id="image-upload">
 	
-	@include('mockup::partials.message')
+	@include('litmus::partials.message')
 	
 	<?php
 		$url	= isset( $url )	? $url	: NULL;

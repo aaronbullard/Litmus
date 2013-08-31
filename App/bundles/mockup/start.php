@@ -9,5 +9,4 @@ Autoloader::map(array(
 	'Mockup\Util' => path('bundle').'mockup/libraries/Util.php'
 ));
 
-
 // end bundle/mockup/start.php

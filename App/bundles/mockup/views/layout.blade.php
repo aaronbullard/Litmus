@@ -1,7 +1,7 @@
 @layout('modelo::master')
 
 	@section('title')
-		{{Config::get('mockup::mockup.app_name')}}
+		{{Config::get('litmus::config.app_name')}}
 	@endsection
 
 

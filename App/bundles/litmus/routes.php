@@ -5,10 +5,15 @@ Route::get('litmus/users',					'litmus::users@index');
 Route::get('litmus/users/create',			'litmus::users@create');
 Route::post('litmus/users',					'litmus::users@store');
 Route::get('litmus/users/(:num)',			'litmus::users@show');
+Route::get('litmus/users/(:num)/edit',		'litmus::users@edit');
 Route::put('litmus/users/(:num)',			'litmus::users@update');
 
 Route::get('litmus/users/(:num)/palettes',	'litmus::users@palettes');
 //table redirects for BELONGS TO
+Route::get('litmus/palettes/(:num)/user', function($palette_id){
+	$user_id = Palette::find($palette_id)->user()->first()->id;
+	return Redirect::to('litmus/users/'.$user_id);
+});
 Route::get('litmus/users/(:num)/palettes/(:num)', function($user_id, $palette_id){
 	return Redirect::to( 'litmus/palettes/'.$palette_id );
 });
@@ -24,8 +29,8 @@ Route::put('litmus/palettes/(:num)',		'litmus::palettes@update');
 Route::delete('litmus/palettes/(:num)',		'litmus::palettes@destroy');
 
 //table redirects for BELONGS TO
-Route::get('litmus/palettes/(:num)/colors/(:num)/palette', function(){
-	return Redirect::to_route('palettes');
+Route::get('litmus/palettes/(:num)/colors/(:num)/palette', function($palette_id, $color_id){
+	return Redirect::to('litmus/palettes/'.$palette_id);
 });
 
 

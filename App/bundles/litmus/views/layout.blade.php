@@ -24,7 +24,7 @@
 	@endsection
 
 	@section('header')
-		@include('mockup::partials.navbar')
+		@include('litmus::partials.navbar')
 	@endsection
 
 

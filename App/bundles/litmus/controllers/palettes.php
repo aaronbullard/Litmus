@@ -46,7 +46,7 @@ class Litmus_Palettes_Controller extends Base_Controller{
 	
 	public function get_show($id){
 
-		$data['object'] = Palette::with('colors')->find($id);
+		$data['object'] = Palette::with(array('user', 'colors'))->find($id);
 		
 		if( ! $data['object'] ){
 			return Redirect::error(404);

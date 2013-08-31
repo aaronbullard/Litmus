@@ -116,6 +116,60 @@ class Litmus_Users_Controller extends Base_Controller{
 		return $this->layout($data);	
 	}
 
+	
+	public function get_edit($id){
+
+		$data['title']	= "Edit User";
+		$data['lead']	= "Edit your user's details";
+		
+		$data['tabs'][]	= array('All', URL::to('litmus/users'));
+		$data['tabs'][]	= array('View', URL::to('litmus/users/'.$id));
+		$data['tabs'][]	= array('Edit', URL::to('litmus/users/'.$id.'/edit'), 'active');
+		
+		$data['object'] = User::find($id);
+		
+		if( ! $data['object'] ){
+			return Redirect::error(404);
+		}
+		
+		$data['url']	= URL::to('litmus/users/'.$id);
+		$data['verb']	= 'PUT';
+		$data['fields']	= Config::get('litmus::config.form.user');
+		unset($data['fields'][8]);
+		unset($data['fields'][9]);
+		$data['content']= View::make('litmus::partials.form', $data)->render();
+		
+		return $this->layout($data);
+		
+	}
+	
+	
+	public function put_update($id){
+		
+		/**
+		 * NEED TO ADD VALIDATION!!!!
+		 */
+		
+		$input = Input::all();
+		
+		try{
+			
+			$user	= User::find($id);
+			$result	= $user->fill( $input )->save();
+			
+		}catch(Exception $e){
+			return Redirect::back()->with('error', "There was an error with your submission!  Please try again.")->with_input();
+		}
+		
+		if( $result ){
+			return Redirect::to('litmus/users/'.$id)->with('status', 'Your palette was updated successfully!');
+		}else{
+			return Redirect::back()->with('error', "There was an error with your submission!  Please try again.")->with_input();
+		}
+		
+	}
+	
+	
 	public function get_palettes($user_id){
 
 		$data['title']	= "Palettes Page";
