@@ -112,5 +112,23 @@ abstract class LitmusHandler{
 		return $data;
 	}
 	
+
+	private static function adjust_ambient(array $subject, array $control, array $control_actual){
+
+		$ambient = self::var_vector($control_actual, $control);
+
+		$normalized          = array();
+		$normalized['red']   = $subject['red'] - $ambient['red'];
+		$normalized['green'] = $subject['green'] - $ambient['green'];
+		$normalized['blue']  = $subject['blue'] - $ambient['blue'];
+
+		/**
+		 * It's very likely that straight subtraction will not work.  Need to look into
+		 * using a weighted percentage of the relatice magnitude of each vector.
+		 */
+
+		return $normalized;
+
+	}
 	
 }//end LitmusHandler.php
