@@ -1,5 +1,7 @@
 <?php
 
+use Litmus\Api\Litmus as Litmus;
+
 class Mockup_Home_Controller extends Base_Controller{
 	
 	

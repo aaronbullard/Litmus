@@ -1,15 +1,8 @@
-<?php
+<?php namespace Litmus\Api;
 
+use \Laravel\URL as URL;
 
-interface Litmus_i{
-	public function set_scale_id($scale_id);
-	public function set_sample_url($image);
-	public function set_control_url($image);
-	public function analyze($data = array());
-}// end interface Litmus_i
-
-
-class Litmus implements Litmus_i{
+class Litmus implements LitmusInterface{
 	
 	protected $account;
 	protected $token;
@@ -108,7 +101,7 @@ class Litmus implements Litmus_i{
 	 *****************/
 	
 	protected function init_urls(){
-		
+
 		$this->url = array(
 			'validate'	=> URL::to('api/validate'),
 			'analyze'	=> URL::to('litmus/analysis'),

@@ -1,19 +1,17 @@
 <?php
 
+use Litmus\Handler\LitmusHandler as LitmusHandler;
+
 class Litmus_Image_Controller extends Base_Controller{
 	
 
 	public $restful = true;
-	
-	protected $user_table = array();
-	
 
-	public function __construct(){
+	protected $litmus;
 
-		foreach( Config::get('litmus::config.form.image') as $array){
-			$this->user_table[] = $array['name'];
-		}
-		
+	public function __construct(LitmusHandler $litmus){
+
+		$this->litmus = $litmus;
 	}
 	
 	
@@ -49,7 +47,8 @@ class Litmus_Image_Controller extends Base_Controller{
 				if( Input::has('sample') ){
 					$sample					= Input::get('sample');
 					$data['sample']['url']	= $sample;
-					$data['sample']['color']= LitmusHandler::average_color($sample);
+					//$data['sample']['color']= LitmusHandler::average_color($sample);
+					$data['sample']['color']= $this->litmus->average_color($sample);
 				}
 	//return Response::json($data);
 				
@@ -57,9 +56,9 @@ class Litmus_Image_Controller extends Base_Controller{
 				if( Input::has('control') ){
 					$control							= Input::get('control');
 					$data['control']['url']				= $control;
-					$data['control']['submit']['color']	= LitmusHandler::average_color($control);
+					$data['control']['submit']['color']	= $this->litmus->average_color($control);
 					$data['control']['actual']['color']	= array('red'=>0, 'green'=>0, 'blue'=>255);
-					$data['control'] = LitmusHandler::compare($data['control']['actual']['color'], $data['control']['submit']['color']);
+					$data['control'] = $this->litmus->compare($data['control']['actual']['color'], $data['control']['submit']['color']);
 				}
 
 				
@@ -69,7 +68,7 @@ class Litmus_Image_Controller extends Base_Controller{
 					$scale		= Palette::find($scale_id)->colors()->get();
 					foreach($scale as $color){
 						$color_array = array('name'=>$color->name, 'red'=>$color->red, 'green'=>$color->green, 'blue'=>$color->blue);
-						$data['scale'][] = LitmusHandler::compare($data['sample']['color'], $color_array);
+						$data['scale'][] = $this->litmus->compare($data['sample']['color'], $color_array);
 					}
 				}
 				
@@ -123,4 +122,4 @@ class Litmus_Image_Controller extends Base_Controller{
 		
 	}
 
-}
+}// end Litmus_Image_Controller

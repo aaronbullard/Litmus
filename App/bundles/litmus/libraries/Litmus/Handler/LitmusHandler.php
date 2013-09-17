@@ -1,7 +1,7 @@
-<?php
+<?php namespace Litmus\Handler;
 
 
-abstract class LitmusHandler{
+class LitmusHandler{
 	
 	
 	const MAX_COLOR_DIFFERENCE			= 441.67295593; //sqrt( pow(255,2) + pow(255,2) + pow(255,2) );
@@ -9,7 +9,7 @@ abstract class LitmusHandler{
 	
 	
 	public static function average_color($image_url){
-		
+
 		$mime = image_type_to_mime_type( exif_imagetype ( $image_url ) );
 
 		//Get image based on mime and set to $im
@@ -23,7 +23,7 @@ abstract class LitmusHandler{
 			break;
 		
 			case 'image/png':
-				$im	=imagecreatefrompng($image_url);
+				$im	= imagecreatefrompng($image_url);
 			break;
 			
 			case 'image/wbmp':
