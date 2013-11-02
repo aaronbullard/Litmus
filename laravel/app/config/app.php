@@ -116,6 +116,7 @@ return array(
 
 		// Litmus
 		'Way\Generators\GeneratorsServiceProvider',
+		'Barryvdh\Debugbar\ServiceProvider',
 
 	),
 

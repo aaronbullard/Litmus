@@ -12,15 +12,23 @@ class CreateColorsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('colors', function(Blueprint $table) {
+		Schema::table('colors', function(Blueprint $table) {
+			$table->create();
 			$table->increments('id');
 			$table->string('name', 30);
-			$table->integer('red', 3);
-			$table->integer('green', 3);
-			$table->integer('blue', 3);
+			$table->tinyInteger('red');
+			$table->tinyInteger('green');
+			$table->tinyInteger('blue');
 			$table->string('hex', 7)->nullable();
 			$table->integer('palette_id')->unsigned();
 			$table->timestamps();
+		});
+
+		Schema::table('colors', function(Blueprint $table) {
+			$table->foreign('palette_id')
+				  ->references('id')->on('palettes')
+				  ->onUpdate('cascade')
+				  ->onDelete('cascade');
 		});
 	}
 

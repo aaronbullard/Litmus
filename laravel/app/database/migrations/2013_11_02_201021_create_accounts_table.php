@@ -12,13 +12,22 @@ class CreateAccountsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('accounts', function(Blueprint $table) {
+		Schema::table('accounts', function(Blueprint $table) {
+			$table->create();
 			$table->increments('id');
 			$table->string('account', 64);
 			$table->string('token', 64);
 			$table->integer('user_id')->unsigned();
 			$table->timestamps();
 		});
+
+		Schema::table('accounts', function(Blueprint $table) {
+			$table->foreign('user_id')
+				  ->references('id')->on('users')
+				  ->onUpdate('cascade')
+				  ->onDelete('cascade');
+		});
+
 	}
 
 
