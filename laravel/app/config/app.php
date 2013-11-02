@@ -114,6 +114,10 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
+		// Litmus
+		'Way\Generators\GeneratorsServiceProvider',
+		'Barryvdh\Debugbar\ServiceProvider',
+
 	),
 
 	/*

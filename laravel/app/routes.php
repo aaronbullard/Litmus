@@ -15,3 +15,11 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+Route::resource('users', 'UsersController');
+
+Route::resource('accounts', 'AccountsController');
+
+Route::resource('palettes', 'PalettesController');
+
+Route::resource('colors', 'ColorsController');
