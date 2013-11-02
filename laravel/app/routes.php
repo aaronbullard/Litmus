@@ -19,3 +19,5 @@ Route::get('/', function()
 Route::resource('users', 'UsersController');
 
 Route::resource('accounts', 'AccountsController');
+
+Route::resource('palettes', 'PalettesController');
