@@ -19,6 +19,7 @@ class CreateColorsTable extends Migration {
 			$table->tinyInteger('red');
 			$table->tinyInteger('green');
 			$table->tinyInteger('blue');
+			$table->tinyInteger('alpha');
 			$table->string('hex', 7)->nullable();
 			$table->integer('palette_id')->unsigned();
 			$table->timestamps();
