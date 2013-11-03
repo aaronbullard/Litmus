@@ -23,3 +23,9 @@ Route::resource('accounts', 'AccountsController');
 Route::resource('palettes', 'PalettesController');
 
 Route::resource('colors', 'ColorsController');
+
+
+//Mockup App
+Route::controller('colormatch', 'MockupController');
+
+Route::controller('api', 'LitmusController');

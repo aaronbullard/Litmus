@@ -1,6 +1,7 @@
 <?php namespace Litmus\Api;
 
-use \Laravel\URL as URL;
+// use \Laravel\URL as URL;
+use Litmus\Api\LitmusInterface;
 
 class Litmus implements LitmusInterface{
 	
@@ -13,7 +14,7 @@ class Litmus implements LitmusInterface{
 	function __construct($account, $token){
 		
 		//Initialize urls
-		$this->init_urls();
+		$this->init_urls('http://localhost:8888/litmus/laravel/public');
 		
 		//Check if account and token were passed
 		if( !isset($account) || !isset($token) ){
@@ -22,19 +23,7 @@ class Litmus implements LitmusInterface{
 		
 		$this->account  = $account;
 		$this->token	= $token;
-		
-		
-		//Validate account
-		/*
-		$json = $this->validate_account($account, $token);
 
-		if( $json->data->results ){
-			$this->account  = $account;
-			$this->token	= $token;
-		}else{
-			throw new Exception($json->message);
-		}
-		*/
 	}// end Litmus::__construct()
 	
 	
@@ -83,7 +72,7 @@ class Litmus implements LitmusInterface{
 	
 		}catch( Exception $e ){
 			
-			$rest = new Rest();
+			$rest = (object) 'rest';
 			$rest->status = 'error';
 			$rest->data	  = NULL;
 			$rest->message = $e->getMessage();
@@ -100,11 +89,11 @@ class Litmus implements LitmusInterface{
 	 * PRIVATE METHODS
 	 *****************/
 	
-	protected function init_urls(){
+	protected function init_urls($base_url){
 
 		$this->url = array(
-			'validate'	=> URL::to('api/validate'),
-			'analyze'	=> URL::to('litmus/analysis'),
+			'validate'	=> $base_url.'/api/validate',
+			'analyze'	=> $base_url.'/litmus/analysis',
 		);
 		
 	}// end Litmus::init_urls()

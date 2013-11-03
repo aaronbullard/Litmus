@@ -8,4 +8,13 @@ class Palette extends Eloquent {
 		'description' => 'required',
 		'user_id' => 'required'
 	);
+
+	public function colors(){
+		return $this->hasMany('Color');
+	}
+
+	
+	public function user(){
+		return $this->belongsTo('User');
+	}
 }

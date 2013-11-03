@@ -12,7 +12,7 @@ return array(
   |
   */
 
-  'author' => 'Your name here',
+  'author' => 'Aaron Bullard <aaron.bullard77@gmail.com>',
 
 
   /*
@@ -49,9 +49,9 @@ return array(
   |
   */
 
-  'jquery_on'       => false,
+  'jquery_on'       => true,
   'jquery_version'  => '1.9.1',
-  'jquery_fallback' => 'path/to/jquery-fallback/here',
+  'jquery_fallback' => URL::to('assets/lib/jquery-1.9.1.min.js'),
 
 
   /*

@@ -1,3 +1,5 @@
+@extends('layouts.master')
+<?php /*
 <!doctype html>
 <html>
 	<head>
@@ -26,3 +28,4 @@
 	</body>
 
 </html>
+*/ ?>

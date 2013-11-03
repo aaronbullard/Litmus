@@ -41,8 +41,8 @@ class LitmusHandler{
 		
 		$total = $r = $g = $b = $a = 0;
 		
-		for($x=0; $x<$width; $x++){
-		    for($y=0; $y<$height; $y++){
+		for($x = 0; $x < $width; $x++){
+		    for($y = 0; $y < $height; $y++){
 				
 				//get rgba array at index
 		    	$index	= imagecolorat($im, $x, $y);

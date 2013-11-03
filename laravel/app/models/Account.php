@@ -1,6 +1,7 @@
 <?php
 
 class Account extends Eloquent {
+
 	protected $guarded = array();
 
 	public static $rules = array(
@@ -8,4 +9,10 @@ class Account extends Eloquent {
 		'token' => 'required',
 		'user_id' => 'required'
 	);
+
+
+	public function user()
+	{
+		return $this->belongsTo('User');
+	}
 }
