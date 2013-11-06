@@ -1,6 +1,9 @@
 <?php
 
-use Litmus\Api\LitmusInterface;
+use Helpers\Util;
+use Litmus\Entities\Rgba;
+use Litmus\Services\LitmusHandler;
+
 
 class LitmusController extends BaseController{
 	
@@ -8,10 +11,13 @@ class LitmusController extends BaseController{
 	public $restful = true;
 
 	protected $litmus;
+	protected $account;
+	protected $rgba;
 
-	public function __construct(LitmusHandler $litmus){
-
-		$this->litmus = $litmus;
+	public function __construct(LitmusHandler $litmus, AccountInterface $account){
+		$this->litmus  	= $litmus;
+		$this->account 	= $account;
+		// $this->rgba 	= $rgba;
 	}
 	
 	
@@ -27,9 +33,9 @@ class LitmusController extends BaseController{
 		$account	= Input::get('account');
 		$token		= Input::get('token');
 
-		$validate	= User::validate_credentials($account, $token);
+		$validate	= $this->account->validateCredentials($account, $token);
 
-		$rest		= new Rest;
+		$rest		= (object) 'Rest';
 		
 		if( ! $validate ){
 			
@@ -50,14 +56,14 @@ class LitmusController extends BaseController{
 					//$data['sample']['color']= LitmusHandler::average_color($sample);
 					$data['sample']['color']= $this->litmus->average_color($sample);
 				}
-	//return Response::json($data);
 				
+
 				//Get analysis for control
 				if( Input::has('control') ){
 					$control							= Input::get('control');
 					$data['control']['url']				= $control;
 					$data['control']['submit']['color']	= $this->litmus->average_color($control);
-					$data['control']['actual']['color']	= array('red'=>0, 'green'=>0, 'blue'=>255);
+					$data['control']['actual']['color']	= new Rgba(0, 0, 255);
 					$data['control'] = $this->litmus->compare($data['control']['actual']['color'], $data['control']['submit']['color']);
 				}
 
@@ -66,9 +72,9 @@ class LitmusController extends BaseController{
 				if( Input::has('scale_id') ){
 					$scale_id	= Input::get('scale_id');
 					$scale		= Palette::find($scale_id)->colors()->get();
-					foreach($scale as $color){
-						$color_array = array('name'=>$color->name, 'red'=>$color->red, 'green'=>$color->green, 'blue'=>$color->blue);
-						$data['scale'][] = $this->litmus->compare($data['sample']['color'], $color_array);
+					foreach($scale as $c){
+						$clr = new Rgba($c->red, $c->green, $c->blue, 1, $c->name);
+						$data['scale'][] = $this->litmus->compare($data['sample']['color'], $clr);
 					}
 				}
 				

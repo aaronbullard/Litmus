@@ -1,6 +1,6 @@
 @section('uploadform')
 <div id="image-upload">
-	{{ Form::open(array('action' => 'MockupController@post_store')) }}
+	{{ Form::open(array('action' => 'MockupController@post_image', 'files' => true)) }}
 		{{ Form::label('sample', "Sample Image") }}
 		{{ Form::file('sample') }}
 		{{ Form::label('control', "Control Image") }}

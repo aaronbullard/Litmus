@@ -13,7 +13,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	{{ HTML::style('assets/lib/bootstrap/css/styles/flatly.min.css') }}
 	{{ HTML::style('assets/lib/bootstrap/css/bootstrap-responsive.min.css') }}
-	
 	<style>
 		table form { margin-bottom: 0; }
 		form ul { margin-left: 0; list-style: none; }
@@ -44,5 +43,6 @@
 
 
 @section('page_scripts')
+	{{ HTML::script('assets/lib/jquery-1.9.1/jquery-1.9.1.min.js') }}
 	{{ HTML::script('assets/lib/bootstrap/js/bootstrap.min.js') }}
 @stop

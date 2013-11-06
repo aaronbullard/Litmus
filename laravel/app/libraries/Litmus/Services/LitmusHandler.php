@@ -1,5 +1,6 @@
-<?php namespace Litmus\Handler;
+<?php namespace Litmus\Services;
 
+use Litmus\Entities\Rgba;
 
 class LitmusHandler{
 	
@@ -68,18 +69,21 @@ class LitmusHandler{
 					'blue'	=> round($b / $total),
 					//'alpha'	=> round($a / $total),
 				);
+
+		$rgb = new Rgba($avg['red'], $avg['green'], $avg['blue']);
 		
 		unset($r); unset($g); unset($b); unset($a);
 
-		return (array)$avg;
+		// return (array)$avg;
+		return $rgb;
 	}
 
 	
-	private static function var_vector(array $rgb1, array $rgb2){
+	private static function var_vector(Rgba $rgb1, Rgba $rgb2){
 		//get delta between pixels on r, g, b
-		$dr = $rgb2['red']	 - $rgb1['red'];
-		$dg = $rgb2['green'] - $rgb1['green'];
-		$db = $rgb2['blue']  - $rgb1['blue'];
+		$dr = $rgb2->red   - $rgb1->red;
+		$dg = $rgb2->green - $rgb1->green;
+		$db = $rgb2->blue  - $rgb1->blue;
 
 		$vector = array(
 			'red'	=> $dr,
@@ -100,7 +104,7 @@ class LitmusHandler{
 	}
 	
 	
-	public static function compare(array $rgb1, array $rgb2){
+	public static function compare(Rgba $rgb1, Rgba $rgb2){
 		
 		$data				= array();
 		
@@ -113,22 +117,39 @@ class LitmusHandler{
 	}
 	
 
-	private static function adjust_ambient(array $subject, array $control, array $control_actual){
+	private static function separate_control_color_elements(){}
 
-		$ambient = self::var_vector($control_actual, $control);
 
-		$normalized          = array();
-		$normalized['red']   = $subject['red'] - $ambient['red'];
-		$normalized['green'] = $subject['green'] - $ambient['green'];
-		$normalized['blue']  = $subject['blue'] - $ambient['blue'];
-
+	public static function adjust_ambient(Rgba $subject, array $control_captured, array $control_actual)
+	{
 		/**
 		 * It's very likely that straight subtraction will not work.  Need to look into
-		 * using a weighted percentage of the relatice magnitude of each vector.
+		 * using a weighted percentage of the relative magnitude of each vector.
+		 *
+		 * UPDATE: All colors should scale up or down on an extrapolation of [0,0,0] to [255,255,255]
 		 */
+		foreach(array('red', 'green', 'blue') as $axis)
+		{
+			$ambient = $control_actual[$axis] - $control_captured[$axis];
+			$sample->$axis += $ambient;
 
-		return $normalized;
+			// Not less than 0
+			if( $sample->$axis < 0 )
+			{
+				$sample->$axis = 0;
+			}
+			
+			// Not more than 255
+			if( $sample->$axis > 255 )
+			{
+				$sample->$axis = 255;
+			}
 
+			// Must be integer
+			$sample->$axis = round($sample->$axis);
+		}
+
+		return $sample;
 	}
 	
 }//end LitmusHandler.php

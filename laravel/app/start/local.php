@@ -1,5 +1,9 @@
 <?php
 
+use Litmus\Api\Litmus;
+use Litmus\Entities\Rgba;
+use Litmus\Services\LitmusHandler;
+
 /***************************************
 *
 * Register Dependency Injection
@@ -9,10 +13,8 @@
 App::bind('litmus', function($app){
 	$account 	= Config::get('mockup.litmus.account');
 	$token 		= Config::get('mockup.litmus.token');
- 	return new Litmus\Api\Litmus($account, $token);
+ 	return new Litmus($account, $token);
 });
-
-App::bind('LitmusInterface', 'litmus');
 
 App::bind('MockupController', function($app){
 	$view   = View::make('mockup.pages.home');
@@ -21,7 +23,7 @@ App::bind('MockupController', function($app){
 });
 
 App::bind('LitmusController', function($app){
-	return new LitmusController( App::make('litmus') );
+	return new LitmusController( new LitmusHandler, new Account );
 });
 
 

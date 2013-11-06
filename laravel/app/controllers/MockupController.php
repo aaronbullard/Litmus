@@ -2,6 +2,7 @@
 
 use Helpers\Util;
 use Litmus\Api\LitmusInterface;
+use Illuminate\View\View as ViewObject;
 
 class MockupController extends BaseController{
 	
@@ -14,18 +15,14 @@ class MockupController extends BaseController{
 	private $litmus;
 	
 
-	public function __construct(Illuminate\View\View $view, User $user, LitmusInterface $litmus) {
-
+	public function __construct(ViewObject $view, User $user, LitmusInterface $litmus)
+	{
 		$this->user 	= $user;
 		$this->litmus 	= $litmus;
 		$this->view 	= $view;
 		
-		// $this->upload_path = path('bundle').'mockup/upload';
-		// $this->image_url   = URL::to('mockup/image');
-		
-		// Define main assets
-		// Asset::container('styles')->add('style', 'bundles/litmus/assets/amelia/bootstrap.min.css');
-
+		$this->upload_path = app_path().'/uploads';
+		$this->image_url   = URL::to('colormatch/image');
 	}
 	
 	
@@ -35,18 +32,9 @@ class MockupController extends BaseController{
 		return $this->view;
 	}
 
-
-	public function get_image($name){
-
-		$filepath = $this->upload_path.'/'.$name;
-
-		//$mime = image_type_to_mime_type( exif_imagetype ( $filepath ) );
-		
-		return Response::download($filepath, $name);
-	}
 	
-	public function post_store(){
-
+	public function post_image()
+	{
 		$rules = array(
 			'sample' => 'required|image'
 		);
@@ -58,21 +46,21 @@ class MockupController extends BaseController{
 			return Redirect::back()->with_errors($validation)->with_input();
 		}
 
-		$url		= array();
+		$url = array();
 		//save files if exists
-		foreach( array('sample', 'control') as $image){
-			if( File::exists(Input::file($image.'.tmp_name')) ){
-
-				$name		= Input::file($image.'.name');
-				$ext		= strtolower( File::extension($name) );
-				$url[$image]= $this->upload_path.'/'.$image.".".$ext;
+		foreach( array('sample', 'control') as $image)
+		{		
+			// if( File::exists(Input::file($image.'.tmp_name')) ){
+			if( Input::hasFile($image) )
+			{
+				$name		= Input::file($image)->getClientOriginalName();
+				$ext		= strtolower( Input::file($image)->getClientOriginalExtension() );
 				$url[$image]= $this->image_url.'/'.$image.".".$ext;
-				
-				Input::upload($image, $this->upload_path, $image.".".$ext);
+
+				Input::file($image)->move($this->upload_path, $image.".".$ext);
 			}
 		}//end foreach
 
-		
 		//analyze images submitted
 		$litmus = $this->litmus;
 	
@@ -89,21 +77,75 @@ class MockupController extends BaseController{
 		//recursive function for outputting a heirarchial data tree
 		$string = "<ul>".Util::recursiveTree($response)."</ul>";
 
-		$data = array();
+		$data 				= array();
 		$data['title']		= "Image Analysis";
 		$data['lead']		= "Response from Litmus API";
-		$tabs				= array(array('Swatch', '#swatch', 'active'),
-									array('Code', '#code')
-									);
-		$data['tabs']		= View::make('mockup::partials.tabs')->with('tabs', $tabs)->render();
-		
+
 		$data['code']		= $string;
 		$data['response']	= $response;
 
-		Asset::container('scripts')->add('colorbox', 'bundles/mockup/assets/js/colorbox.js');
-		
-		return View::make('mockup::pages.result', $data);
-		
+		return View::make('mockup.pages.result', $data);
 	}
+
+
+	public function get_image($name){
+
+		$filepath = $this->upload_path.'/'.$name;
+
+		//$mime = image_type_to_mime_type( exif_imagetype ( $filepath ) );
+		
+		return Response::download($filepath, $name);
+	}
+
+
+	public function get_crop()
+	{
+
+	}
+
+
+	public function post_crop()
+	{
+		$rules = array(
+			'sample' => 'required|image'
+		);
+		
+		//Validate input		
+		$validation = Validator::make( Input::all(), $rules );
+
+		if( $validation->fails() ){
+			return Redirect::back()->with_errors($validation)->with_input();
+		}
+
+
+		if( Input::hasFile('sample') )
+		{
+			$data = array();
+
+			$data['title'] 		= 'Crop Image';
+			$data['lead']  		= 'Crop image for analysis.';
+			$data['image_url'] 	= Input::file('sample')->getRealPath();
+util::dump($data);exit;
+			return View::make('mockup.pages.crop', $data);
+		}
+/*
+		$url = array();
+		//save files if exists
+		foreach( array('sample', 'control') as $image)
+		{		
+			// if( File::exists(Input::file($image.'.tmp_name')) ){
+			if( Input::hasFile($image) )
+			{
+				$name		= Input::file($image)->getClientOriginalName();
+				$ext		= strtolower( Input::file($image)->getClientOriginalExtension() );
+				$url[$image]= $this->image_url.'/'.$image.".".$ext;
+
+				Input::file($image)->move($this->upload_path, $image.".".$ext);
+			}
+		}//end foreach
+//*/
+	}
+	
+
 	
 }

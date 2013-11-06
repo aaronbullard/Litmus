@@ -28,4 +28,4 @@ Route::resource('colors', 'ColorsController');
 //Mockup App
 Route::controller('colormatch', 'MockupController');
 
-Route::controller('api', 'LitmusController');
+Route::controller('litmus', 'LitmusController');

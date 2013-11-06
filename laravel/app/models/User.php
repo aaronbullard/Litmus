@@ -60,7 +60,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->hasMany('Palette');
 	}
 
-
+	public function validate_credentials($account, $token)
+	{
+		return TRUE;
+	}
 
 
 }

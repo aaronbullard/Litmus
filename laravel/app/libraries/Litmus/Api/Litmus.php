@@ -1,6 +1,7 @@
 <?php namespace Litmus\Api;
 
 // use \Laravel\URL as URL;
+use Helpers\Util;
 use Litmus\Api\LitmusInterface;
 
 class Litmus implements LitmusInterface{
@@ -13,17 +14,17 @@ class Litmus implements LitmusInterface{
 	
 	function __construct($account, $token){
 		
+		$this->account  = $account;
+		$this->token	= $token;
+
 		//Initialize urls
-		$this->init_urls('http://localhost:8888/litmus/laravel/public');
+		$this->url['analysis'] = 'http://localhost:8888/litmus/laravel/public/litmus/analysis';
 		
 		//Check if account and token were passed
 		if( !isset($account) || !isset($token) ){
 			throw new Exception("Class Litmus requires an account and token for initialization.");
 		}
 		
-		$this->account  = $account;
-		$this->token	= $token;
-
 	}// end Litmus::__construct()
 	
 	
@@ -63,7 +64,7 @@ class Litmus implements LitmusInterface{
 		
 		try{
 
-			$json		= file_get_contents($this->url['analyze'].'?'.$query);
+			$json		= file_get_contents($this->url['analysis'].'?'.$query);
 			$response	= json_decode($json);
 
 			if( ! $response ){
@@ -73,9 +74,9 @@ class Litmus implements LitmusInterface{
 		}catch( Exception $e ){
 			
 			$rest = (object) 'rest';
-			$rest->status = 'error';
-			$rest->data	  = NULL;
-			$rest->message = $e->getMessage();
+			$rest->status 	= 'error';
+			$rest->data	  	= NULL;
+			$rest->message 	= $e->getMessage();
 			
 			$response = $rest;
 		}
@@ -89,14 +90,14 @@ class Litmus implements LitmusInterface{
 	 * PRIVATE METHODS
 	 *****************/
 	
-	protected function init_urls($base_url){
+	// protected function init_urls($base_url){
 
-		$this->url = array(
-			'validate'	=> $base_url.'/api/validate',
-			'analyze'	=> $base_url.'/litmus/analysis',
-		);
+	// 	$this->url = array(
+	// 		'validate'	=> $base_url.'/api/validate',
+	// 		'analyze'	=> $base_url.'/litmus/analysis',
+	// 	);
 		
-	}// end Litmus::init_urls()
+	// }// end Litmus::init_urls()
 	
 	
 	protected function validate_account($account, $token){
