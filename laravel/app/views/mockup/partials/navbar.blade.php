@@ -24,8 +24,8 @@
 			<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="{{ URL::to('litmus/admin') }}">Litmus <b class="caret"></b></a>
 						<ul class="dropdown-menu" id="swatch-menu">
-							<li><a href="{{ URL::to('litmus/users') }}">Users</a></li>
-				<li><a href="{{ URL::to('litmus/palettes') }}">Palettes</a></li>
+							<li><a href="{{ URL::to('users') }}">Users</a></li>
+				<li><a href="{{ URL::to('palettes') }}">Palettes</a></li>
 							<li class="divider"></li>
 							<li><a href="{{ URL::to('litmus/form') }}">Form</a></li>
 						</ul>

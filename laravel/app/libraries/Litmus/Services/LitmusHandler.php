@@ -131,25 +131,25 @@ class LitmusHandler{
 		foreach(array('red', 'green', 'blue') as $axis)
 		{
 			$ambient = $control_actual[$axis] - $control_captured[$axis];
-			$sample->$axis += $ambient;
+			$subject->$axis += $ambient;
 
 			// Not less than 0
-			if( $sample->$axis < 0 )
+			if( $subject->$axis < 0 )
 			{
-				$sample->$axis = 0;
+				$subject->$axis = 0;
 			}
 			
 			// Not more than 255
-			if( $sample->$axis > 255 )
+			if( $subject->$axis > 255 )
 			{
-				$sample->$axis = 255;
+				$subject->$axis = 255;
 			}
 
 			// Must be integer
-			$sample->$axis = round($sample->$axis);
+			$subject->$axis = round($subject->$axis);
 		}
 
-		return $sample;
+		return $subject;
 	}
 	
 }//end LitmusHandler.php

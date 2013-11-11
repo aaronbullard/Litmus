@@ -2,6 +2,7 @@
 
 use Helpers\Util;
 use Litmus\Entities\Rgba;
+use Litmus\Entities\ColorAnalysis;
 use Litmus\Services\LitmusHandler;
 
 
@@ -12,12 +13,29 @@ class LitmusController extends BaseController{
 
 	protected $litmus;
 	protected $account;
+	protected $color;
 	protected $rgba;
 
-	public function __construct(LitmusHandler $litmus, AccountInterface $account){
+	protected $control_captured;
+	protected $control_actual;
+
+	public function __construct(LitmusHandler $litmus, AccountInterface $account, ColorAnalysis $color){
 		$this->litmus  	= $litmus;
 		$this->account 	= $account;
 		// $this->rgba 	= $rgba;
+
+		$this->control_captured = array(
+				'red'	=> 5,
+				'green'	=> 5,
+				'blue'	=> 201
+			);
+
+		$this->control_actual = array(
+				'red'	=> 10,
+				'green'	=> 10,
+				'blue'	=> 200
+			);
+
 	}
 	
 	
@@ -53,7 +71,6 @@ class LitmusController extends BaseController{
 				if( Input::has('sample') ){
 					$sample					= Input::get('sample');
 					$data['sample']['url']	= $sample;
-					//$data['sample']['color']= LitmusHandler::average_color($sample);
 					$data['sample']['color']= $this->litmus->average_color($sample);
 				}
 				
@@ -81,6 +98,13 @@ class LitmusController extends BaseController{
 				usort($data['scale'], function($a, $b){
 					return strcmp($a['magnitude'], $b['magnitude']);
 				});
+
+
+				$data['ambient']['color'] = $this->litmus->adjust_ambient(
+						$data['sample']['color'],
+						$this->control_captured,
+						$this->control_actual
+					);
 
 
 				//return result object

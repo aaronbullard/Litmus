@@ -98,54 +98,16 @@ class MockupController extends BaseController{
 	}
 
 
-	public function get_crop()
+	public function get_palettes($id)
 	{
+		$colors = Palette::find($id)->colors()->get();
 
-	}
-
-
-	public function post_crop()
-	{
-		$rules = array(
-			'sample' => 'required|image'
-		);
+		$this->view->title	= "Control Palette";
+		$this->view->lead	= "Colors used for control.";
+		$this->view->content = View::make('mockup.pages.swatches')->with('colors', $colors)->render();
 		
-		//Validate input		
-		$validation = Validator::make( Input::all(), $rules );
-
-		if( $validation->fails() ){
-			return Redirect::back()->with_errors($validation)->with_input();
-		}
-
-
-		if( Input::hasFile('sample') )
-		{
-			$data = array();
-
-			$data['title'] 		= 'Crop Image';
-			$data['lead']  		= 'Crop image for analysis.';
-			$data['image_url'] 	= Input::file('sample')->getRealPath();
-util::dump($data);exit;
-			return View::make('mockup.pages.crop', $data);
-		}
-/*
-		$url = array();
-		//save files if exists
-		foreach( array('sample', 'control') as $image)
-		{		
-			// if( File::exists(Input::file($image.'.tmp_name')) ){
-			if( Input::hasFile($image) )
-			{
-				$name		= Input::file($image)->getClientOriginalName();
-				$ext		= strtolower( Input::file($image)->getClientOriginalExtension() );
-				$url[$image]= $this->image_url.'/'.$image.".".$ext;
-
-				Input::file($image)->move($this->upload_path, $image.".".$ext);
-			}
-		}//end foreach
-//*/
+		return $this->view;
 	}
-	
 
 	
 }

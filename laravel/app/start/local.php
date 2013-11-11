@@ -2,6 +2,7 @@
 
 use Litmus\Api\Litmus;
 use Litmus\Entities\Rgba;
+use Litmus\Entities\ColorAnalysis;
 use Litmus\Services\LitmusHandler;
 
 /***************************************
@@ -23,7 +24,7 @@ App::bind('MockupController', function($app){
 });
 
 App::bind('LitmusController', function($app){
-	return new LitmusController( new LitmusHandler, new Account );
+	return new LitmusController( new LitmusHandler, new Account, new ColorAnalysis );
 });
 
 

@@ -18,7 +18,8 @@ class PalettesTableSeeder extends Seeder {
 				"INSERT INTO `palettes` (`id`, `title`, `description`, `user_id`, `created_at`, `updated_at`) VALUES
 				(1, 'Revlon''s Palette', 'Collection of colors used in foundation.', 1, '2013-08-15 00:53:24', '2013-08-15 00:53:24'),
 				(2, 'Colgates''s Palette', 'Collection of teeth colors used for teeth whitening programs.', 1, '2013-08-15 00:53:24', '2013-08-15 00:53:24'),
-				(3, 'Clairol''s Palette', 'Collection of colors used for hair dyeing.', 1, '2013-08-15 00:53:24', '2013-08-15 00:53:24');"
+				(3, 'Clairol''s Palette', 'Collection of colors used for hair dyeing.', 1, '2013-08-15 00:53:24', '2013-08-15 00:53:24'),
+				(4, 'Colormatch''s Control Palette', 'Collection of colors used for control management.', 1, '2013-08-15 00:53:24', '2013-08-15 00:53:24');"
 			);
 	}
 
