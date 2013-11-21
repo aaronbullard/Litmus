@@ -4,6 +4,9 @@
 use Helpers\Util;
 use Litmus\Api\LitmusInterface;
 
+// define LITMUS_URL
+require_once('config.php');
+
 class Litmus implements LitmusInterface{
 	
 	protected $account;
@@ -13,12 +16,12 @@ class Litmus implements LitmusInterface{
 	
 	
 	function __construct($account, $token){
-		
+
 		$this->account  = $account;
 		$this->token	= $token;
 
 		//Initialize urls
-		$this->url['analysis'] = 'http://localhost:8888/litmus/laravel/public/litmus/analysis';
+		$this->url['analysis'] = LITMUS_URL;
 		
 		//Check if account and token were passed
 		if( !isset($account) || !isset($token) ){
@@ -61,12 +64,12 @@ class Litmus implements LitmusInterface{
 		$array['token']		= $this->token;
 
 		$query = http_build_query($array);
-		
+// Util::dump($this->url['analysis'].'?'.$query);
 		try{
 
 			$json		= file_get_contents($this->url['analysis'].'?'.$query);
 			$response	= json_decode($json);
-
+// Util::dump($response);
 			if( ! $response ){
 				throw new Exception("There was a problem with the query.");
 			}

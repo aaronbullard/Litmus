@@ -19,6 +19,7 @@ class Account extends Eloquent implements AccountInterface{
 	public function validateCredentials($account, $token)
 	{
 		$count = $this->whereAccount($account)->whereToken($token)->count();
+
 		return $count > 0 ? TRUE : FALSE;
 	}
 }
