@@ -69,7 +69,7 @@ class MockupController extends BaseController{
 		if( Input::has('scale_id') ){ $litmus->set_scale_id( Input::get('scale_id') ); }
 
 		$response = $litmus->analyze();
-Util::dump($response);
+
 		if( $response->status == 'error' ){
 			echo $response->message;exit;
 		}
@@ -88,7 +88,8 @@ Util::dump($response);
 	}
 
 
-	public function get_image($name){
+	public function get_image($name)
+	{
 
 		$filepath = $this->upload_path.'/'.$name;
 

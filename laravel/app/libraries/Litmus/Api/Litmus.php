@@ -12,22 +12,15 @@ class Litmus implements LitmusInterface{
 	protected $account;
 	protected $token;
 	protected $data = array(); //array('sample'=>$image_url, 'control'=>$image_url, 'scaleID'=>$integer)
-	protected $url = array();
+	protected $urls = array();
 	
 	
 	function __construct($account, $token){
 
 		$this->account  = $account;
 		$this->token	= $token;
+		$this->urls['analysis'] = LITMUS_URL;
 
-		//Initialize urls
-		$this->url['analysis'] = LITMUS_URL;
-		
-		//Check if account and token were passed
-		if( !isset($account) || !isset($token) ){
-			throw new Exception("Class Litmus requires an account and token for initialization.");
-		}
-		
 	}// end Litmus::__construct()
 	
 	
@@ -64,12 +57,12 @@ class Litmus implements LitmusInterface{
 		$array['token']		= $this->token;
 
 		$query = http_build_query($array);
-// Util::dump($this->url['analysis'].'?'.$query);
+
 		try{
 
-			$json		= file_get_contents($this->url['analysis'].'?'.$query);
+			$json		= file_get_contents($this->urls['analysis'].'?'.$query);
 			$response	= json_decode($json);
-// Util::dump($response);
+
 			if( ! $response ){
 				throw new Exception("There was a problem with the query.");
 			}
@@ -90,28 +83,8 @@ class Litmus implements LitmusInterface{
 	
 	
 	/******************
-	 * PRIVATE METHODS
+	 * PROTECTED METHODS
 	 *****************/
-	
-	// protected function init_urls($base_url){
-
-	// 	$this->url = array(
-	// 		'validate'	=> $base_url.'/api/validate',
-	// 		'analyze'	=> $base_url.'/litmus/analysis',
-	// 	);
-		
-	// }// end Litmus::init_urls()
-	
-	
-	protected function validate_account($account, $token){
-		
-		$filename = $this->url['validate'].'/'.$account.'/'.$token;
-
-		$json = file_get_contents($filename);
-
-		return json_decode($json);		
-	}// end Litmus::validate_account()
-	
 	
 	protected function mass_data_assignment($data = array()){
 		
