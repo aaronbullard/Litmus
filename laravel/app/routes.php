@@ -11,11 +11,17 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
+
+//Mockup App
+Route::get('/', function(){
+	return Redirect::to('colormatch');
 });
 
+Route::controller('colormatch', 'MockupController');
+
+Route::controller('litmus', 'LitmusController');
+
+// Litmus
 Route::resource('users', 'UsersController');
 
 Route::resource('accounts', 'AccountsController');
@@ -25,7 +31,3 @@ Route::resource('palettes', 'PalettesController');
 Route::resource('colors', 'ColorsController');
 
 
-//Mockup App
-Route::controller('colormatch', 'MockupController');
-
-Route::controller('litmus', 'LitmusController');
