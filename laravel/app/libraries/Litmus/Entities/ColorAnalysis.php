@@ -1,38 +1,18 @@
 <?php namespace Litmus\Entities;
 
 
-class ColorAnalysis
+class ColorAnalysis extends MagicObject
 {
-	protected $data = array();
-	protected $keys = array('color', 'vector', 'magnitude', 'normalized');
+	protected $keys 		= array('image_url', 'color', 'vector', 'magnitude', 'normalized');
+	protected $type_casts 	= array('color' => 'Rgba');
 
-
-	function __set($key, $value)
+	function  __construct($image_url)
 	{
-		// If key is color, is it type Rgba?
-		if( !is_a($value, 'Rgba') )
-		{
-			trigger_error(get_class($this)."::".$key."() must be of type class Rgba", E_USER_ERROR);
-		}
-
-		// is the key in the array of keys?
-		if( in_array($key, $keys) )
-		{
-			trigger_error("Cannot set {$key} to ".get_class($this), E_USER_ERROR);	
-		}
-
-		$this->data[$key] = $value;
-		return $this;	
+		$this->image_url = $image_url;
 	}
 
-
-	function __get($key)
+	protected function getAverageColor()
 	{
-		if (array_key_exists($key, $this->data)) {
-            return $this->data[$key];
-        }
-
-		return NULL;
+		$litmus->average_color($sample);
 	}
-
 }

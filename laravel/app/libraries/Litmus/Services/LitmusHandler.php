@@ -133,17 +133,9 @@ class LitmusHandler{
 			$ambient = $control_actual[$axis] - $control_captured[$axis];
 			$subject->$axis += $ambient;
 
-			// Not less than 0
-			if( $subject->$axis < 0 )
-			{
-				$subject->$axis = 0;
-			}
-			
-			// Not more than 255
-			if( $subject->$axis > 255 )
-			{
-				$subject->$axis = 255;
-			}
+			// Must be between 0 and 255
+			$subject->$axis = max($subject->$axis, 0);
+			$subject->$axis = min($subject->$axis, 255);
 
 			// Must be integer
 			$subject->$axis = round($subject->$axis);

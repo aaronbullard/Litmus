@@ -59,8 +59,8 @@ class Litmus implements LitmusInterface{
 		$query = http_build_query($array);
 
 		try{
-
-			$json		= file_get_contents($this->urls['analysis'].'?'.$query);
+			$query_url  = $this->urls['analysis'].'?'.$query;
+			$json		= file_get_contents($query_url);
 			$response	= json_decode($json);
 
 			if( ! $response ){

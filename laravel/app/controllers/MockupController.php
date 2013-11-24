@@ -4,6 +4,8 @@ use Helpers\Util;
 use Litmus\Api\LitmusInterface;
 use Illuminate\View\View as ViewObject;
 
+use Litmus\Entities\Subject;
+
 class MockupController extends BaseController{
 	
 	
