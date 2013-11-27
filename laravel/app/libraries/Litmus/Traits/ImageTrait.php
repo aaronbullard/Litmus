@@ -1,10 +1,16 @@
 <?php namespace Litmus\Traits;
 
+use Litmus\Entities\Rgba;
+
+interface ImageTraitInterface extends ColorTraitInterface
+{
+	function loadImage($image_url);
+	function getUrl();
+}
+
 
 trait ImageTrait
 {
-	use ColorTrait;
-
 	protected $url;
 	protected $image;
 

@@ -3,12 +3,11 @@
 use Helpers\Util;
 
 use Litmus\Entities\Rgba;
-use Litmus\Entities\Subject;
-use Litmus\Entities\Control;
+use Litmus\Roles\Subject;
+use Litmus\Roles\Control;
+use Litmus\Roles\Swatch;
 
-use Litmus\Contexts\ComparisonCtx;
-
-use Litmus\Factories\CreateSwatchComparison;
+use Litmus\Contexts\SwatchCtx;
 
 use Litmus\Services\LitmusHandler;
 
@@ -41,6 +40,8 @@ class LitmusController extends BaseController{
 				'blue'	=> 200
 			);
 
+		$request = 'http://localhost:8888/litmus/laravel/public/litmus/analysis?sample=http%3A%2F%2Flocalhost%3A8888%2Flitmus%2Flaravel%2Fpublic%2Fcolormatch%2Fimage%2Fsample.jpg&scale_id=1&account=a8ccd1d9c62d4ceddf1939f6407cb3b7&token=973324ef8bb9ee932e33185e9e136a84';
+
 	}
 	
 	
@@ -72,47 +73,43 @@ class LitmusController extends BaseController{
 				//collect results
 				$data = array();
 
-				$sample;
-				$control;
-
 				//Get average color of sample
 				if( Input::has('sample') ){
-					$sample	= new Subject( Input::get('sample') );
+					$data['sample']	= new Subject( Input::get('sample') );
 				}
 
-				//Get analysis for control
-				if( Input::has('control') ){
-					$control = new Control( Input::get('control') );
-				}
-
-				// Use CreateSwatchComparison
-				$control = new CreateSwatchComparison( $control, $sample );
-
-return Util::dump($control, 0);
 				
 				//If scale set, get colors from scale
 				if( Input::has('scale_id') ){
+
 					$scale_id	= Input::get('scale_id');
 					$scale		= Palette::find($scale_id)->colors()->get();
+
 					foreach($scale as $c){
-						$clr 	= new Rgba($c->red, $c->green, $c->blue, 1, $c->name);
+						$clr 	= $c->getRgba();
 						$swatch = new Swatch;
-						$swatch->setColor($clr);
-						$swatch = new ComparisonCtx( $sample, $swatch );
+						$swatch->setColor($clr)
+								->compareTo($data['sample']->getColor());
+						$data['scale'][] = $swatch;
 					}
+					// unset($scale);
+					// unset($swatch);
 				}
-/*//				
+
+	return Util::dump($data,0);exit;
+				
+//*				
 				usort($data['scale'], function($a, $b){
 					return strcmp($a['magnitude'], $b['magnitude']);
 				});
 
-
+/*
 				$data['ambient']['color'] = $this->litmus->adjust_ambient(
 						$data['sample']['color'],
 						$this->control_captured,
 						$this->control_actual
 					);
-*/
+//*/
 
 				//return result object
 				$time			= date('M d, Y H:i:s');

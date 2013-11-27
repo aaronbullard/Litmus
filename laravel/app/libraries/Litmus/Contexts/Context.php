@@ -2,5 +2,5 @@
 
 abstract class Context
 {
-	function run();
+	abstract protected function run();
 }
