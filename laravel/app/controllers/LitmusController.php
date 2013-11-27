@@ -1,8 +1,15 @@
 <?php
 
 use Helpers\Util;
+
 use Litmus\Entities\Rgba;
-use Litmus\Entities\RemoteImage;
+use Litmus\Entities\Subject;
+use Litmus\Entities\Control;
+
+use Litmus\Contexts\ComparisonCtx;
+
+use Litmus\Factories\CreateSwatchComparison;
+
 use Litmus\Services\LitmusHandler;
 
 
@@ -65,46 +72,36 @@ class LitmusController extends BaseController{
 				//collect results
 				$data = array();
 
-/*				//Get average color of sample
-				if( Input::has('sample') ){
-					$sample					= Input::get('sample');
-					$data['sample']['url']	= $sample;
-					$data['sample']['color']= $this->litmus->average_color($sample);
-
-// Util::dump($data['sample'], 0);
-				}
-//*/				
+				$sample;
+				$control;
 
 				//Get average color of sample
 				if( Input::has('sample') ){
-					$sample	= new RemoteImage( Input::get('sample') );
-					$data['sample']['url']	= $sample->getUrl();
-					$data['sample']['color']= $sample->getRgba();
+					$sample	= new Subject( Input::get('sample') );
 				}
 
 				//Get analysis for control
 				if( Input::has('control') ){
-					$control							= new RemoteImage( Input::get('control') );
-					$data['control']['url']				= $control->getUrl();
-					$data['control']['submit']['color']	= $control->getRgba();
-					$data['control']['actual']['color']	= new Rgba(0, 0, 255);
-					$data['control'] = $this->litmus->compare($data['control']['actual']['color'], $data['control']['submit']['color']);
+					$control = new Control( Input::get('control') );
 				}
 
-				// Use ComparisonCtx
-				
+				// Use CreateSwatchComparison
+				$control = new CreateSwatchComparison( $control, $sample );
 
+return Util::dump($control, 0);
 				
 				//If scale set, get colors from scale
 				if( Input::has('scale_id') ){
 					$scale_id	= Input::get('scale_id');
 					$scale		= Palette::find($scale_id)->colors()->get();
 					foreach($scale as $c){
-						$clr = new Rgba($c->red, $c->green, $c->blue, 1, $c->name);
-						$data['scale'][] = $this->litmus->compare($data['sample']['color'], $clr);
+						$clr 	= new Rgba($c->red, $c->green, $c->blue, 1, $c->name);
+						$swatch = new Swatch;
+						$swatch->setColor($clr);
+						$swatch = new ComparisonCtx( $sample, $swatch );
 					}
 				}
-				
+/*//				
 				usort($data['scale'], function($a, $b){
 					return strcmp($a['magnitude'], $b['magnitude']);
 				});
@@ -115,7 +112,7 @@ class LitmusController extends BaseController{
 						$this->control_captured,
 						$this->control_actual
 					);
-
+*/
 
 				//return result object
 				$time			= date('M d, Y H:i:s');

@@ -6,7 +6,7 @@ use Litmus\Entities\RemoteImage;
 use Litmus\Services\LitmusHandler;
 
 
-class LitmusController extends BaseController{
+class LitmusController2 extends BaseController{
 	
 
 	public $restful = true;

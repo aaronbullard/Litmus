@@ -1,5 +1,8 @@
 <?php namespace Litmus\Roles;
 
+use Litmus\Entities\Rgba;
+use Litmus\Entities\Vector;
+
 interface SwatchRole
 {
 	// ColorTraits
