@@ -1,15 +1,9 @@
 <?php
 
 use Helpers\Util;
-
 use Litmus\Entities\Rgba;
 use Litmus\Entities\RemoteImage;
-use Litmus\Roles\Swatch;
-
 use Litmus\Contexts\CreateVarianceCtx;
-
-use Litmus\Services\LitmusHandler;
-
 
 class LitmusController extends BaseController{
 	

@@ -25,14 +25,14 @@ class Litmus implements LitmusInterface{
 	}// end Litmus::__construct()
 	
 	
-	public function set_scale_id($scale_id){
-		$this->data['scale_id'] = $scale_id;
+	public function set_palette_id($scale_id){
+		$this->data['palette_id'] = $scale_id;
 		return $this;
 	}// end Litmus::set_scale_id
 	
 	
-	public function set_sample_url($sample_url){
-		$this->data['sample'] = $sample_url;
+	public function set_subject_url($subject_url){
+		$this->data['subject'] = $ubject_url;
 		return $this;
 	}// end Litmus::set_sample_url
 	
@@ -43,14 +43,14 @@ class Litmus implements LitmusInterface{
 	}// end Litmus::set_control_url
 
 
-	public function analyze($data = array()){
+	public function get($data = array()){
 		
 		//handle mass data assignment
 		$this->mass_data_assignment($data);
 		
 		//Check if sample image url has been set
-		if( !isset($this->data['sample']) ){
-			throw new Exception('The sample image url has not been set.');
+		if( !isset($this->data['subject']) ){
+			throw new Exception('The subject image url has not been set.');
 		}
 
 		$array				= $this->data;
@@ -91,7 +91,7 @@ class Litmus implements LitmusInterface{
 		
 		if( !empty($data) ){
 			//set sample
-			if( isset($data['sample']) ){
+			if( isset($data['subject']) ){
 				$this->set_sample_url($data['sample']);
 			}
 			//set control
@@ -99,8 +99,8 @@ class Litmus implements LitmusInterface{
 				$this->set_control_url($data['control']);
 			}
 			//set scaleID
-			if( isset($data['scaleID']) ){
-				$this->set_scaleID($data['scaleID']);
+			if( isset($data['palette_id']) ){
+				$this->set_palette_id($data['palette_id']);
 			}
 		}
 		
