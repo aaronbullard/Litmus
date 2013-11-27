@@ -2,7 +2,6 @@
 
 class Rgba
 {
-	
 	public $red;
 	public $green;
 	public $blue;
@@ -18,5 +17,14 @@ class Rgba
 		$this->name 	= $name;
 	}
 
-	
+	public function toArray()
+	{
+		return array(
+				'red' 	=> $this->red,
+				'green'	=> $this->green,
+				'blue'	=> $this->blue,
+				'alpha'	=> $this->alpha,
+				'name'	=> $this->name
+			);
+	}
 }

@@ -15,5 +15,13 @@ class Vector
 		$this->alpha 	= $alpha;
 	}
 
-	
+	public function toArray()
+	{
+		return array(
+				'red' 	=> $this->red,
+				'green'	=> $this->green,
+				'blue'	=> $this->blue,
+				'alpha'	=> $this->alpha,
+			);
+	}
 }

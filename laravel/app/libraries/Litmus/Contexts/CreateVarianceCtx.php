@@ -1,46 +1,54 @@
 <?php namespace Litmus\Contexts;
 
+use Litmus\Entities\Rgba;
 use Litmus\Entities\Vector;
+use Litmus\Entities\Variance;
 
-/**
- * Class to compare two colors
- */
-class ComparisonCtx extends Context
+class CreateVarianceCtx extends Context
 {
 	const MAX_COLOR_DIFFERENCE			= 441.67295593; //sqrt( pow(255,2) + pow(255,2) + pow(255,2) );
 	const MAX_COLOR_DIFFERENCE_ALPHA	= 510; //sqrt( pow(255,2) + pow(255,2) + pow(255,2) + pow(255,2));
 
 	// Roles
-	protected $subject;
-	protected $swatch;
+	protected $thisSwatch;
+	protected $compared_to;
+	protected $variance;
 
 	// Context information
 	protected $data = array();
 
-
-	function __construct(SubjectRole $subject, SwatchRole $other)
+	private function __construct(Rgba $thisSwatch, Rgba $compared_to)
 	{
-		$this->subject = $subject;
-		$this->swatch  = $other;
+		$this->thisSwatch 	= $thisSwatch;
+		$this->compared_to  = $compared_to;
+		$this->variance 	= new Variance();
 
-		$this->run();
-
-		return $swatch;
+		return $this;
 	}
 
 
-	private function run()
+	public static function create(Rgba $thisSwatch, Rgba $compared_to)
+	{
+		return new CreateVarianceCtx( $thisSwatch, $compared_to);
+	}
+
+	public function execute()
 	{
 		// set vector for swatch
-		$vector = self::var_vector($this->subject->getColor(), $this->swatch->getColor());
+		$vector = self::var_vector($this->compared_to, $this->thisSwatch);
 		$mag 	= self::var_magnitude($vector);
 		$norm 	= self::var_normalized($mag);
 
-		$this->swatch->setVector($vector)
+		return $this->variance
+					->setVector($vector)
 					->setMagnitude($mag)
 					->setNormalized($norm);
 	}
 
+
+	/**
+	 * PRIVATE METHODS
+	 */
 
 	private static function var_vector(Rgba $rgb1, Rgba $rgb2){
 		//get delta between pixels on r, g, b
@@ -60,5 +68,4 @@ class ComparisonCtx extends Context
 	{
 		return $magnitude / self::MAX_COLOR_DIFFERENCE;
 	}
-	
 }

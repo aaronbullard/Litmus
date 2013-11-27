@@ -24,7 +24,7 @@ App::bind('MockupController', function($app){
 });
 
 App::bind('LitmusController', function($app){
-	return new LitmusController( new LitmusHandler, new Account);
+	return new LitmusController( new Account );
 });
 
 
