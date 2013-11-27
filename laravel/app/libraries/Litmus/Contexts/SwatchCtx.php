@@ -1,6 +1,11 @@
-<?php namespace Litms\Factories;
+<?php namespace Litmus\Contexts;
 
-class CreateSwatchComparison
+use Litmus\Entities\Rgba;
+use Litmus\Entities\Vector;
+use Litmus\Traits\ColorTraitInterface;
+use Litmus\Traits\VarianceTraitInterface;
+
+class SwatchCtx extends Context
 {
 	const MAX_COLOR_DIFFERENCE			= 441.67295593; //sqrt( pow(255,2) + pow(255,2) + pow(255,2) );
 	const MAX_COLOR_DIFFERENCE_ALPHA	= 510; //sqrt( pow(255,2) + pow(255,2) + pow(255,2) + pow(255,2));
@@ -13,25 +18,32 @@ class CreateSwatchComparison
 	protected $data = array();
 
 
-	function __construct(SwatchRole $thisSwatch, SwatchRole $compared_to)
+	protected function __construct(VarianceTraitInterface $thisSwatch, ColorTraitInterface $compared_to)
 	{
 		$this->thisSwatch 	= $thisSwatch;
 		$this->compared_to  = $compared_to;
 
 		$this->run();
+	}
 
+	public static function compare(VarianceTraitInterface $thisSwatch, ColorTraitInterface $compared_to)
+	{
+		return new SwatchCtx( $thisSwatch, $compared_to);
+	}
+
+	public function get()
+	{
 		return $this->thisSwatch;
 	}
 
-
-	private function run()
+	protected function run()
 	{
 		// set vector for swatch
-		$vector = self::var_vector($this->thisSwatch->getColor(), $this->compared_to->getColor());
+		$vector = self::var_vector($this->compared_to->getColor(), $this->thisSwatch->getColor());
 		$mag 	= self::var_magnitude($vector);
 		$norm 	= self::var_normalized($mag);
 
-		$this->compared_to->setVector($vector)
+		$this->thisSwatch->setVector($vector)
 					->setMagnitude($mag)
 					->setNormalized($norm);
 	}

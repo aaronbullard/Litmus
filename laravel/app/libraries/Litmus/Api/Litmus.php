@@ -1,6 +1,7 @@
 <?php namespace Litmus\Api;
 
 // use \Laravel\URL as URL;
+use Exception;
 use Helpers\Util;
 use Litmus\Api\LitmusInterface;
 
@@ -60,11 +61,11 @@ class Litmus implements LitmusInterface{
 
 		try{
 			$query_url  = $this->urls['analysis'].'?'.$query;
-			$json		= file_get_contents($query_url);
+			@$json		= file_get_contents($query_url);
 			$response	= json_decode($json);
 
 			if( ! $response ){
-				throw new Exception("There was a problem with the query.");
+				throw new Exception("There was a problem with the query:<br /> ".$query_url);
 			}
 	
 		}catch( Exception $e ){

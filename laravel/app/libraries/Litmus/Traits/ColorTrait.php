@@ -2,6 +2,15 @@
 
 use Litmus\Entities\Rgba;
 
+
+interface ColorTraitInterface
+{
+	function setColor(Rgba $color);
+	function getColor();
+}
+
+
+
 /**
  	color => 
 		red => 100

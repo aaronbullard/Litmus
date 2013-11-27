@@ -3,6 +3,17 @@
 use Litmus\Entities\Rgba;
 use Litmus\Entities\Vector;
 
+interface VarianceTraitInterface
+{
+	function setVector(Vector $vector);
+	function setNormalized($float);
+	function setMagnitude($percent);
+	function getVector();
+	function getNormalized();
+	function getMagnitude();
+}
+
+
 /**
  	color => 
 		red => 100
@@ -40,7 +51,6 @@ trait VarianceTrait
 		$this->magnitude = $percent;
 		return $this;
 	}
-
 
 	function getVector()
 	{
