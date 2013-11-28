@@ -1,4 +1,5 @@
-@extends('layouts.master')
+@extends('mobile.pages.index')
+<!-- extends('layouts.master') -->
 <?php /*
 <!doctype html>
 <html>

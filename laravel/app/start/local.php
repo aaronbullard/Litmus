@@ -17,10 +17,10 @@ App::bind('litmus', function($app){
  	return new Litmus($account, $token);
 });
 
-App::bind('MockupController', function($app){
-	$view   = View::make('mockup.pages.home');
+App::bind('MockupMobileController', function($app){
+	$view   = View::make('mobile.pages.index');
 	$litmus = App::make('litmus');
-	return new MockupController($view, new User, $litmus);
+	return new MockupMobileController($view, new User, $litmus);
 });
 
 App::bind('LitmusController', function($app){
