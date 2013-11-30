@@ -65,5 +65,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return TRUE;
 	}
 
+	public function getFullName()
+	{
+		return $this->firstname.' '.$this->lastname;
+	}
+
 
 }

@@ -36,4 +36,5 @@
 @section('page_scripts')
 	{{ HTML::script('assets/lib/jquery-1.9.1/jquery-1.9.1.min.js') }}
 	<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+	{{ HTML::script('assets/js/Litmus.js') }}
 @stop

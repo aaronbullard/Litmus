@@ -35,10 +35,13 @@ class MockupMobileController extends BaseController{
 	
 	public function post_image()
 	{
+dd(Input::has());
+$this->view->content = '';
+return $this->view;
 		$rules = array(
 			'subject' => 'required|image'
 		);
-		
+
 		//Validate input		
 		$validation = Validator::make( Input::all(), $rules );
 
@@ -64,7 +67,7 @@ class MockupMobileController extends BaseController{
 		//analyze images submitted
 		$litmus = $this->litmus;
 	
-		if( isset($url['sample']) ){ $litmus->set_subject_url( $url['subject'] ); }
+		if( isset($url['subject']) ){ $litmus->set_subject_url( $url['subject'] ); }
 		if( Input::has('palette_id') ){ $litmus->set_palette_id( Input::get('palette_id') ); }
 
 		$response = $litmus->get();

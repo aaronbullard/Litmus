@@ -10,7 +10,7 @@
 		<li data-icon="check"><a href="{{ URL::action('MockupMobileController@get_index') }}">File Upload</a></li>
 		<li data-icon="grid"><a href="{{ URL::action('MockupMobileController@get_palettes', 4) }}">Palette #4</a></li>
 		<li data-icon="grid"><a href="{{ URL::to('palettes') }}" data-prefetch="true">Palettes</a></li>
-		<li data-icon="back"><a href="#demo-intro" data-rel="back">Demo intro</a></li>
+		<li data-icon="grid"><a href="{{ URL::to('users') }}">Users</a></li>
 		<li data-icon="back"><a href="#demo-intro" data-rel="back">Demo intro</a></li>
 	</ul>
 </div><!-- /panel -->

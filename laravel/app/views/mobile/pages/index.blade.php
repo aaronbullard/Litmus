@@ -15,16 +15,3 @@
 	@endif
 </div><!-- /content -->	
 @stop
-
-
-@section('page_scripts')
-	@parent
-	<script>
-		$('body').on('pagecreate', function(){
-			$('table').attr('data-role', 'table')
-					// .attr('data-mode', 'reflow')
-					.addClass('table-stroke')
-					.addClass('ui-responsive');	
-		});
-	</script>
-@endsection

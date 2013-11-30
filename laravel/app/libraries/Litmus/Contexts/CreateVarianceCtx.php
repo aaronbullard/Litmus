@@ -4,6 +4,9 @@ use Litmus\Entities\Rgba;
 use Litmus\Entities\Vector;
 use Litmus\Entities\Variance;
 
+/**
+ * Compares an Rgba object to another and returns the Vector object
+ */
 class CreateVarianceCtx extends Context
 {
 	const MAX_COLOR_DIFFERENCE			= 441.67295593; //sqrt( pow(255,2) + pow(255,2) + pow(255,2) );

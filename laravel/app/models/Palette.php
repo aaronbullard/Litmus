@@ -13,8 +13,8 @@ class Palette extends Eloquent {
 		return $this->hasMany('Color');
 	}
 
-	
 	public function user(){
 		return $this->belongsTo('User');
 	}
+
 }

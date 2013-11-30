@@ -4,7 +4,14 @@
 @section('page.header')
 <div data-role="header">
 	@yield('left-panel.link')
-	<h1>My header template</h1>
+	<h1>ColorMatch Mobile</h1>
 	@yield('right-panel.link')
 </div><!-- /header -->
+@stop
+
+
+@section('page_styles')
+<style>
+	h1, div[data-role="header"]{ cursor:pointer; }
+</style>
 @stop
