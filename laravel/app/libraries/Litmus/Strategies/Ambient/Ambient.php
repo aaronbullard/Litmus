@@ -2,7 +2,7 @@
 
 use Litmus\Entities\Rgba;
 
-abstract class Ambient
+abstract class Ambient implements AmbientInterface
 {
 	protected $subject;
 	protected $rgbas 		= array();

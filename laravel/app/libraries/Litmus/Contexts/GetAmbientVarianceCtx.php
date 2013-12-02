@@ -7,23 +7,24 @@ use Litmus\Strategies\Ambient;
 
 class GetAmbientVarianceCtx extends Context
 {
+	protected $subject;
 	protected $controls;
 	protected $actuals;
 	protected $algorithm;
-	protected $variances = array();
-	protected $rgbas = array();
+	protected $variances 	= array();
+	protected $rgbas 		= array();
 
-	protected function __construct(Rgba $subject, Palette $controls, Palette $actuals, Ambient $algorithm)
+	protected function __construct(Rgba $subject, Palette $controls, Palette $actuals, AmbientInterface $algorithm)
 	{
-		$this->subject;
-		$this->controls;
-		$this->actuals;
-		$this->algorithm;
+		$this->subject 	= $subject;
+		$this->controls = $controls;
+		$this->actuals 	= $actuals;
+		$this->algorithm = $alroithm;
 
 		$this->createVariances($this->controls, $this->actuals);
 	}
 
-	public static function create(Rgba $subject, Palette $controls, Palette $actuals, Ambient $algorithm)
+	public static function create(Rgba $subject, Palette $controls, Palette $actuals, AmbientInterface $algorithm)
 	{
 		return new GetAmbientVarianceCtx($subject, $controls, $actuals, $algorithm);
 	}
@@ -36,7 +37,7 @@ class GetAmbientVarianceCtx extends Context
 		// Does each palette contain the same number of colors
 		if( count($colors_1) !== count($colors_2) )
 		{
-			trigger_error(__CLASS__." requires both Palette objects to contain the same number of colors", E_USER_WARNING)
+			trigger_error(__CLASS__." requires both Palette objects to contain the same number of colors", E_USER_WARNING);
 		}
 
 		// Loop through palettes and compare each colors based on a matching index
@@ -49,6 +50,11 @@ class GetAmbientVarianceCtx extends Context
 		return $this;
 	}
 
+	/**
+	 * Returns the Ambient object.  Provides methods for getAmbientVariance() and getAmbientSubject().
+	 * 
+	 * @return Ambient Returns object with adjusted ambient variance for the subject Rgba.
+	 */
 	public function execute()
 	{
 		return $this->algorithm->create($this->subject, $this->rgbas, $this->variances);

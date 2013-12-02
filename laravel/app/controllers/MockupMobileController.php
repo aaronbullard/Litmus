@@ -35,9 +35,9 @@ class MockupMobileController extends BaseController{
 	
 	public function post_image()
 	{
-dd(Input::has());
-$this->view->content = '';
-return $this->view;
+// dd(Input::has());
+// $this->view->content = '';
+// return $this->view;
 		$rules = array(
 			'subject' => 'required|image'
 		);
@@ -109,5 +109,11 @@ return $this->view;
 		return $this->view;
 	}
 
+	public function get_test()
+	{
+		$test = new \Litmus\Tests\LitmusTest();
+
+		return Util::dump( $test->fire() );
+	}
 	
 }

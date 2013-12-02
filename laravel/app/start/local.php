@@ -27,6 +27,7 @@ App::bind('LitmusController', function($app){
 	return new LitmusController( new Account );
 });
 
+App::bind('Litmus\Strategies\Ambient\AmbientInterface', 'Litmus\Strategies\Ambient\Interpolate');
 
 /***************************************
 *
