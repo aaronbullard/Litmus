@@ -38,9 +38,9 @@ class VectorHelper
 						(pow($one->blue, 2))
 					);
 
-		$vR->red = $one->red / $fMag;
-		$vR->green = $one->green / $fMag;
-		$vR->blue = $one->blue / $fMag;
+		$vR->red 	= $one->red / $fMag;
+		$vR->green 	= $one->green / $fMag;
+		$vR->blue 	= $one->blue / $fMag;
 
 		return $vR;
 	}

@@ -14,6 +14,18 @@ class LitmusTest
 			'green', 'greenscreen',
 			'blue', 'bluescreen'
 		);
+	protected $image_controls = array(
+			'white' => 'whitescreen',
+			'red' => 'redscreen',
+			'green' => 'greenscreen',
+			'blue' => 'bluescreen'
+		);
+	protected $image_actuals = array(
+			'white' => 'white',
+			'red' => 'red',
+			'green' => 'green',
+			'blue' => 'blue'
+		);
 
 	function __construct()
 	{
@@ -21,16 +33,26 @@ class LitmusTest
 		$this->image_url 	= URL::to('colormatch/image');
 	}
 
-	function fire()
+	protected function getRgbas($names)
 	{
-		$rgba = array();
+		$rgbas = array();
 		
-		foreach( $this->image_names as $name )
+		foreach( $names as $name )
 		{
 			$url = $this->image_url.'/'.$name.'.jpg';
-			$rgba[$name] = RemoteImage::create($url);
+			$rgbas[$name] = RemoteImage::create($url);
 		}
 
-		return $rgba;
+		return $rgbas;
+	}
+
+	function getControls()
+	{
+		return $this->getRgbas($this->image_controls);
+	}
+
+	function getActuals()
+	{
+		return $this->getRgbas($this->image_actuals);
 	}
 }

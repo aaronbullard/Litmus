@@ -113,7 +113,23 @@ class MockupMobileController extends BaseController{
 	{
 		$test = new \Litmus\Tests\LitmusTest();
 
-		return Util::dump( $test->fire() );
+		// Controls
+		$remoteImages = $test->getControls();
+		$controls = array();
+		foreach($remoteImages as $remote)
+		{
+			$controls[] = $remote->getRgba();
+		}
+
+		// Actuals
+		$remoteImages = $test->getActuals();
+		$actuals = array();
+		foreach($remoteImages as $remote)
+		{
+			$actuals[] = $remote->getRgba();
+		}
+
+		return View::make('mobile.pages.test')->with('controls', $controls)->with('actuals', $actuals);
 	}
 	
 }

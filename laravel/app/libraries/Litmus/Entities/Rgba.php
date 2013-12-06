@@ -1,6 +1,6 @@
 <?php namespace Litmus\Entities;
 
-class Rgba
+class Rgba extends Vector
 {
 	public $red;
 	public $green;
