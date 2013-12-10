@@ -7,11 +7,13 @@
 	<ul data-role="listview" data-theme="d">
 		<li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
 		<li data-role="list-divider">Menu</li>
-		<li data-icon="check"><a href="{{ URL::action('MockupMobileController@get_index') }}">File Upload</a></li>
-		<li data-icon="grid"><a href="{{ URL::action('MockupMobileController@get_palettes', 4) }}">Palette #4</a></li>
+		<li data-icon="check"><a href="#splash">Splash Screen</a></li>
+		<li data-icon="check"><a href="#paletteId">File Upload</a></li>
+<!-- 		<li data-icon="grid"><a href="{{ URL::action('MockupMobileController@get_palettes', 4) }}">Palette #4</a></li>
 		<li data-icon="grid"><a href="{{ URL::to('palettes') }}" data-prefetch="true">Palettes</a></li>
 		<li data-icon="grid"><a href="{{ URL::to('users') }}">Users</a></li>
+		<li data-icon="grid"><a data-external="true" data-ajax="false" href="{{ URL::action('MockupMobileController@get_test') }}">Test</a></li>
 		<li data-icon="back"><a href="#demo-intro" data-rel="back">Demo intro</a></li>
-	</ul>
+ -->	</ul>
 </div><!-- /panel -->
 @stop

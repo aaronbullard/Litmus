@@ -11,6 +11,7 @@
 
 
 @section('page_styles')
+@parent
 <style>
 	h1, div[data-role="header"]{ cursor:pointer; }
 </style>

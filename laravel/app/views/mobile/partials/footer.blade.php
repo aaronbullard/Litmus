@@ -1,5 +1,5 @@
 @section('page.footer')
-<div data-role="footer">
-	<h1>My footer template</h1>
-</div><!-- /footer -->
+<div style="text-align:center;">
+	<h5>Powered by Litmus API<sup>TM</sup></h5>
+</div>
 @stop

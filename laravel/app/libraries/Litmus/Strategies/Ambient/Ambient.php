@@ -17,6 +17,10 @@ abstract class Ambient implements AmbientInterface
 		$this->rgbas 		= $rgbas;
 		$this->variances 	= $variances;
 		$this->apply();
+		if( ! $this->isValid() )
+		{
+			trigger_error("All child classes must provide an Ambient::apply() method!", E_USER_ERROR);
+		}
 	}
 
 	final public function create(Rgba $subject, array $rgbas, array $variances)
@@ -28,6 +32,22 @@ abstract class Ambient implements AmbientInterface
 	abstract protected function apply()
 	{
 		trigger_error("All child classes must provide an Ambient::apply() method!", E_USER_ERROR);
+	}
+
+	protected isValid()
+	{
+		// Are colors NOT integers OR less than 0 OR greater than 255
+		$var = $this->ambient_variance;
+
+		foreach(['red', 'green', 'blue'] as $clr)
+		{
+			if( ! is_int($var->$clr) || $var->$clr < 0 || 255 < $var->$clr)
+			{
+				return FALSE;
+			}
+		}
+		
+		return TRUE;
 	}
 
 	final public function getAmbientSubject()

@@ -2,14 +2,15 @@
 
 @section('main')
 	@foreach(['r', 'g', 'b'] as $clr)
-		<div id="chart-{{ $clr }}" style="width: 450px; height: 250px;"></div>
+		<div id="chart-{{ $clr }}" style="width: 450px; height: 250px;" data-enhance="false"></div>
 	@endforeach
 @stop
 
 @section('page_scripts')
 @parent
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-	<script type="text/javascript">
+<script type="text/javascript">
+// $(document).on('mobileinit', function(e){
 	google.load("visualization", "1", {packages:["corechart"]});
 	google.setOnLoadCallback(drawChart);
 	function drawChart(){
@@ -62,5 +63,6 @@
 		options.title = 'Variance';
 		chartDiff.draw(diffData, options);
 	}
-	</script>
+// });
+</script>
 @stop

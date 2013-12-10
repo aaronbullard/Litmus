@@ -17,6 +17,8 @@ Route::get('/', function(){
 	return Redirect::to('colormatch');
 });
 
+Route::post('colormatch/login', array('as' => 'login', 'uses' => 'MockupMobileController@post_login'));
+
 Route::controller('colormatch', 'MockupMobileController');
 
 Route::controller('litmus', 'LitmusController');

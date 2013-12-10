@@ -25,19 +25,19 @@ class MockupMobileController extends BaseController{
 		$this->image_url   = URL::to('colormatch/image');
 	}
 	
-	
+
 	public function get_index()
 	{
-		$this->view->content = View::make('mobile.partials.uploadform')->render();
 		return $this->view;
 	}
 
-	
-	public function post_image()
+
+	public function post_upload()
 	{
-// dd(Input::has());
-// $this->view->content = '';
-// return $this->view;
+		$path = Input::hasFile('subject');
+		return Response::json( $path ? "true" : "false" );
+		// return View::make('mobile.pages.index')->nest('main', $path )->with('id', 'results');
+
 		$rules = array(
 			'subject' => 'required|image'
 		);
@@ -104,9 +104,7 @@ class MockupMobileController extends BaseController{
 	public function get_palettes($id)
 	{
 		$colors = Palette::find($id)->colors()->get();
-		$this->view->content = View::make('mockup.pages.swatches')->with('colors', $colors)->render();
-		
-		return $this->view;
+		return $this->view->nest('main', 'mockup.pages.swatches', compact('colors'));
 	}
 
 	public function get_test()
@@ -130,6 +128,24 @@ class MockupMobileController extends BaseController{
 		}
 
 		return View::make('mobile.pages.test')->with('controls', $controls)->with('actuals', $actuals);
+	}
+
+	public function get_test2()
+	{
+
+		$img 		= Litmus\Entities\RemoteImage::create(URL::to('colormatch/image/sample.jpg'));
+		$controls 	= $actuals = array( $img->getRgba() );
+		return View::make('mobile.pages.test')->with('controls', $controls)->with('actuals', $actuals);
+	}
+
+	public function get_signup()
+	{
+		return View::make('users.create');
+	}
+
+	public function post_signup()
+	{
+		return View::make('users.create');
 	}
 	
 }
