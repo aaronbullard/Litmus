@@ -1,0 +1,10 @@
+<?php namespace Litmus\Strategies\Ambient;
+
+use Litmus\Entities\Rgba;
+
+interface AmbientInterface
+{
+	function create(Rgba $subject, array $rgbas, array $variances);
+	function getAmbientSubject();
+	function getAmbientVariance();
+}

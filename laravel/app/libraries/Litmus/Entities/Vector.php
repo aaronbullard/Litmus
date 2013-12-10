@@ -1,5 +1,7 @@
 <?php namespace Litmus\Entities;
 
+use Ambient\Helpers\VectorHelper;
+
 class Vector
 {
 	public $red;
@@ -13,6 +15,11 @@ class Vector
 		$this->green 	= $green;
 		$this->blue 	= $blue;
 		$this->alpha 	= $alpha;
+	}
+
+	public function getNormalVector()
+	{
+		return VectorHelper::normalize($this);
 	}
 
 	public function toArray()

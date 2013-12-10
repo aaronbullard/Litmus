@@ -22,7 +22,7 @@ class PalettesController extends BaseController {
 	public function index()
 	{
 		$palettes = $this->palette->all();
-
+		
 		return View::make('palettes.index', compact('palettes'));
 	}
 

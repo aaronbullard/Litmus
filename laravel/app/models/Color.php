@@ -32,23 +32,43 @@ class Color extends Eloquent {
 		return $this->belongsTo('User');
 	}
 
+
 	public function toArray()
 	{
-		$array 				= parent::toArray();
-        $array['variance']	= $this->variance->toArray();
-        return $array;
+		$array 	= parent::toArray();
+
+		if( isset($this->variance) )
+		{
+			$array['variance']	= $this->variance->toArray();	
+		}
+		
+		return $array;
 	}
+
 
 	public static function createRgba(Rgba $rgba)
 	{
 		return new Color($rgba->toArray());
 	}
 
+
 	public function getRgba()
 	{
 		return new Rgba($this->red, $this->green, $this->blue, $this->alpha, $this->name);
 	}
 
+	public function getVariance()
+	{
+		return $this->variance;
+	}
+
+	/**
+	 * Compares this color's Rgba object to another Rgba object and returns
+	 * a Variance object.
+	 * 
+	 * @param  Rgba 		$rgba Rgba object to compare this colors Rgba object to.
+	 * @return Variance 	Returns Variance object.
+	 */
 	public function compareTo(Rgba $rgba)
 	{
 		$this->variance = CreateVarianceCtx::create($this->getRgba(), $rgba)->execute();

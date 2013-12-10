@@ -12,7 +12,7 @@
 
   {{-- Mobile viewport optimized: j.mp/bplateviewport --}}
   <!-- <meta name="viewport" content="width=device-width,initial-scale=1"> -->
-  <meta name="viewport" content="width=device-width">
+  <!-- <meta name="viewport" content="width=device-width"> -->
 
   {{-- Mobile IE allows us to activate ClearType technology for smoothing fonts for easy reading --}}
   <meta http-equiv="cleartype" content="on">

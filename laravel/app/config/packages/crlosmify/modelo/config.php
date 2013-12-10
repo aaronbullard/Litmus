@@ -28,7 +28,7 @@ return array(
 	| files you're using manually. Consider it a punishment for misbehaving.
 	| 
 	*/
-	'css' => 'css/style.css',
+	'css' => '',
 
 
 	/*

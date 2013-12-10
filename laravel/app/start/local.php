@@ -17,23 +17,23 @@ App::bind('litmus', function($app){
  	return new Litmus($account, $token);
 });
 
-App::bind('MockupController', function($app){
-	$view   = View::make('mockup.pages.home');
+App::bind('MockupMobileController', function($app){
+	$view   = View::make('mobile.multiPage');
 	$litmus = App::make('litmus');
-	return new MockupController($view, new User, $litmus);
+	return new MockupMobileController($view, new User, $litmus);
 });
 
 App::bind('LitmusController', function($app){
 	return new LitmusController( new Account );
 });
 
+App::bind('Litmus\Strategies\Ambient\AmbientInterface', 'Litmus\Strategies\Ambient\DimensionAverage');
 
 /***************************************
 *
 * Register View Composers
 *
 * **************************************/
-
 View::composer('mockup.pages.home', function($view){
 	$view->nest('navbar', 'mockup.partials.navbar')
 		->with('title', "Image Upload")

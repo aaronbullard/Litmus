@@ -92,7 +92,7 @@ class Litmus implements LitmusInterface{
 		if( !empty($data) ){
 			//set sample
 			if( isset($data['subject']) ){
-				$this->set_sample_url($data['sample']);
+				$this->set_subject_url($data['subject']);
 			}
 			//set control
 			if( isset($data['control']) ){

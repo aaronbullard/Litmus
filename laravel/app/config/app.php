@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => true,
+	'debug' => false,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://localhost:8888/litmus/laravel/public',
+	'url' => 'http://litmusapi.com/mobile/public',
 
 	/*
 	|--------------------------------------------------------------------------
