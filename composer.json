@@ -1,0 +1,14 @@
+{
+    "name": "aaronbullard/litmus",
+    "description": "Color analysis API",
+    "authors": [
+        {
+            "name": "Aaron Bullard",
+            "email": "aaron.bullard77@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+
+    }
+}
