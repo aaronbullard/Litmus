@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://litmusapi.com/mobile/public',
+	'url' => 'http://litmusapi.com/public',
 
 	/*
 	|--------------------------------------------------------------------------

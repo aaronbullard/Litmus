@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://localhost:8888/litmus/laravel/public',
+	'url' => 'http://localhost:8888/Litmus/public',
 
 	/*
 	|--------------------------------------------------------------------------
