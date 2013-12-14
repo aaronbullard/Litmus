@@ -20,6 +20,8 @@ ClassLoader::addDirectories(array(
 
 ));
 
+require app_path().'/start/bindings.php';
+
 /*
 |--------------------------------------------------------------------------
 | Application Error Logger

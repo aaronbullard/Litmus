@@ -6,37 +6,36 @@
 @include('mobile.partials.footer')
 
 @section('page')
-@parent
 <div data-role="page" id="splash" data-transition="slidedown">
 	@yield('page.header')
 	<div data-role="content" style="text-align:center;">
-		{{ HTML::image('assets/img/3d_cube_icon.svg', "Litmus API, LLC", ['style' => 'width:90%;']); }}
+		{{ HTML::image('assets/img/3d_cube_icon.svg', "Litmus API, LLC", array('style' => 'width:80%;')); }}
 	</div>
 	@yield('left-panel')
 	@yield('right-panel')
 	@yield('page.footer')
 </div><!-- /page -->
+@parent
 @stop
 
 
 @section('page')
-@parent
 <div data-role="page" id="paletteId">
 	@yield('page.header')
 	<div data-role="content">
 		{{ Form::label('pid', "Enter the test strips code:") }}
-		{{ Form::text('pid', Input::old('pid'), ['type' => 'number', 'id'=>'pid']) }}
-		<a href="#subject" data-role="button">Next</a>
+		{{ Form::text('pid', Input::old('pid'), array('type' => 'number', 'id'=>'pid')) }}
+		<a href="#subject" data-role="button" data-theme="b">Next</a>
 	</div>
 	@yield('left-panel')
 	@yield('right-panel')
 	@yield('page.footer')
 </div><!-- /page -->
+@parent
 @stop
 
 
 @section('page')
-@parent
 <div data-role="page" id="subject">
 	@yield('page.header')
 	<div data-role="content">

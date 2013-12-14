@@ -1,5 +1,6 @@
 @extends('crlosmify.modelo.master')
 
+@include('mobile.themes.flat')
 
 @section('title')
 	{{ Config::get('mockup.app_name') }}
@@ -12,9 +13,6 @@
 
 
 @section('styles')
-	<!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css" /> -->
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
-	{{-- HTML::style('assets/lib/jqmobile/css/bootstrap.css') --}}
 @stop
 
 @section('page_styles')
@@ -34,7 +32,6 @@
 @stop
 
 @section('page_scripts')
-	{{ HTML::script('assets/lib/jquery-1.9.1/jquery-1.9.1.min.js') }}
+	{{ HTML::script('assets/lib/jquery-1.9.1/jquery-1.9.1.min.js') }} 
 	{{ HTML::script('assets/js/Litmus.js') }}
-	<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 @stop
