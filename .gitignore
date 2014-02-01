@@ -2,5 +2,6 @@
 #/vendor
 #composer.phar
 #composer.lock
+/old
 .DS_Store
 Thumbs.db
