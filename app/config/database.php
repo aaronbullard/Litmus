@@ -54,10 +54,10 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'litmusapi.db.11713086.hostedresource.com',
-			'database'  => 'litmusapi',
-			'username'  => 'litmusapi',
-			'password'  => 'USna2000!',
+			'host'      => getenv('DB_HOSTNAME'),
+			'database'  => getenv('DB_DATABASE'),
+			'username'  => getenv('DB_USERNAME'),
+			'password'  => getenv('DB_PASSWORD'),
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

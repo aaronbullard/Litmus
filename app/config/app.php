@@ -65,7 +65,7 @@ return array(
 	|
 	*/
 
-	'key' => 'SlIoWehyeyywLaZMmLUjSsGaMZI47rDN',
+	'key' => getenv('ENCRYPTION_KEY'),
 
 	/*
 	|--------------------------------------------------------------------------
