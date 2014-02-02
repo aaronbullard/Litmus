@@ -1,6 +1,6 @@
-@extends('crlosmify.modelo.master')
+@extends('custom-layout::master')
+<!-- @@extends('crlosmify.modelo.master') -->
 
-@include('mobile.themes.flat')
 
 @section('title')
 	{{ Config::get('mockup.app_name') }}
@@ -11,9 +11,6 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="default">
 @stop
 
-
-@section('styles')
-@stop
 
 @section('page_styles')
 @stop
@@ -32,6 +29,4 @@
 @stop
 
 @section('page_scripts')
-	{{ HTML::script('assets/lib/jquery-1.9.1/jquery-1.9.1.min.js') }} 
-	{{ HTML::script('assets/js/Litmus.js') }}
 @stop

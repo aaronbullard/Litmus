@@ -3,8 +3,33 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "33ea74b7af559f12b347d003e56672c6",
+    "hash": "d4f5e1171154407fe37dd62263c9f63c",
     "packages": [
+        {
+            "name": "aaronbullard/layout",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aaronbullard/layout.git",
+                "reference": "master"
+            },
+            "require": {
+                "illuminate/support": "4.0.x",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Aaronbullard\\Layout": "src/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "aaronbullard",
+                    "email": "aaron.bullard77@gmail.com"
+                }
+            ]
+        },
         {
             "name": "barryvdh/laravel-debugbar",
             "version": "dev-master",
@@ -1233,20 +1258,20 @@
         },
         {
             "name": "patchwork/utf8",
-            "version": "v1.1.17",
+            "version": "v1.1.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nicolas-grekas/Patchwork-UTF8.git",
-                "reference": "1396fedf134f71d479236fce0833dc4c88079391"
+                "reference": "66a936cc633fe13378c91f81030d5193be968480"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nicolas-grekas/Patchwork-UTF8/zipball/1396fedf134f71d479236fce0833dc4c88079391",
-                "reference": "1396fedf134f71d479236fce0833dc4c88079391",
+                "url": "https://api.github.com/repos/nicolas-grekas/Patchwork-UTF8/zipball/66a936cc633fe13378c91f81030d5193be968480",
+                "reference": "66a936cc633fe13378c91f81030d5193be968480",
                 "shasum": ""
             },
             "require": {
-                "lib-pcre": ">=7.9",
+                "lib-pcre": ">=7.3",
                 "php": ">=5.3.0"
             },
             "suggest": {
@@ -1280,7 +1305,7 @@
                 "utf-8",
                 "utf8"
             ],
-            "time": "2014-01-02 10:19:36"
+            "time": "2014-02-02 17:09:49"
         },
         {
             "name": "predis/predis",

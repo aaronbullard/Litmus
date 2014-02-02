@@ -1,0 +1,11 @@
+/*.ui-icon-litmus {
+	background: url("assets/img/3d_cube_icon.svg") no-repeat rgba(0, 0, 0, 0.4) !important;
+	background-size: 18px 18px;
+}*/
+
+/*.ui-icon-litmus {
+	background-image: url("assets/img/3d_cube_icon.svg") no-repeat rgba(0, 0, 0, 1) !important;
+}*/
+/*.ui-nosvg .ui-icon-myapp-email:after {
+  background-image: url( "app-icon-email.png" );
+}*/

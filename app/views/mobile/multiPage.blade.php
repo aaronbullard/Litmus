@@ -9,7 +9,9 @@
 <div data-role="page" id="splash" data-transition="slidedown">
 	@yield('page.header')
 	<div data-role="content" style="text-align:center;">
-		{{ HTML::image('assets/img/3d_cube_icon.svg', "Litmus API, LLC", array('style' => 'width:80%;')); }}
+		<p>
+			<a href="index.html" class="ui-btn ui-icon-litmus ui-btn-icon-left">Home</a>
+		</p>
 	</div>
 	@yield('left-panel')
 	@yield('right-panel')
