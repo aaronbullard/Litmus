@@ -117,7 +117,7 @@ return array(
 		// Litmus
 		'Way\Generators\GeneratorsServiceProvider',
 		'Barryvdh\Debugbar\ServiceProvider',
-		'Crlosmify\Modelo\ModeloServiceProvider',
+		'Aaronbullard\Layout\LayoutServiceProvider',
 
 	),
 
