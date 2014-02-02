@@ -13,6 +13,7 @@
 
 
 @section('styles')
+	{{ HTML::style('assets/css/litmus.css') }}
 @stop
 
 @section('page_styles')
@@ -32,6 +33,6 @@
 @stop
 
 @section('page_scripts')
-	{{ HTML::script('assets/lib/jquery-1.9.1/jquery-1.9.1.min.js') }} 
+	{{ HTML::script('assets/lib/jquery-1.9.1/jquery-1.9.1.min.js') }}
 	{{ HTML::script('assets/js/Litmus.js') }}
 @stop
