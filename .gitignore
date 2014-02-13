@@ -3,6 +3,6 @@
 /app/config/local
 /public/vendor
 /old
-#composer.json
+composer.json
 .DS_Store
 Thumbs.db
