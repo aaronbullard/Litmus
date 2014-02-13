@@ -23,12 +23,13 @@ App::bind('MockupMobileController', function($app){
 	return new MockupMobileController($view, new User, $litmus);
 });
 
+/*
 App::bind('LitmusController', function($app){
 	return new LitmusController( new Account );
 });
 
 App::bind('Litmus\Strategies\Ambient\AmbientInterface', 'Litmus\Strategies\Ambient\DimensionAverage');
-
+//*/
 /***************************************
 *
 * Register View Composers
