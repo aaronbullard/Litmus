@@ -3,6 +3,5 @@
 /public/vendor
 /vendor
 /old
-composer.json
 .DS_Store
 Thumbs.db

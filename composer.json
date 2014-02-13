@@ -1,0 +1,106 @@
+{
+	"name": "aaronbullard/litmus",
+	 "description": "Color analysis API",
+	 "authors": [
+		 {
+			 "name": "Aaron Bullard",
+			 "email": "aaron.bullard77@gmail.com"
+		 }
+	 ],
+	"keywords": ["color", "laravel", "litmus", "API"],
+	"license": "MIT",
+	"require": {
+		"laravel/framework": "4.0.*",
+		"laravelbook/ardent": "2.4.1",
+		"ironio/iron_mq": "1.4.*",
+		"aaronbullard/layout": "v1.0.1"
+	},
+	"require-dev": {
+		"way/generators": "1.0.*@dev",
+		"barryvdh/laraveldebugbar": "devmaster"
+	},
+	"repositories": [
+		{
+			"type": "package",
+			"package": {
+					"name": "laravelbook/ardent",
+					"version": "2.4.1",
+					"source": {
+							"type": "git",
+							"url": "https://github.com/bexarcreativeinc/ardent.git",
+							"reference": "master"
+					},
+					"require": {
+							"php": ">=5.3.0",
+							"illuminate/support": "4.x",
+							"illuminate/database": "4.x",
+							"illuminate/validation": "4.x"
+					},
+					"autoload": {
+							"psr0": {
+									"LaravelBook\\Ardent": "src/"
+							}
+					}
+			}
+		},
+		{
+			"type": "package",
+			"package":	{
+				"name": "aaronbullard/layout",
+				"version": "v1.0.1",
+				"description": "",
+				"authors": [
+					{
+						"name": "aaronbullard",
+						"email": "aaron.bullard77@gmail.com"
+					}
+				],
+				"source": {
+						"type": "git",
+						"url": "https://github.com/aaronbullard/layout.git",
+						"reference": "master"
+				},
+				"require": {
+					"php": ">=5.3.0",
+					"illuminate/support": "4.0.x"
+				},
+				"autoload": {
+					"psr0": {
+						"Aaronbullard\\Layout": "src/"
+					}
+				},
+				"minimumstability": "dev"
+			}
+		}
+	],
+	"autoload": {
+		"classmap": [
+			"app/commands",
+			"app/controllers",
+			"app/models",
+			"app/database/migrations",
+			"app/database/seeds",
+			"app/tests/TestCase.php",
+			"app/libraries/Helpers",
+			"app/libraries/Litmus"
+		]
+	},
+	"scripts": {
+		"postinstallcmd": [
+			"php artisan optimize"
+		],
+		"postupdatecmd": [
+			"php artisan clearcompiled",
+			"php artisan optimize",
+			"php artisan migrate",
+			"bower install"
+		],
+		"postcreateprojectcmd": [
+			"php artisan key:generate"
+		]
+	},
+	"config": {
+		"preferredinstall": "dist"
+	},
+	"preferstable": true
+ }
