@@ -1,8 +1,8 @@
 /bootstrap/compiled.php
-/vendor
 /app/config/local
 /public/vendor
+/vendor
 /old
-composer.lock
+composer.json
 .DS_Store
 Thumbs.db
