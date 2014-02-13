@@ -1,5 +1,4 @@
-@extends('crlosmify.modelo.master')
-
+@extends('custom-layout::master')
 
 @section('title')
 	{{ Config::get('mockup.app_name') }}

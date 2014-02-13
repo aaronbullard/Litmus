@@ -12,6 +12,7 @@ class PalettesController extends BaseController {
 	public function __construct(Palette $palette)
 	{
 		$this->palette = $palette;
+		$this->namespace = 'litmus::palettes';
 	}
 
 	/**
@@ -23,7 +24,7 @@ class PalettesController extends BaseController {
 	{
 		$palettes = $this->palette->all();
 		
-		return View::make('palettes.index', compact('palettes'));
+		return View::make($this->namespace.'.index', compact('palettes'));
 	}
 
 	/**
@@ -33,7 +34,7 @@ class PalettesController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('palettes.create');
+		return View::make($this->namespace.'.create');
 	}
 
 	/**
@@ -50,10 +51,10 @@ class PalettesController extends BaseController {
 		{
 			$this->palette->create($input);
 
-			return Redirect::route('palettes.index');
+			return Redirect::route($this->namespace.'.index');
 		}
 
-		return Redirect::route('palettes.create')
+		return Redirect::route($this->namespace.'.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -69,7 +70,7 @@ class PalettesController extends BaseController {
 	{
 		$palette = $this->palette->findOrFail($id);
 
-		return View::make('palettes.show', compact('palette'));
+		return View::make($this->namespace.'.show', compact('palette'));
 	}
 
 	/**
@@ -84,10 +85,10 @@ class PalettesController extends BaseController {
 
 		if (is_null($palette))
 		{
-			return Redirect::route('palettes.index');
+			return Redirect::route($this->namespace.'.index');
 		}
 
-		return View::make('palettes.edit', compact('palette'));
+		return View::make($this->namespace.'.edit', compact('palette'));
 	}
 
 	/**
@@ -106,10 +107,10 @@ class PalettesController extends BaseController {
 			$palette = $this->palette->find($id);
 			$palette->update($input);
 
-			return Redirect::route('palettes.show', $id);
+			return Redirect::route($this->namespace.'.show', $id);
 		}
 
-		return Redirect::route('palettes.edit', $id)
+		return Redirect::route($this->namespace.'.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -125,7 +126,7 @@ class PalettesController extends BaseController {
 	{
 		$this->palette->find($id)->delete();
 
-		return Redirect::route('palettes.index');
+		return Redirect::route($this->namespace.'.index');
 	}
 
 }

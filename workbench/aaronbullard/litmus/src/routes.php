@@ -10,8 +10,15 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-/*
-Route::controller('litmus', 'LitmusController');
+
+// Route::group(array('domain' => 'api.myapp.com'), function()
+// {
+//     Route::get('api', function($account, $id)
+//     {
+//         //
+//     });
+// });
+Route::controller('api', 'LitmusController');
 
 // Litmus
 Route::resource('users', 'UsersController');
@@ -21,5 +28,3 @@ Route::resource('accounts', 'AccountsController');
 Route::resource('palettes', 'PalettesController');
 
 Route::resource('colors', 'ColorsController');
-//*/
-

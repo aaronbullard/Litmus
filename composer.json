@@ -77,12 +77,7 @@
 		"classmap": [
 			"app/commands",
 			"app/controllers",
-			"app/models",
-			"app/database/migrations",
-			"app/database/seeds",
-			"app/tests/TestCase.php",
-			"app/libraries/Helpers",
-			"app/libraries/Litmus"
+			"app/models"
 		]
 	},
 	"scripts": {

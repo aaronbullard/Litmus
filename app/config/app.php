@@ -119,6 +119,8 @@ return array(
 		'Barryvdh\Debugbar\ServiceProvider',
 		'Aaronbullard\Layout\LayoutServiceProvider',
 		'Aaronbullard\Colormatch\ColormatchServiceProvider',
+		'Aaronbullard\LaravelStripe\LaravelStripeServiceProvider',
+		'Aaronbullard\Litmus\LitmusServiceProvider',
 	),
 
 	/*

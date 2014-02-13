@@ -20,7 +20,7 @@ ClassLoader::addDirectories(array(
 
 ));
 
-require app_path().'/start/bindings.php';
+//require app_path().'/start/bindings.php';
 
 /*
 |--------------------------------------------------------------------------

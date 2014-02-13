@@ -79,7 +79,7 @@ return array(
 	*/
 
 	'scripts' => [
-		'vendor/jquery-mobile-bower/js/jquery.mobile-1.4.0.min.js',
+		// 'vendor/jquery-mobile-bower/js/jquery.mobile-1.4.0.min.js',
 		'assets/js/Litmus.js',
 	],
 
