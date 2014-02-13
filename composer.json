@@ -12,12 +12,12 @@
 	"require": {
 		"laravel/framework": "4.0.*",
 		"laravelbook/ardent": "2.4.1",
-		"ironio/iron_mq": "1.4.*",
+		"iron-io/iron_mq": "1.4.*",
 		"aaronbullard/layout": "v1.0.1"
 	},
 	"require-dev": {
 		"way/generators": "1.0.*@dev",
-		"barryvdh/laraveldebugbar": "devmaster"
+		"barryvdh/laravel-debugbar": "dev-master"
 	},
 	"repositories": [
 		{
@@ -37,7 +37,7 @@
 							"illuminate/validation": "4.x"
 					},
 					"autoload": {
-							"psr0": {
+							"psr-0": {
 									"LaravelBook\\Ardent": "src/"
 							}
 					}
@@ -65,7 +65,7 @@
 					"illuminate/support": "4.0.x"
 				},
 				"autoload": {
-					"psr0": {
+					"psr-0": {
 						"Aaronbullard\\Layout": "src/"
 					}
 				},
@@ -86,21 +86,21 @@
 		]
 	},
 	"scripts": {
-		"postinstallcmd": [
+		"post-install-cmd": [
 			"php artisan optimize"
 		],
-		"postupdatecmd": [
-			"php artisan clearcompiled",
+		"post-update-cmd": [
+			"php artisan clear-compiled",
 			"php artisan optimize",
 			"php artisan migrate",
 			"bower install"
 		],
-		"postcreateprojectcmd": [
+		"post-create-project-cmd": [
 			"php artisan key:generate"
 		]
 	},
 	"config": {
-		"preferredinstall": "dist"
+		"preferred-install": "dist"
 	},
-	"preferstable": true
+	"prefer-stable": true
  }
