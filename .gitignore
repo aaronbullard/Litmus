@@ -1,7 +1,7 @@
 /bootstrap/compiled.php
-/vendor
 /app/config/local
 /public/vendor
+/vendor
 /old
 composer.json
 .DS_Store
