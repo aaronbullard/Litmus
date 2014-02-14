@@ -75,9 +75,6 @@
 	],
 	"autoload": {
 		"classmap": [
-			"app/commands",
-			"app/controllers",
-			"app/models"
 		]
 	},
 	"scripts": {

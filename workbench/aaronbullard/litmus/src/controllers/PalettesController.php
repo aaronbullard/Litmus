@@ -23,7 +23,7 @@ class PalettesController extends BaseController {
 	public function index()
 	{
 		$palettes = $this->palette->all();
-		
+		return $palettes;
 		return View::make($this->namespace.'.index', compact('palettes'));
 	}
 
