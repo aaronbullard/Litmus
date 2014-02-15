@@ -14,7 +14,6 @@
 				<th>Green</th>
 				<th>Blue</th>
 				<th>Alpha</th>
-				<th>Hex</th>
 				<th>Palette_id</th>
 		</tr>
 	</thead>
@@ -26,7 +25,6 @@
 					<td>{{{ $color->green }}}</td>
 					<td>{{{ $color->blue }}}</td>
 					<td>{{{ $color->alpha }}}</td>
-					<td>{{{ $color->hex }}}</td>
 					<td>{{{ $color->palette_id }}}</td>
                     <td>{{ link_to_route('colors.edit', 'Edit', array($color->id), array('class' => 'btn btn-info')) }}</td>
                     <td>

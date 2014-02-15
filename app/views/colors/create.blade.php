@@ -32,11 +32,6 @@
 		</li>
 
 		<li>
-			{{ Form::label('hex', 'Hex:') }}
-			{{ Form::text('hex') }}
-		</li>
-
-		<li>
 			{{ Form::label('palette_id', 'Palette_id:') }}
 			{{ Form::input('number', 'palette_id') }}
 		</li>

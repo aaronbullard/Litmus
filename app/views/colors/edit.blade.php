@@ -3,7 +3,7 @@
 @section('main')
 
 <h1>Edit Color</h1>
-{{ Form::model($color, array('method' => 'PATCH', 'route' => array('litmus::colors.update', $color->id))) }}
+{{ Form::model($color, array('method' => 'PATCH', 'route' => array('colors.update', $color->id))) }}
 	<ul>
 		<li>
 			{{ Form::label('name', 'Name:') }}
@@ -28,11 +28,6 @@
 		<li>
 			{{ Form::label('alpha', 'Alpha:') }}
 			{{ Form::text('alpha') }}
-		</li>
-
-		<li>
-			{{ Form::label('hex', 'Hex:') }}
-			{{ Form::text('hex') }}
 		</li>
 
 		<li>
