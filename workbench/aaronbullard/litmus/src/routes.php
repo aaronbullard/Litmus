@@ -11,20 +11,12 @@
 |
 */
 
-// Route::group(array('domain' => 'api.myapp.com'), function()
-// {
-//     Route::get('api', function($account, $id)
-//     {
-//         //
-//     });
-// });
 Route::controller('api', 'LitmusController');
 
 // Litmus
 Route::resource('users', 'UsersController');
-
 Route::resource('accounts', 'AccountsController');
 
+Route::get('palettes/{palette_id}/colors', ['as' => 'palettes.colors', 'uses' => 'ColorsController@index']);
 Route::resource('palettes', 'PalettesController');
-
 Route::resource('colors', 'ColorsController');

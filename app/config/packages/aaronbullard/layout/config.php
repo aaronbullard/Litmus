@@ -29,8 +29,9 @@ return array(
 	| 
 	*/
 	'styles' => [
-		'vendor/jqm-flatui/generated/jquery.mobile.flatui.min.css',
-		'assets/css/litmus.css'
+		'vendor/bootswatch/default/bootstrap.min.css',
+		'vendor/bootswatch/default/bootstrap-responsive.min.css',
+		'vendor/bootswatch/css/font-awesome.min.css',
 	],
 
 
@@ -53,7 +54,7 @@ return array(
 	*/
 
 	'jquery_on'       => true,
-	'jquery_version'  => '1.9.1',
+	'jquery_version'  => '2.0.3',
 	'jquery_fallback' => 'vendor/jquery/jquery.min.js',
 
 
@@ -79,7 +80,8 @@ return array(
 	*/
 
 	'scripts' => [
-		// 'vendor/jquery-mobile-bower/js/jquery.mobile-1.4.0.min.js',
+		'vendor/bootswatch/js/jquery.smooth-scroll.min.js',
+		'vendor/bootswatch/js/bootstrap.min.js',
 		'assets/js/Litmus.js',
 	],
 

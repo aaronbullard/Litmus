@@ -13,6 +13,7 @@
 				<th>Title</th>
 				<th>Description</th>
 				<th>User</th>
+				<th>Colors</th>
 			</tr>
 		</thead>
 
@@ -22,6 +23,7 @@
 					<td>{{{ $palette->title }}}</td>
 					<td>{{{ $palette->description }}}</td>
 					<td>{{{ $palette->user->getFullName() }}}</td>
+					<td>{{ link_to_route('palettes.colors', 'colors', array($palette->id), array('class' => 'btn btn-link')) }}</td>
                     <td>{{ link_to_route('palettes.edit', 'Edit', array($palette->id), array('class' => 'btn btn-info')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('palettes.destroy', $palette->id))) }}

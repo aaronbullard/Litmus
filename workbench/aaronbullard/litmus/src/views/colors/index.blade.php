@@ -16,7 +16,7 @@
 				<th>Blue</th>
 				<th>Alpha</th>
 				<th>Hex</th>
-				<th>Palette_id</th>
+				<th>Palette</th>
 			</tr>
 		</thead>
 
@@ -29,7 +29,7 @@
 					<td>{{{ $color->blue }}}</td>
 					<td>{{{ $color->alpha }}}</td>
 					<td>{{{ $color->hex }}}</td>
-					<td>{{{ $color->palette_id }}}</td>
+					<td>{{ link_to_route('palettes.show', $color->palette->title, array($color->palette->id), array('class' => 'btn btn-link')) }}</td>
                     <td>{{ link_to_route('colors.edit', 'Edit', array($color->id), array('class' => 'btn btn-info')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('colors.destroy', $color->id))) }}
