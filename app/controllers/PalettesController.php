@@ -1,18 +1,18 @@
 <?php
 
-class ColorsController extends BaseController {
+class PalettesController extends BaseController {
 
 	/**
-	 * Color Repository
+	 * Palette Repository
 	 *
-	 * @var Color
+	 * @var Palette
 	 */
-	protected $color;
+	protected $palette;
 
-	public function __construct(Color $color)
+	public function __construct(Palette $palette)
 	{
-		$this->color = $color;
-		$this->namespace = "litmus::colors";
+		$this->palette = $palette;
+		$this->namespace = 'palettes';
 	}
 
 	/**
@@ -20,11 +20,11 @@ class ColorsController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index($palette_id)
+	public function index()
 	{
-		$colors = $this->color->with('palette')->wherePaletteId($palette_id)->get();
+		$palettes = $this->palette->all();
 
-		return View::make($this->namespace.'.index', compact('colors'));
+		return View::make($this->namespace.'.index', compact('palettes'));
 	}
 
 	/**
@@ -45,11 +45,11 @@ class ColorsController extends BaseController {
 	public function store()
 	{
 		$input = Input::all();
-		$validation = Validator::make($input, Color::$rules);
+		$validation = Validator::make($input, Palette::$rules);
 
 		if ($validation->passes())
 		{
-			$this->color->create($input);
+			$this->palette->create($input);
 
 			return Redirect::route($this->namespace.'.index');
 		}
@@ -68,9 +68,9 @@ class ColorsController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$color = $this->color->findOrFail($id);
+		$palette = $this->palette->findOrFail($id);
 
-		return View::make($this->namespace.'.show', compact('color'));
+		return View::make($this->namespace.'.show', compact('palette'));
 	}
 
 	/**
@@ -81,14 +81,14 @@ class ColorsController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$color = $this->color->find($id);
+		$palette = $this->palette->find($id);
 
-		if (is_null($color))
+		if (is_null($palette))
 		{
 			return Redirect::route($this->namespace.'.index');
 		}
 
-		return View::make($this->namespace.'.edit', compact('color'));
+		return View::make($this->namespace.'.edit', compact('palette'));
 	}
 
 	/**
@@ -100,12 +100,12 @@ class ColorsController extends BaseController {
 	public function update($id)
 	{
 		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, Color::$rules);
+		$validation = Validator::make($input, Palette::$rules);
 
 		if ($validation->passes())
 		{
-			$color = $this->color->find($id);
-			$color->update($input);
+			$palette = $this->palette->find($id);
+			$palette->update($input);
 
 			return Redirect::route($this->namespace.'.show', $id);
 		}
@@ -124,7 +124,7 @@ class ColorsController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->color->find($id)->delete();
+		$this->palette->find($id)->delete();
 
 		return Redirect::route($this->namespace.'.index');
 	}
