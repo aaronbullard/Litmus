@@ -32,8 +32,8 @@
 		</li>
 
 		<li>
-			{{ Form::label('palette_id', 'Palette_id:') }}
-			{{ Form::input('number', 'palette_id') }}
+			{{ Form::label('palette_id', 'Palette:') }}
+			{{ Form::select('palette_id', Palette::lists('title', 'id')) }}
 		</li>
 
 		<li>

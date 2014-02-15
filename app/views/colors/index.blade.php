@@ -28,12 +28,12 @@
 					<td>{{{ $color->blue }}}</td>
 					<td>{{{ $color->alpha }}}</td>
 					<td>{{ link_to_route('palettes.show', $color->palette->title, array($color->palette->id), array('class' => 'btn btn-link')) }}</td>
-                    <td>{{ link_to_route('colors.edit', 'Edit', array($color->id), array('class' => 'btn btn-info')) }}</td>
-                    <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('colors.destroy', $color->id))) }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
-                        {{ Form::close() }}
-                    </td>
+					<td>{{ link_to_route('colors.edit', 'Edit', array($color->id), array('class' => 'btn btn-info')) }}</td>
+					<td>
+						{{ Form::open(array('method' => 'DELETE', 'route' => array('colors.destroy', $color->id))) }}
+							{{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
+						{{ Form::close() }}
+					</td>
 				</tr>
 			@endforeach
 		</tbody>
