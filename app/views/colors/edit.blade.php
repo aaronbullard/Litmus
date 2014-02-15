@@ -3,7 +3,7 @@
 @section('main')
 
 <h1>Edit Color</h1>
-{{ Form::model($color, array('method' => 'PATCH', 'route' => array('colors.update', $color->id))) }}
+{{ Form::model($color, array('method' => 'PATCH', 'route' => array('litmus::colors.update', $color->id))) }}
 	<ul>
 		<li>
 			{{ Form::label('name', 'Name:') }}
@@ -36,8 +36,8 @@
 		</li>
 
 		<li>
-			{{ Form::label('palette_id', 'Palette_id:') }}
-			{{ Form::input('number', 'palette_id') }}
+			{{ Form::label('palette_id', 'Palette:') }}
+			{{ Form::select('palette_id', Palette::lists('title', 'id')) }}
 		</li>
 
 		<li>

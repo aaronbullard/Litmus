@@ -12,7 +12,7 @@ class PalettesController extends BaseController {
 	public function __construct(Palette $palette)
 	{
 		$this->palette = $palette;
-		$this->namespace = 'litmus::palettes';
+		$this->namespace = 'palettes';
 	}
 
 	/**
@@ -23,7 +23,7 @@ class PalettesController extends BaseController {
 	public function index()
 	{
 		$palettes = $this->palette->all();
-		return $palettes;
+
 		return View::make($this->namespace.'.index', compact('palettes'));
 	}
 

@@ -13,12 +13,12 @@ class Color extends Eloquent {
 	protected $hidden  = array('id', 'palette_id');
 
 	public static $rules = array(
-		'name' 		=> 'required',
-		'red' 		=> 'required',
-		'green' 	=> 'required',
-		'blue' 		=> 'required',
+		'name' 		=> 'required|min:3',
+		'red' 		=> 'required|between:0,255|integer',
+		'green' 	=> 'required|between:0,255|integer',
+		'blue' 		=> 'required|between:0,255|integer',
 		'hex' 		=> '',
-		'palette_id' => 'required'
+		'palette_id' => 'required|exists:palettes,id'
 	);
 
 	public function palette()

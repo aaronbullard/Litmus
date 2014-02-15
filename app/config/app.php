@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://litmusapi.com/Litmus/public',
+	'url' => 'http://litmusapi.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -118,9 +118,8 @@ return array(
 		'Way\Generators\GeneratorsServiceProvider',
 		'Barryvdh\Debugbar\ServiceProvider',
 		'Aaronbullard\Layout\LayoutServiceProvider',
-		'Aaronbullard\Colormatch\ColormatchServiceProvider',
+		// 'Aaronbullard\Colormatch\ColormatchServiceProvider',
 		'Aaronbullard\LaravelStripe\LaravelStripeServiceProvider',
-		'Aaronbullard\Litmus\LitmusServiceProvider',
 	),
 
 	/*

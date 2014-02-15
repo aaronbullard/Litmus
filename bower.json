@@ -1,27 +1,25 @@
 {
-  "name": "BetYourCharity",
-  "version": "0.0.9",
-  "homepage": "http://www.betyourcharity.com",
-  "authors": [
-    "Aaron Bullard <JABullard@aol.com>"
-  ],
-  "description": "Don't Gamble, Give!",
-  "keywords": [
-    "charity"
-  ],
-  "license": "MIT",
-  "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "public/vendor",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "jquery": ">=1.8.0 <2.1.0",
-    "jquery-ui": "1.10.3",
-    "bootstrap2.3.2": "~2.3.2"
-  }
+	"name": "LitmusAPI",
+	"version": "0.0.9",
+	"homepage": "http://www.litmusapi.com",
+	"authors": [
+		"Aaron Bullard <aaron.bullard77@gmail.com>"
+	],
+	"description": "Restful API for image color averaging.",
+	"keywords": [
+		"RGB", "color", "api"
+	],
+	"license": "MIT",
+	"private": true,
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"bower_components",
+		"public/vendor",
+		"test",
+		"tests"
+	],
+	"dependencies": {
+		"bootswatch": "2.3.2"
+	}
 }

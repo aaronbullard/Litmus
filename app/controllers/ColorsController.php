@@ -12,6 +12,7 @@ class ColorsController extends BaseController {
 	public function __construct(Color $color)
 	{
 		$this->color = $color;
+		$this->namespace = "colors";
 	}
 
 	/**
@@ -19,11 +20,11 @@ class ColorsController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($palette_id)
 	{
-		$colors = $this->color->all();
+		$colors = $this->color->with('palette')->wherePaletteId($palette_id)->get();
 
-		return View::make('colors.index', compact('colors'));
+		return View::make($this->namespace.'.index', compact('colors'));
 	}
 
 	/**
@@ -33,7 +34,7 @@ class ColorsController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('colors.create');
+		return View::make($this->namespace.'.create');
 	}
 
 	/**
@@ -50,10 +51,10 @@ class ColorsController extends BaseController {
 		{
 			$this->color->create($input);
 
-			return Redirect::route('colors.index');
+			return Redirect::route($this->namespace.'.index');
 		}
 
-		return Redirect::route('colors.create')
+		return Redirect::route($this->namespace.'.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -69,7 +70,7 @@ class ColorsController extends BaseController {
 	{
 		$color = $this->color->findOrFail($id);
 
-		return View::make('colors.show', compact('color'));
+		return View::make($this->namespace.'.show', compact('color'));
 	}
 
 	/**
@@ -84,10 +85,10 @@ class ColorsController extends BaseController {
 
 		if (is_null($color))
 		{
-			return Redirect::route('colors.index');
+			return Redirect::route($this->namespace.'.index');
 		}
 
-		return View::make('colors.edit', compact('color'));
+		return View::make($this->namespace.'.edit', compact('color'));
 	}
 
 	/**
@@ -106,10 +107,10 @@ class ColorsController extends BaseController {
 			$color = $this->color->find($id);
 			$color->update($input);
 
-			return Redirect::route('colors.show', $id);
+			return Redirect::route($this->namespace.'.show', $id);
 		}
 
-		return Redirect::route('colors.edit', $id)
+		return Redirect::route($this->namespace.'.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -125,7 +126,7 @@ class ColorsController extends BaseController {
 	{
 		$this->color->find($id)->delete();
 
-		return Redirect::route('colors.index');
+		return Redirect::route($this->namespace.'.index');
 	}
 
 }
