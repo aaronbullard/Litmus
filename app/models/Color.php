@@ -17,7 +17,6 @@ class Color extends Eloquent {
 		'red' 		=> 'required|between:0,255|integer',
 		'green' 	=> 'required|between:0,255|integer',
 		'blue' 		=> 'required|between:0,255|integer',
-		'hex' 		=> '',
 		'palette_id' => 'required|exists:palettes,id'
 	);
 

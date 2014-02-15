@@ -6,15 +6,15 @@ class Palette extends Eloquent {
 	public static $rules = array(
 		'title' => 'required',
 		'description' => 'required',
-		'user_id' => 'required'
+		'user_id' => 'required|exists:users,id'
 	);
 
 	public function colors(){
 		return $this->hasMany('Color');
 	}
 
-	public function user(){
-		return $this->belongsTo('User');
+	public function account(){
+		return $this->belongsTo('Account');
 	}
 
 }

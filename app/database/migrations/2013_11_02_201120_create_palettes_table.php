@@ -17,13 +17,13 @@ class CreatePalettesTable extends Migration {
 			$table->increments('id');
 			$table->string('title');
 			$table->text('description');
-			$table->integer('user_id')->unsigned();
+			$table->integer('account_id')->unsigned();
 			$table->timestamps();
 		});
 
 		Schema::table('palettes', function(Blueprint $table) {
-			$table->foreign('user_id')
-				  ->references('id')->on('users')
+			$table->foreign('account_id')
+				  ->references('id')->on('accounts')
 				  ->onUpdate('cascade')
 				  ->onDelete('cascade');
 		});

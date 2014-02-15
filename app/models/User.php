@@ -49,15 +49,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->email;
 	}
 
-
-	public function account()
+	public function accounts()
 	{
-		return $this->hasOne('Account');
-	}
-
-	public function palettes()
-	{
-		return $this->hasMany('Palette');
+		return $this->belongsToMany('Account');
 	}
 
 	public function validate_credentials($account, $token)

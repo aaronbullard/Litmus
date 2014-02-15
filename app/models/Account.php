@@ -5,15 +5,24 @@ class Account extends Eloquent implements AccountInterface{
 	protected $guarded = array();
 
 	public static $rules = array(
-		'account' => 'required',
-		'token' => 'required',
-		'user_id' => 'required'
+		'account' 	=> 'required',
+		'token' 	=> 'required',
+		'user_id'	=> 'required|exists:user,id'
 	);
 
+	public function palettes()
+	{
+		return $this->hasMany('Palette');
+	}
 
-	public function user()
+	public function admin()
 	{
 		return $this->belongsTo('User');
+	}
+
+	public function users()
+	{
+		return $this->belongsToMany('User');
 	}
 
 	public function validateCredentials($account, $token)
