@@ -20,7 +20,7 @@
 					<!-- Home -->
 					<li class="divider-vertical"></li>
 					<li>
-						{{ link_to_route('home', 'Home') }}
+						{{ link_to_route('accounts.index', 'Accounts') }}
 					</li>
 					
 					<!-- Palettes -->
