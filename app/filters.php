@@ -92,6 +92,13 @@ Route::filter('admin', function()
 		return Redirect::guest('login');
 });
 
+Route::filter('api', function(){
+	$account = Request::segment(2);
+	$token 	= Request::segment(3);
+	if( ! Account::validateCredentials($account, $token) )
+		return App::abort(404);
+});
+
 Route::filter('user', function($route, $request, $table, $id){
 	$is_owner = DB::table($table)->where('id', '=', $id)
 				->where('user_id', '=', Auth::user()->id)->count();

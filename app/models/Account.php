@@ -1,6 +1,6 @@
 <?php
 
-class Account extends Eloquent implements AccountInterface{
+class Account extends Eloquent{
 
 	protected $guarded = array();
 
@@ -30,9 +30,9 @@ class Account extends Eloquent implements AccountInterface{
 		return $this->users()->where('users.id', '=', $user->id)->take(1)->count();
 	}
 
-	public function validateCredentials($account, $token)
+	public static function validateCredentials($account, $token)
 	{
-		$count = $this->whereAccount($account)->whereToken($token)->count();
+		$count = self::whereAccount($account)->whereToken($token)->count();
 
 		return $count > 0 ? TRUE : FALSE;
 	}
