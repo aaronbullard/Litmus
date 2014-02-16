@@ -11,7 +11,7 @@ class AccountsController extends BaseController {
 
 	public function __construct(Account $account)
 	{
-		$this->account = $account;
+		$this->account = $account->where('user_id', '=', Auth::user()->id);
 	}
 
 	/**
@@ -21,7 +21,7 @@ class AccountsController extends BaseController {
 	 */
 	public function index()
 	{
-		$accounts = $this->account->all();
+		$accounts = $this->account->get();
 
 		return View::make('accounts.index', compact('accounts'));
 	}
@@ -43,73 +43,20 @@ class AccountsController extends BaseController {
 	 */
 	public function store()
 	{
-		$input = Input::all();
+		$input 				= Input::all();
+		$input['user_id'] 	= Auth::user()->id;
+		$input['account'] 	= md5(Auth::user()->getFullName().time());
+		$input['token']		= md5($input['account'].json_encode(Input::all()));
+
 		$validation = Validator::make($input, Account::$rules);
 
 		if ($validation->passes())
 		{
-			$this->account->create($input);
-
+			Account::create($input);
 			return Redirect::route('accounts.index');
 		}
 
 		return Redirect::route('accounts.create')
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$account = $this->account->findOrFail($id);
-
-		return View::make('accounts.show', compact('account'));
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$account = $this->account->find($id);
-
-		if (is_null($account))
-		{
-			return Redirect::route('accounts.index');
-		}
-
-		return View::make('accounts.edit', compact('account'));
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, Account::$rules);
-
-		if ($validation->passes())
-		{
-			$account = $this->account->find($id);
-			$account->update($input);
-
-			return Redirect::route('accounts.show', $id);
-		}
-
-		return Redirect::route('accounts.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');

@@ -5,9 +5,9 @@ class Account extends Eloquent implements AccountInterface{
 	protected $guarded = array();
 
 	public static $rules = array(
-		'account' 	=> 'required',
+		'account' 	=> 'required|unique:accounts,account',
 		'token' 	=> 'required',
-		'user_id'	=> 'required|exists:user,id'
+		'user_id'	=> 'required|exists:users,id'
 	);
 
 	public function palettes()
@@ -17,12 +17,17 @@ class Account extends Eloquent implements AccountInterface{
 
 	public function admin()
 	{
-		return $this->belongsTo('User');
+		return $this->belongsTo('User', 'user_id');
 	}
 
 	public function users()
 	{
 		return $this->belongsToMany('User');
+	}
+
+	public function isMember(User $user)
+	{
+		return $this->users()->where('users.id', '=', $user->id)->take(1)->count();
 	}
 
 	public function validateCredentials($account, $token)

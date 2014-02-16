@@ -22,6 +22,15 @@ class UsersTableSeeder extends Seeder {
 				(4, 'abullard@viinetwork.net', 'Jim', 'Ballard', '2392 Road St.', 'Washington', 'DC', 20007, '2026077909', '2013-08-16 01:12:16', '2013-08-16 01:12:16');"
 			);
 
+		// Make passwords
+		$users = User::all();
+
+		foreach( $users as $user )
+		{
+			$user->password = Hash::make("test");
+			$user->save();
+		}
+
 	}
 
 }

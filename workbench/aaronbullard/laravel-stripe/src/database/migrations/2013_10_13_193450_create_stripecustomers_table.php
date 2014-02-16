@@ -12,6 +12,7 @@ class CreateStripecustomersTable extends Migration {
 	 */
 	public function up()
 	{
+		return true;
 		Schema::table('stripecustomers', function(Blueprint $table) {
 			$table->create();
 			$table->increments('id');
@@ -35,6 +36,7 @@ class CreateStripecustomersTable extends Migration {
 	 */
 	public function down()
 	{
+		return true;
 		Schema::drop('stripecustomers');
 	}
 

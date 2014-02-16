@@ -1,10 +1,10 @@
+@include('layouts.partials.logo')
+
 @section('navbar')
 <div class="navbar navbar-fixed-top" id="navbar">
 	<div class="navbar-inner">
 		<div class="container">
-<?php /*
-		{{ link_to_route('home', Config::get('mockup.app_name'), NULL, array('class' => 'brand')) }}
-			
+			<a href="{{ route('home') }}" class="brand">@yield('logo.image') Litmus API</a>
 			<!-- menu icon for mobile screens -->
 			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 				<span class="icon-bar"></span>
@@ -22,43 +22,11 @@
 					<li>
 						{{ link_to_route('home', 'Home') }}
 					</li>
-
-					<!-- Admin -->
-					<li class="divider-vertical"></li>
-					<li>
-						{{ link_to('admin', 'Admin') }}
-					</li>
 					
-					<!-- Bets -->
-					<li class="divider-vertical"></li>
-					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Bets<span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li>{{ link_to_route('bets.index', 'All Bets') }}</li>
-							<li>{{ link_to_route('bets.create', 'Create A Bet') }}</li>
-						</ul>
-					</li>
-					
-					<!-- Charities -->
-					<li class="divider-vertical"></li>
-					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Charities<span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li>{{ link_to_route('charities.index', 'All Charities') }}</li>
-							<li>{{ link_to_route('charities.index', 'Favorite Charities') }}</li>
-						</ul>
-					</li>
-
-					<!-- About BYC -->
+					<!-- Palettes -->
 					<li class="divider-vertical"></li>
 					<li>
-						{{ link_to_route('home', 'About BYC') }}
-					</li>
-
-					<!-- How it Works -->
-					<li class="divider-vertical"></li>
-					<li>
-						{{ link_to_route('home', 'How it Works') }}
+						{{ link_to_route('palettes.index', 'Palettes') }}
 					</li>
 				</ul>
 
@@ -71,20 +39,20 @@
 						</a>
 						<ul class="dropdown-menu">
 							@if( Auth::check() )
-								<li><a href="{{ route('profile') }}"><i class="icon-file"></i> {{ ucfirst(Auth::user()->fname).'\'s Account' }}</a></li>
+								<li><a href="{{ route('accounts.index') }}"><i class="icon-file"></i> {{ ucfirst(Auth::user()->firstname).'\'s Account' }}</a></li>
 								<li><a href="{{ route('logout') }}"><i class="icon-off"></i> Logout</a></li>
 							@else
 								<li><a href="{{ route('login') }}"><i class="icon-ok"></i> Login</a></li>
 								<li class="divider"></li>
-								<li><a href="{{ route('signup') }}"><i class="icon-pencil"></i> Sign Up</a></li>
+								<li><a href="{{ route('users.create') }}"><i class="icon-pencil"></i> Sign Up</a></li>
 							@endif
 						</ul>
 					</li>
 				</ul>
 
 			</div>  <!-- End Nav Collapse -->
-		*/	?>
+
 		</div>
 	</div>
 </div>
-@stop
+@show

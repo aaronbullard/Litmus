@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "2eba2529e1dbeca1c6fe9efe7c108e70",
+    "hash": "2ba5d9f123b393fc73f8e813e2c257d4",
     "packages": [
         {
             "name": "aaronbullard/layout",
@@ -1982,16 +1982,16 @@
     "packages-dev": [
         {
             "name": "barryvdh/laravel-debugbar",
-            "version": "dev-master",
+            "version": "v1.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "179c5a78845f497e491c4dce06c615a7ee1cd4bf"
+                "reference": "26309284c216861097b76516c3b206d2b49d55ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/179c5a78845f497e491c4dce06c615a7ee1cd4bf",
-                "reference": "179c5a78845f497e491c4dce06c615a7ee1cd4bf",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/26309284c216861097b76516c3b206d2b49d55ef",
+                "reference": "26309284c216861097b76516c3b206d2b49d55ef",
                 "shasum": ""
             },
             "require": {
@@ -2025,20 +2025,20 @@
                 "profiler",
                 "webprofiler"
             ],
-            "time": "2014-02-13 16:38:13"
+            "time": "2014-02-11 12:30:03"
         },
         {
             "name": "maximebf/debugbar",
-            "version": "1.9.3",
+            "version": "1.9.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maximebf/php-debugbar.git",
-                "reference": "d68b8aded0f1b79a77845e926bd993cd470be2e1"
+                "reference": "5bbb3bc78b3e9ee0c4cc8c3619171ea16f0fb51f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/d68b8aded0f1b79a77845e926bd993cd470be2e1",
-                "reference": "d68b8aded0f1b79a77845e926bd993cd470be2e1",
+                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/5bbb3bc78b3e9ee0c4cc8c3619171ea16f0fb51f",
+                "reference": "5bbb3bc78b3e9ee0c4cc8c3619171ea16f0fb51f",
                 "shasum": ""
             },
             "require": {
@@ -2075,7 +2075,7 @@
             "keywords": [
                 "debug"
             ],
-            "time": "2014-02-09 13:36:32"
+            "time": "2014-02-14 16:30:44"
         },
         {
             "name": "mustache/mustache",
@@ -2183,8 +2183,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "way/generators": 20,
-        "barryvdh/laravel-debugbar": 20
+        "way/generators": 20
     },
     "platform": [
 

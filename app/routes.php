@@ -11,12 +11,9 @@
 |
 */
 
-Route::controller('api', 'LitmusController');
+// Api routes
+require __DIR__.'/routes/api.php';
 
 // Litmus
-Route::resource('users', 'UsersController');
-Route::resource('accounts', 'AccountsController');
-
-Route::get('palettes/{palette_id}/colors', ['as' => 'palettes.colors', 'uses' => 'ColorsController@index']);
-Route::resource('palettes', 'PalettesController');
-Route::resource('colors', 'ColorsController');
+require __DIR__.'/routes/auth.php';
+require __DIR__.'/routes/palettes.php';

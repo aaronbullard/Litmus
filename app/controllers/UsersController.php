@@ -46,10 +46,12 @@ class UsersController extends BaseController {
 		$input = Input::all();
 		$validation = Validator::make($input, User::$rules);
 
+		// Hash password
+		$input['passwod'] = Hash::make($input['password']);
+		
 		if ($validation->passes())
 		{
 			$this->user->create($input);
-
 			return Redirect::route('users.index');
 		}
 

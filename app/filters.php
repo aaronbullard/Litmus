@@ -78,3 +78,23 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+/*
+|--------------------------------------------------------------------------
+| Litmus Filters
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::filter('admin', function()
+{
+	if (Auth::user()->email !== 'JABullard@aol.com') 
+		return Redirect::guest('login');
+});
+
+Route::filter('user', function($route, $request, $table, $id){
+	$is_owner = DB::table($table)->where('id', '=', $id)
+				->where('user_id', '=', Auth::user()->id)->count();
+
+	if( ! $is_owner ) App::abort(404);
+});

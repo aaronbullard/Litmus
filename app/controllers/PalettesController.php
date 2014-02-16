@@ -11,7 +11,8 @@ class PalettesController extends BaseController {
 
 	public function __construct(Palette $palette)
 	{
-		$this->palette = $palette;
+		$account_ids = Auth::user()->accounts->lists('id');
+		$this->palette 	= $palette->whereIn('account_id', $account_ids);
 		$this->namespace = 'palettes';
 	}
 
@@ -22,7 +23,7 @@ class PalettesController extends BaseController {
 	 */
 	public function index()
 	{
-		$palettes = $this->palette->all();
+		$palettes = $this->palette->get();
 
 		return View::make($this->namespace.'.index', compact('palettes'));
 	}
@@ -45,9 +46,11 @@ class PalettesController extends BaseController {
 	public function store()
 	{
 		$input = Input::all();
+		$input['user_id'] = Auth::user()->id;
+
 		$validation = Validator::make($input, Palette::$rules);
 
-		if ($validation->passes())
+		if ($validation->passes()  && Account::find($input['account_id'])->isMember(Auth::user()) )
 		{
 			$this->palette->create($input);
 
@@ -66,10 +69,8 @@ class PalettesController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show(Palette $palette)
 	{
-		$palette = $this->palette->findOrFail($id);
-
 		return View::make($this->namespace.'.show', compact('palette'));
 	}
 
@@ -79,10 +80,8 @@ class PalettesController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(Palette $palette)
 	{
-		$palette = $this->palette->find($id);
-
 		if (is_null($palette))
 		{
 			return Redirect::route($this->namespace.'.index');
@@ -97,20 +96,19 @@ class PalettesController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Palette $palette)
 	{
 		$input = array_except(Input::all(), '_method');
+		$input['user_id'] = Auth::user()->id;
 		$validation = Validator::make($input, Palette::$rules);
 
-		if ($validation->passes())
+		if ($validation->passes() && Account::find($input['account_id'])->isMember(Auth::user()))
 		{
-			$palette = $this->palette->find($id);
 			$palette->update($input);
-
-			return Redirect::route($this->namespace.'.show', $id);
+			return Redirect::route($this->namespace.'.show', $palette->id);
 		}
 
-		return Redirect::route($this->namespace.'.edit', $id)
+		return Redirect::back()
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -119,13 +117,12 @@ class PalettesController extends BaseController {
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param  Palette Palette
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(Palette $palette)
 	{
-		$this->palette->find($id)->delete();
-
+		$palette->delete();
 		return Redirect::route($this->namespace.'.index');
 	}
 

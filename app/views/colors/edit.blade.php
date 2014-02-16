@@ -3,7 +3,7 @@
 @section('main')
 
 <h1>Edit Color</h1>
-{{ Form::model($color, array('method' => 'PATCH', 'route' => array('colors.update', $color->id))) }}
+{{ Form::model($color, array('method' => 'PATCH', 'route' => array('palettes.{palettes}.colors.update', $palette->id, $color->id))) }}
 	<ul>
 		<li>
 			{{ Form::label('name', 'Name:') }}
@@ -37,7 +37,7 @@
 
 		<li>
 			{{ Form::submit('Update', array('class' => 'btn btn-info')) }}
-			{{ link_to_route('colors.show', 'Cancel', $color->id, array('class' => 'btn')) }}
+			{{ link_to_route('palettes.{palettes}.colors.show', 'Cancel', [$palette->id, $color->id], array('class' => 'btn')) }}
 		</li>
 	</ul>
 {{ Form::close() }}

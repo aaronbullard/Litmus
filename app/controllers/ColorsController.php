@@ -11,8 +11,9 @@ class ColorsController extends BaseController {
 
 	public function __construct(Color $color)
 	{
-		$this->color = $color;
-		$this->namespace = "colors";
+		$this->color 		= $color;
+		$this->namespace 	= "colors";
+		$this->route 		= "palettes.{palettes}.colors";
 	}
 
 	/**
@@ -20,11 +21,9 @@ class ColorsController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index($palette_id)
+	public function index(Palette $palette)
 	{
-		$colors = $this->color->with('palette')->wherePaletteId($palette_id)->get();
-
-		return View::make($this->namespace.'.index', compact('colors'));
+		return View::make($this->namespace.'.index', compact('palette'));
 	}
 
 	/**
@@ -32,9 +31,9 @@ class ColorsController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create(Palette $palette)
 	{
-		return View::make($this->namespace.'.create');
+		return View::make($this->namespace.'.create', compact('palette'));
 	}
 
 	/**
@@ -42,7 +41,7 @@ class ColorsController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Palette $palette)
 	{
 		$input = Input::all();
 		$validation = Validator::make($input, Color::$rules);
@@ -51,10 +50,10 @@ class ColorsController extends BaseController {
 		{
 			$this->color->create($input);
 
-			return Redirect::route($this->namespace.'.index');
+			return Redirect::route($this->route.'.index', $palette->id);
 		}
 
-		return Redirect::route($this->namespace.'.create')
+		return Redirect::back()
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -66,10 +65,8 @@ class ColorsController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show(Palette $palette, Color $color)
 	{
-		$color = $this->color->findOrFail($id);
-
 		return View::make($this->namespace.'.show', compact('color'));
 	}
 
@@ -79,16 +76,14 @@ class ColorsController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(Palette $palette, Color $color)
 	{
-		$color = $this->color->find($id);
-
 		if (is_null($color))
 		{
-			return Redirect::route($this->namespace.'.index');
+			return Redirect::route($this->route.'.index', $palette->id);
 		}
 
-		return View::make($this->namespace.'.edit', compact('color'));
+		return View::make($this->namespace.'.edit', compact('palette', 'color'));
 	}
 
 	/**
@@ -97,20 +92,20 @@ class ColorsController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Palette $palette, Color $color)
 	{
 		$input = array_except(Input::all(), '_method');
 		$validation = Validator::make($input, Color::$rules);
 
 		if ($validation->passes())
 		{
-			$color = $this->color->find($id);
+			// $color = $this->color->find($id);
 			$color->update($input);
 
-			return Redirect::route($this->namespace.'.show', $id);
+			return Redirect::route($this->route.'.show', [$palette->id, $color->id]);
 		}
 
-		return Redirect::route($this->namespace.'.edit', $id)
+		return Redirect::back()
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -122,11 +117,15 @@ class ColorsController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(Palete $palette, Color $color)
 	{
-		$this->color->find($id)->delete();
+		// $color 		= $this->color->find($id);
+		// $palette_id = $color->palette->id;
 
-		return Redirect::route($this->namespace.'.index');
+		$color->delete();
+
+		return Redirect::route($this->namespace.'.index', $palette->id)
+					->with('danger', "Color was deleted!");
 	}
 
 }

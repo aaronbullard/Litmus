@@ -29,6 +29,7 @@
 
 
 @section('content')
+	@include('layouts.partials.navbar')
 	<div class='container'>
 		@include('layouts.partials.messages')
 		@yield('main')
@@ -37,6 +38,7 @@
 
 
 @section('footer')
+	@include('layouts.partials.footer')
 @stop
 
 

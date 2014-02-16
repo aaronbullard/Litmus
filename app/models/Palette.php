@@ -17,4 +17,13 @@ class Palette extends Eloquent {
 		return $this->belongsTo('Account');
 	}
 
+	/**
+	 * Person who created the palette
+	 * @return User
+	 */
+	public function user()
+	{
+		return $this->belongsTo('User');
+	}
+
 }

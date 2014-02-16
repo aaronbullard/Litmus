@@ -15,8 +15,10 @@ class CreateAccountsTable extends Migration {
 		Schema::table('accounts', function(Blueprint $table) {
 			$table->create();
 			$table->increments('id');
+			$table->string('name', 64);
 			$table->string('account', 64);
 			$table->string('token', 64);
+			$table->string('stripeCustomerId', 64);
 			$table->integer('user_id')->unsigned();
 			$table->timestamps();
 		});

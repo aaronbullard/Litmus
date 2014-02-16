@@ -4,7 +4,7 @@
 
 <h1>Create Color</h1>
 
-{{ Form::open(array('route' => 'colors.store')) }}
+{{ Form::open(array('route' => 'palettes.{palettes}.colors.store')) }}
 	<ul>
 		<li>
 			{{ Form::label('name', 'Name:') }}
@@ -30,12 +30,12 @@
 			{{ Form::label('alpha', 'Alpha:') }}
 			{{ Form::text('alpha') }}
 		</li>
-
+<?php /*
 		<li>
 			{{ Form::label('palette_id', 'Palette:') }}
 			{{ Form::select('palette_id', Palette::lists('title', 'id')) }}
 		</li>
-
+*/ ?>
 		<li>
 			{{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
 		</li>

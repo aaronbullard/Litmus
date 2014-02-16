@@ -6,6 +6,11 @@
 {{ Form::model($palette, array('method' => 'PATCH', 'route' => array('palettes.update', $palette->id))) }}
 	<ul>
         <li>
+            {{ Form::label('account', 'Account:') }}
+            {{ Form::select('account_id', Auth::user()->accounts->lists('name', 'id')) }}
+        </li>
+
+        <li>
             {{ Form::label('title', 'Title:') }}
             {{ Form::text('title') }}
         </li>
@@ -13,11 +18,6 @@
         <li>
             {{ Form::label('description', 'Description:') }}
             {{ Form::textarea('description') }}
-        </li>
-
-        <li>
-            {{ Form::label('user_id', 'User_id:') }}
-            {{ Form::input('number', 'user_id') }}
         </li>
 
 		<li>

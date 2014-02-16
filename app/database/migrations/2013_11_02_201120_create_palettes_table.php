@@ -18,6 +18,7 @@ class CreatePalettesTable extends Migration {
 			$table->string('title');
 			$table->text('description');
 			$table->integer('account_id')->unsigned();
+			$table->integer('user_id')->unsigned();
 			$table->timestamps();
 		});
 
