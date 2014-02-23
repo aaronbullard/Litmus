@@ -25,6 +25,11 @@ class Account extends Eloquent{
 		return $this->belongsToMany('User');
 	}
 
+	public function images()
+	{
+		return $this->hasMany('Image');
+	}
+
 	public function isMember(User $user)
 	{
 		return $this->users()->where('users.id', '=', $user->id)->take(1)->count();

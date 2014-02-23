@@ -19,21 +19,16 @@ class ImagesController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Account $account)
 	{
-		$images = $this->image->all();
+		
+		$images = $account->images()->get();
 
-		return View::make('images.index', compact('images'));
-	}
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return View::make('images.create');
+		return Response::json([
+				'status' => ['message' => 'OK', 'code' => 1],
+				'data'	 => $images->toArray(),
+				'meta'	 => []
+			], 200);
 	}
 
 	/**
@@ -41,22 +36,32 @@ class ImagesController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Account $account)
 	{
-		$input = Input::all();
+		$input 		= Input::all();
 		$validation = Validator::make($input, Image::$rules);
 
 		if ($validation->passes())
 		{
-			$this->image->create($input);
+			$image = Image::fill($input);
+			$account->images()->save($image);
 
-			return Redirect::route('images.index');
+			Event::fire('image.process', $image);
+
+			return Response::json([
+				'status' => ['message' => 'Created', 'code' => 1],
+				'data'	 => $image->toArray(),
+				'meta'	 => []
+			], 201);
 		}
 
-		return Redirect::route('images.create')
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
+		return Response::json([
+				'status' => ['message' => 'Not Acceptable', 'code' => 2],
+				'data'	 => [],
+				'meta'	 => [
+					'errors' => $image->errors()->all()
+				]
+			], 406);
 	}
 
 	/**
@@ -65,29 +70,26 @@ class ImagesController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show(Account $account, $token, $image_id)
 	{
-		$image = $this->image->findOrFail($id);
+		$image = $account->images()->findOrFail($image_id);
 
-		return View::make('images.show', compact('image'));
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$image = $this->image->find($id);
-
-		if (is_null($image))
+		if( $image )
 		{
-			return Redirect::route('images.index');
+			return Response::json([
+					'status' => ['message' => 'OK', 'code' => 1],
+					'data'	 => $image->toArray(),
+					'meta'	 => []
+				], 200);	
 		}
 
-		return View::make('images.edit', compact('image'));
+		return Response::json([
+				'status' => ['message' => 'Not Found', 'code' => 2],
+				'data'	 => [],
+				'meta'	 => [
+					'errors' => "The resource you requested was not found."
+				]
+			], 404);
 	}
 
 	/**
@@ -96,23 +98,26 @@ class ImagesController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Account $account, $token, $image_id)
 	{
 		$input = array_except(Input::all(), '_method');
 		$validation = Validator::make($input, Image::$rules);
 
 		if ($validation->passes())
 		{
-			$image = $this->image->find($id);
+			$image = $account->image->find($image_id);
 			$image->update($input);
 
-			return Redirect::route('images.show', $id);
+			return Response::json(NULL, 204);
 		}
 
-		return Redirect::route('images.edit', $id)
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
+		return Response::json([
+				'status' => ['message' => 'Not Acceptable', 'code' => 2],
+				'data'	 => $image->toArray(),
+				'meta'	 => [
+					'errors' => $image->errors()->all()
+				]
+			], 406);
 	}
 
 	/**
@@ -121,11 +126,22 @@ class ImagesController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(Account $account, $token, $image_id)
 	{
-		$this->image->find($id)->delete();
+		$image = $account->image->find($image_id);
+		if( $image )
+		{
+			$image->delete();
+			return Response::json(NULL, 204);
+		}
 
-		return Redirect::route('images.index');
+		return Response::json([
+				'status' => ['message' => 'Not Found', 'code' => 2],
+				'data'	 => [],
+				'meta'	 => [
+					'errors' => "The resource you requested was not found."
+				]
+			], 404);
 	}
 
 }
