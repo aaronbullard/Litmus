@@ -4,9 +4,11 @@ class Image extends Eloquent {
 
 	protected $guarded = array('red', 'green', 'blue');
 	protected $fillable = ['url', 'parameters'];
+
+	protected $hidden = ['account_id'];
 	
 	public static $rules = array(
-		'url' => 'required',
+		'url' => 'required|active_url',
 		'parameters' => '',
 		'red' => 'between:0,255',
 		'green' => 'between:0,255',
