@@ -16,6 +16,7 @@ class CreateImagesTable extends Migration {
 			$table->increments('id');
 			$table->string('url');
 			$table->string('parameters');
+			$table->string('status', 10)->default('processing');
 			$table->tinyInteger('red')->nullable()->unsigned();
 			$table->tinyInteger('green')->nullable()->unsigned();
 			$table->tinyInteger('blue')->nullable()->unsigned();

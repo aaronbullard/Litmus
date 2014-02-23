@@ -118,7 +118,7 @@ return array(
 		'Way\Generators\GeneratorsServiceProvider',
 		'Barryvdh\Debugbar\ServiceProvider',
 		'Aaronbullard\Layout\LayoutServiceProvider',
-		// 'Aaronbullard\Colormatch\ColormatchServiceProvider',
+		 'Aaronbullard\Litmus\LitmusServiceProvider',
 		'Aaronbullard\LaravelStripe\LaravelStripeServiceProvider',
 	),
 
@@ -186,6 +186,8 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
 
 		'Util'			=> 'Helpers\Util',
+		'Litmus'		=> 'Aaronbullard\Litmus\Services\LitmusService',
+		'API'			=> 'Api\Entities\Response',
 
 	),
 

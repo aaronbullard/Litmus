@@ -81,7 +81,10 @@
 			"app/database/migrations",
 			"app/database/seeds",
 			"app/libraries/Helpers"
-		]
+		],
+		"psr-0": {
+			"Api": "app"
+		}
 	},
 	"scripts": {
 		"post-install-cmd": [

@@ -92,9 +92,7 @@ Route::filter('admin', function()
 		return Redirect::guest('login');
 });
 
-Route::filter('api', function(){
-	$account = Request::segment(2);
-	$token 	= Request::segment(3);
+Route::filter('api', function($route, $request, $account, $token){
 	if( ! Account::validateCredentials($account, $token) )
 		return App::abort(404);
 });

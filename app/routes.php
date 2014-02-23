@@ -17,3 +17,4 @@ require __DIR__.'/routes/api.php';
 // Litmus
 require __DIR__.'/routes/auth.php';
 require __DIR__.'/routes/palettes.php';
+require __DIR__.'/routes/queue.php';

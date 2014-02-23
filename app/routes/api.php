@@ -1,14 +1,16 @@
 <?php
 
-Route::group(['prefix' => 'api', 'before' => 'api'], function(){
-	$account_id = Request::segment(2);
+$account = Request::segment(3);
+$token 	 = Request::segment(4);
+
+Route::group(['prefix' => 'api/v1', 'before' => "api:{$account},{$token}"], function(){
 
 	Route::get('{account_id}/{token}/images', function($account_id){
-		return Image::whereAccountId($account_id)->get();
+		return Response::json(Image::whereAccountId($account_id)->get(), 200);
 	});
 
 	Route::get('{account_id}/{token}/images/{image_id}', function($account_id, $token, $image_id){
-		return Image::find($image_id);
+		return API::make( Image::find($image_id) );
 	});
 
 	Route::post('{account_id}/{token}/images', function($account_id, $token){
@@ -21,7 +23,7 @@ Route::group(['prefix' => 'api', 'before' => 'api'], function(){
 	});
 
 	Route::delete('{account_id}/{token}/images/{image_id}', function($account_id, $token, $image_id){
-		return Image::find($image_id)->delete();
+		return API::make( Image::find($image_id)->delete() );
 	});
 
 	
