@@ -4,7 +4,7 @@
 
 <h1>Create Image</h1>
 
-{{ Form::open(array('route' => 'images.store')) }}
+{{ Form::open(array('route' => ['api.v1.{account}.{token}.images.store', $account->account, $account->token])) }}
 	<ul>
         <li>
             {{ Form::label('url', 'Url:') }}
@@ -15,7 +15,7 @@
             {{ Form::label('parameters', 'Parameters:') }}
             {{ Form::text('parameters') }}
         </li>
-
+<?php /*
         <li>
             {{ Form::label('red', 'Red:') }}
             {{ Form::text('red') }}
@@ -40,7 +40,7 @@
             {{ Form::label('account_id', 'Account_id:') }}
             {{ Form::input('number', 'account_id') }}
         </li>
-
+*/ ?>
 		<li>
 			{{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
 		</li>

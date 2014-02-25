@@ -9,7 +9,7 @@ class ImagesTableSeeder extends Seeder {
 
 		$images = array(
 			[
-				'url' 			=> "url/image/here",
+				'url' 			=> "https://www.google.com/images/srpr/logo11w.png",
 				'parameters' 	=> '{}',
 				'status'		=> 'done',
 				'red'			=> 100,
@@ -19,8 +19,8 @@ class ImagesTableSeeder extends Seeder {
 				'account_id'	=> 1
 			],
 			[
-				'url' 			=> "url/image/other",
-				'parameters' 	=> '{xOffet:100px, yOffset: 100px}',
+				'url' 			=> "http://www.atlasproject.co/wp-content/uploads/2013/11/facebook.jpg",
+				'parameters' 	=> '{"x1":10, "y1":10, "x2":300, "y2":300}',
 				'status'		=> 'processing',
 				'red'			=> NULL,
 				'green'			=> NULL,

@@ -48,18 +48,18 @@ class LitmusService{
 		return $im;
 	}
 	
-	public static function average_color($image_url){
+	public static function average_color($image_url, $x1 = 0, $y1 = 0, $x2 = NULL, $y2 = NULL){
 
 		$im = self::getImageFromUrl($image_url);
 		
 		//Begin getting average
-		$width	= imagesx($im);
-		$height	= imagesy($im);
+		$width	= is_null($x2) ? imagesx($im) : $x2;
+		$height	= is_null($y2) ? imagesy($im) : $y2;
 		
 		$total = $r = $g = $b = $a = 0;
 		
-		for($x = 0; $x < $width; $x++){
-		    for($y = 0; $y < $height; $y++){
+		for($x = $x1; $x < $width; $x++){
+		    for($y = $y1; $y < $height; $y++){
 				
 				//get rgba array at index
 		    	$index	= imagecolorat($im, $x, $y);
@@ -92,6 +92,11 @@ class LitmusService{
 
 		// return (array)$avg;
 		return $rgba;
+	}
+
+	public static function getAverageColor($image_url, $x1 = 0, $y1 = 0, $x2 = NULL, $y2 = NULL)
+	{
+		return self::average_color($image_url, $x1, $y1, $x2, $y2);
 	}
 
 	

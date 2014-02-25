@@ -118,8 +118,9 @@ return array(
 		'Way\Generators\GeneratorsServiceProvider',
 		'Barryvdh\Debugbar\ServiceProvider',
 		'Aaronbullard\Layout\LayoutServiceProvider',
-		 'Aaronbullard\Litmus\LitmusServiceProvider',
+		'Aaronbullard\Litmus\LitmusServiceProvider',
 		'Aaronbullard\LaravelStripe\LaravelStripeServiceProvider',
+		'Api\Workers\WorkersServiceProvider',
 	),
 
 	/*

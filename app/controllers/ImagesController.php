@@ -31,6 +31,13 @@ class ImagesController extends BaseController {
 			], 200);
 	}
 
+	public function create(Account $account)
+	{
+		$token = $account->token;
+		return View::make('images.create', compact('account', 'token'));
+	}
+
+
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -38,28 +45,32 @@ class ImagesController extends BaseController {
 	 */
 	public function store(Account $account)
 	{
-		$input 		= Input::all();
+		$input 				 = Input::all();
+		$input['account_id'] = $account->id;
+		$input['parameters'] = NULL;
 		$validation = Validator::make($input, Image::$rules);
 
 		if ($validation->passes())
 		{
-			$image = Image::fill($input);
-			$account->images()->save($image);
+			$image = Image::create($input);
+			if( $image )
+			{
+				$account->images()->save($image);
+				Event::fire('image.process', [$image]);
 
-			Event::fire('image.process', $image);
-
-			return Response::json([
-				'status' => ['message' => 'Created', 'code' => 1],
-				'data'	 => $image->toArray(),
-				'meta'	 => []
-			], 201);
+				return Response::json([
+					'status' => ['message' => 'Created', 'code' => 1],
+					'data'	 => $image->toArray(),
+					'meta'	 => []
+				], 201);	
+			}
 		}
 
 		return Response::json([
 				'status' => ['message' => 'Not Acceptable', 'code' => 2],
 				'data'	 => [],
 				'meta'	 => [
-					'errors' => $image->errors()->all()
+					'errors' => $validation->errors()->all()
 				]
 			], 406);
 	}
@@ -72,7 +83,7 @@ class ImagesController extends BaseController {
 	 */
 	public function show(Account $account, $token, $image_id)
 	{
-		$image = $account->images()->findOrFail($image_id);
+		$image = $account->images()->find($image_id);
 
 		if( $image )
 		{
@@ -87,7 +98,7 @@ class ImagesController extends BaseController {
 				'status' => ['message' => 'Not Found', 'code' => 2],
 				'data'	 => [],
 				'meta'	 => [
-					'errors' => "The resource you requested was not found."
+					'errors' => ["The resource you requested was not found."]
 				]
 			], 404);
 	}
@@ -115,7 +126,7 @@ class ImagesController extends BaseController {
 				'status' => ['message' => 'Not Acceptable', 'code' => 2],
 				'data'	 => $image->toArray(),
 				'meta'	 => [
-					'errors' => $image->errors()->all()
+					'errors' => $validation->errors()->all()
 				]
 			], 406);
 	}
@@ -139,7 +150,7 @@ class ImagesController extends BaseController {
 				'status' => ['message' => 'Not Found', 'code' => 2],
 				'data'	 => [],
 				'meta'	 => [
-					'errors' => "The resource you requested was not found."
+					'errors' => ["The resource you requested was not found."]
 				]
 			], 404);
 	}
