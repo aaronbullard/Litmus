@@ -26,11 +26,9 @@ $app->redirectIfTrailingSlash();
 |
 */
 
-$env = $app->detectEnvironment(array(
-
-	'local' => array('macbookair.home', '*local*', 'http://localhost*', '*.dev'),
-
-));
+$env = $app->detectEnvironment(function(){
+	return getenv('APP_ENV') ?: 'local';
+});
 
 /*
 |--------------------------------------------------------------------------

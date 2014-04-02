@@ -16,10 +16,33 @@
 		"aaronbullard/layout": "v1.0.1"
 	},
 	"require-dev": {
-		"way/generators": "1.1",
+		"way/generators": "1.0.*@dev",
 		"barryvdh/laravel-debugbar": "v1.2.3"
 	},
 	"repositories": [
+		{
+			"type": "package",
+			"package": {
+					"name": "laravelbook/ardent",
+					"version": "2.4.1",
+					"source": {
+							"type": "git",
+							"url": "https://github.com/bexarcreativeinc/ardent.git",
+							"reference": "master"
+					},
+					"require": {
+							"php": ">=5.3.0",
+							"illuminate/support": "4.x",
+							"illuminate/database": "4.x",
+							"illuminate/validation": "4.x"
+					},
+					"autoload": {
+							"psr-0": {
+									"LaravelBook\\Ardent": "src/"
+							}
+					}
+			}
+		},
 		{
 			"type": "package",
 			"package":	{
@@ -57,8 +80,7 @@
 			"app/models",
 			"app/database/migrations",
 			"app/database/seeds",
-			"app/libraries/Helpers",
-			"workbench"
+			"app/libraries/Helpers"
 		],
 		"psr-0": {
 			"Api": "app"
