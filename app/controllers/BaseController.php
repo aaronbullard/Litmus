@@ -1,6 +1,8 @@
 <?php
 
-class BaseController extends Controller {
+use Aaronbullard\Api\ApiController;
+
+class BaseController extends ApiController {
 
 	/**
 	 * Setup the layout used by the controller.

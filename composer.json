@@ -14,8 +14,8 @@
 		"iron-io/iron_mq": "1.4.*"
 	},
 	"require-dev": {
-		"way/generators": "1.1",
-		"barryvdh/laravel-debugbar": "v1.2.3"
+		"way/generators": "2.*",
+		"barryvdh/laravel-debugbar": "1.*"
 	},
 	"autoload": {
 		"classmap": [

@@ -1,12 +1,17 @@
 <?php
 
-class Palette extends Eloquent {
+use Aaronbullard\Litmus\Exceptions\ValidationException;
+
+class Palette extends AbstractModel{
 	protected $guarded = array();
 
+	protected $fillable = ['title', 'description']; 
+
 	public static $rules = array(
-		'title' => 'required',
-		'description' => 'required',
-		'user_id' => 'required|exists:users,id'
+		'title' 		=> 'required',
+		'description' 	=> 'required',
+		'account_id'	=> 'required|exists:accounts,id',
+		'user_id' 		=> 'required|exists:users,id'
 	);
 
 	public function colors(){
