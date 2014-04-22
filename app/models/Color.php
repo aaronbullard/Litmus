@@ -3,14 +3,14 @@
 use Litmus\Entities\Rgba;
 use Litmus\Contexts\CreateVarianceCtx;
 
-class Color extends Eloquent {
+class Color extends AbstractModel {
 
 	public static $palette_id;
 
 	protected $variance;
 
 	protected $guarded = array();
-	protected $hidden  = array('id', 'palette_id');
+	protected $hidden  = array();
 
 	public static $rules = array(
 		'name' 		=> 'required|min:3',

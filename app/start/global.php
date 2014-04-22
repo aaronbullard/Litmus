@@ -46,6 +46,7 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 |
 */
 
+require app_path().'/start/errors.php';
 App::error(function(Exception $exception, $code)
 {
 	Log::error($exception);

@@ -2,19 +2,16 @@
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Aaronbullard\Litmus\Exceptions\ValidationException;
-use Aaronbullard\Litmus\Transformers\PaletteTransformer;
+use Aaronbullard\Litmus\Transformers\UserTransformer;
 use Aaronbullard\Litmus\Transformers\PaginatorTransformer;
 
-class PaletteController extends \BaseController {
+class UserController extends \BaseController {
 
 	protected $transformer;
 
-	protected $paginatorTransformer;
-
-	public function __construct(PaletteTransformer $transformer, PaginatorTransformer $paginatorTransformer)
+	public function __construct(UserTransformer $transformer)
 	{
-		$this->transformer 			= $transformer;
-		$this->paginatorTransformer = $paginatorTransformer;
+		$this->transformer = $transformer;
 	}
 
 	/**
@@ -24,18 +21,7 @@ class PaletteController extends \BaseController {
 	 */
 	public function index()
 	{
-		try{
-			$palettes = Palette::paginate($this->limit);
-
-			return $this->respondOK([
-				'data' => $this->transformer->transformArray($palettes->getItems()),
-				'meta' => $this->paginatorTransformer->transform($palettes)
-			]);	
-		}
-		catch(Exception $e)
-		{
-			return $this->respondBadRequest();
-		}
+		//
 	}
 
 	/**
@@ -56,14 +42,13 @@ class PaletteController extends \BaseController {
 	public function store()
 	{
 		try{
-			$palette = (new Palette)->fill(Input::all());
-			$palette->account_id = 1;
-			$palette->user_id = 1;
-			$palette->validate();
-			$palette->save();
+			$user = (new User)->fill(Input::all());
+			$user->password = Hash::make(Input::get('password'));
+			$user->validate();
+			$user->save();
 
 			return $this->respondCreated([
-				'data' => $this->transformer->transform($palette)
+				'data' => $this->transformer->transform($user)
 			]);
 		}
 		catch(ValidationException $e)
@@ -85,10 +70,10 @@ class PaletteController extends \BaseController {
 	public function show($id)
 	{
 		try{
-			$palette = Palette::findOrFail($id);
+			$user = User::findOrFail($id);
 
 			return $this->respondOK([
-				'data' => $this->transformer->transform($palette)
+				'data' => $this->transformer->transform($user)
 			]);
 		}
 		catch(ModelNotFoundException $e)
@@ -121,13 +106,13 @@ class PaletteController extends \BaseController {
 	public function update($id)
 	{
 		try{
-			$palette = Palette::findOrFail($id);
-			$palette->fill(Input::all());
-			$palette->validate();
-			$palette->save();
+			$user = User::findOrFail($id);
+			$user->fill(Input::all());
+			$user->validate();
+			$user->save();
 
 			return $this->respondOK([
-				'data' => $this->transformer->transform($palette)
+				'data' => $this->transformer->transform($user)
 			]);
 		}
 		catch(ModelNotFoundException $e)
@@ -153,10 +138,10 @@ class PaletteController extends \BaseController {
 	public function destroy($id)
 	{
 		try{
-			$palette = Palette::findOrFail($id);
-			$palette->delete();
+			$user = User::findOrFail($id);
+			$user->delete();
 
-			return Redirect::route('palettes.index');
+			return Redirect::route('users.index');
 		}
 		catch(ModelNotFoundException $e)
 		{
