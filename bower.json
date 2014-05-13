@@ -1,25 +1,24 @@
 {
-	"name": "LitmusAPI",
-	"version": "0.0.9",
-	"homepage": "http://www.litmusapi.com",
-	"authors": [
-		"Aaron Bullard <aaron.bullard77@gmail.com>"
-	],
-	"description": "Restful API for image color averaging.",
-	"keywords": [
-		"RGB", "color", "api"
-	],
-	"license": "MIT",
-	"private": true,
-	"ignore": [
-		"**/.*",
-		"node_modules",
-		"bower_components",
-		"public/vendor",
-		"test",
-		"tests"
-	],
-	"dependencies": {
-		
-	}
+  "name": "LitmusAPI",
+  "version": "0.0.9",
+  "homepage": "http://www.litmusapi.com",
+  "authors": [
+    "Aaron Bullard <aaron.bullard77@gmail.com>"
+  ],
+  "description": "Restful API for image color averaging.",
+  "keywords": [
+    "RGB",
+    "color",
+    "api"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/vendor",
+    "test",
+    "tests"
+  ]
 }

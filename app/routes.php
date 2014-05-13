@@ -16,6 +16,10 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
+Route::get('/colors', function(){
+	return Color::with('palette')->get();
+});
+
 Route::group(['before' => 'auth'], function(){
 	Route::resource('users', 'UserController', ['only' => ['store', 'show', 'update', 'destroy']]);
 	Route::resource('palettes', 'PaletteController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);

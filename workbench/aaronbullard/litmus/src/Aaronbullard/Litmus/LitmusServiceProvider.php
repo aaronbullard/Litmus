@@ -2,6 +2,10 @@
 
 use Illuminate\Support\ServiceProvider;
 
+use Config;
+use CatchoomRecognition;
+use Aaronbullard\Litmus\ImageRecognition\CatchoomImageRecognition;
+
 class LitmusServiceProvider extends ServiceProvider {
 
 	/**
@@ -19,6 +23,7 @@ class LitmusServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('aaronbullard/litmus');
+		require __DIR__.'/../../routes.php';
 	}
 
 	/**
@@ -28,7 +33,7 @@ class LitmusServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+		$this->registerImageRecognitionService();
 	}
 
 	/**
@@ -39,6 +44,15 @@ class LitmusServiceProvider extends ServiceProvider {
 	public function provides()
 	{
 		return array();
+	}
+
+	protected function registerImageRecognitionService()
+	{
+		$this->app->bind('imagerecogniztion', function($app){
+			$token = Config::get('litmus::catchoom.token');
+			$api = new CatchoomRecognition(CatchoomRecognition::API_VERSION_1, $token);
+			return new CatchoomImageRecognition($api);
+		});
 	}
 
 }
