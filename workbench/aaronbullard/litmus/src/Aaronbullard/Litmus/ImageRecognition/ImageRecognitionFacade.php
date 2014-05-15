@@ -11,7 +11,7 @@ class ImageRecognitionFacade extends Facade {
 	 */
 	protected static function getFacadeAccessor()
 	{
-		return 'imagerecogniztion';
+		return 'imagerecognition';
 	}
 
 }

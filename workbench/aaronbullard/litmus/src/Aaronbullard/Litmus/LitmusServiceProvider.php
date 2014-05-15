@@ -48,7 +48,7 @@ class LitmusServiceProvider extends ServiceProvider {
 
 	protected function registerImageRecognitionService()
 	{
-		$this->app->bind('imagerecogniztion', function($app){
+		$this->app->bind('imagerecognition', function($app){
 			$token = Config::get('litmus::catchoom.token');
 			$api = new CatchoomRecognition(CatchoomRecognition::API_VERSION_1, $token);
 			return new CatchoomImageRecognition($api);
