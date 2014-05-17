@@ -108,7 +108,6 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
 		'Way\Generators\GeneratorsServiceProvider',
-		'Barryvdh\Debugbar\ServiceProvider',
 		'Aaronbullard\Api\ApiServiceProvider',
 		'Aaronbullard\Litmus\LitmusServiceProvider',
 
@@ -177,8 +176,6 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-
-		'IR'			=> 'Aaronbullard\Litmus\ImageRecognition\ImageRecognitionFacade',
 
 	),
 
