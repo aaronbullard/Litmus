@@ -21,7 +21,7 @@ class CreateImagesTable extends Migration {
 			$table->tinyInteger('green')->nullable()->unsigned();
 			$table->tinyInteger('blue')->nullable()->unsigned();
 			$table->tinyInteger('alpha')->nullable()->unsigned();
-			$table->integer('account_id')->unsinged();
+			$table->integer('user_id')->unsinged();
 			$table->timestamps();
 		});
 	}
