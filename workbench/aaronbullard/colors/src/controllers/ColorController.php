@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Aaronbullard\Litmus\Exceptions\ValidationException;
-use Aaronbullard\Litmus\Transformers\ColorTransformer;
+use Aaronbullard\Colors\Transformers\ColorTransformer;
 use Aaronbullard\Litmus\Transformers\PaginatorTransformer;
 
 class ColorController extends \BaseController {
@@ -36,16 +36,6 @@ class ColorController extends \BaseController {
 		{
 			return $this->respondBadRequest();
 		}
-	}
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
 	}
 
 	/**
@@ -98,17 +88,6 @@ class ColorController extends \BaseController {
 		{
 			return $this->respondBadRequest();
 		}
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
 	}
 
 	/**

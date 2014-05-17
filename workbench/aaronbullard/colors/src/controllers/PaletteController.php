@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Aaronbullard\Litmus\Exceptions\ValidationException;
-use Aaronbullard\Litmus\Transformers\PaletteTransformer;
+use Aaronbullard\Colors\Transformers\PaletteTransformer;
 use Aaronbullard\Litmus\Transformers\PaginatorTransformer;
 
 class PaletteController extends \BaseController {
@@ -36,16 +36,6 @@ class PaletteController extends \BaseController {
 		{
 			return $this->respondBadRequest();
 		}
-	}
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
 	}
 
 	/**
@@ -99,17 +89,6 @@ class PaletteController extends \BaseController {
 		{
 			return $this->respondBadRequest();
 		}
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
 	}
 
 	/**
