@@ -11,11 +11,11 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.1.*",
-		"iron-io/iron_mq": "1.4.*"
+		"iron-io/iron_mq": "1.4.*",
+		"aaronbullard/api": "dev-master"
 	},
 	"require-dev": {
-		"way/generators": "2.*",
-		"barryvdh/laravel-debugbar": "1.*"
+		"way/generators": "2.*"
 	},
 	"autoload": {
 		"classmap": [
@@ -38,7 +38,6 @@
 		"post-update-cmd": [
 			"php artisan clear-compiled",
 			"php artisan optimize",
-			"php artisan migrate",
 			"bower install"
 		],
 		"post-create-project-cmd": [
