@@ -16,7 +16,7 @@ class ImagesTableSeeder extends Seeder {
 				'green'			=> 100,
 				'blue'			=> 100,
 				'alpha'			=> 100,
-				'account_id'	=> 1
+				'user_id'		=> 1
 			],
 			[
 				'url' 			=> "http://www.atlasproject.co/wp-content/uploads/2013/11/facebook.jpg",
@@ -26,7 +26,7 @@ class ImagesTableSeeder extends Seeder {
 				'green'			=> NULL,
 				'blue'			=> NULL,
 				'alpha'			=> NULL,
-				'account_id'	=> 1
+				'user_id'		=> 1
 			]
 
 		);

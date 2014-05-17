@@ -16,13 +16,6 @@ class CreateUsersTable extends Migration {
 			$table->increments('id');
 			$table->string('email')->unique();
 			$table->string('password', 64);
-			$table->string('firstname', 30);
-			$table->string('lastname', 30);
-			$table->string('street');
-			$table->string('city', 30);
-			$table->string('state', 2);
-			$table->string('zipcode', 9);
-			$table->string('phone', 10)->nullable();
 			$table->timestamps();
 		});
 	}
