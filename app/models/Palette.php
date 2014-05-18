@@ -10,16 +10,12 @@ class Palette extends AbstractModel{
 	public static $rules = array(
 		'title' 		=> 'required',
 		'description' 	=> 'required',
-		'account_id'	=> 'required|exists:accounts,id',
 		'user_id' 		=> 'required|exists:users,id'
 	);
 
-	public function colors(){
+	public function colors()
+	{
 		return $this->hasMany('Color');
-	}
-
-	public function account(){
-		return $this->belongsTo('Account');
 	}
 
 	/**

@@ -8,11 +8,9 @@ class User extends AbstractModel implements UserInterface, RemindableInterface {
 	protected $guarded = ['id', 'password'];
 
 	public static $rules = [
-		'id'			=> 'required|unique:users,id',
+		'id'			=> 'unique:users,id',
 		'email' 		=> 'required|email|unique:users,email',
 		'password'		=> 'required',
-		'first_name'	=> 'required',
-		'last_name'		=> 'required'
 	];
 
 	/**
@@ -90,19 +88,19 @@ class User extends AbstractModel implements UserInterface, RemindableInterface {
 		return 'remember_token';
 	}
 
-	public function accounts()
-	{
-		return $this->belongsToMany('Account');
-	}
-
-	public function validate_credentials($account, $token)
-	{
-		return TRUE;
-	}
-
 	public function getFullName()
 	{
 		return $this->firstname.' '.$this->lastname;
+	}
+
+	public function palettes()
+	{
+		return $this->hasMany('Palette');
+	}
+
+	public function images()
+	{
+		return $this->hasMany('Image');
 	}
 
 }

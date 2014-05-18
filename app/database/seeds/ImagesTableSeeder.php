@@ -32,7 +32,7 @@ class ImagesTableSeeder extends Seeder {
 		);
 
 		// Uncomment the below to run the seeder
-		DB::table('images')->insert($images);
+		// DB::table('images')->insert($images);
 	}
 
 }

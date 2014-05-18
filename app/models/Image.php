@@ -1,25 +1,69 @@
 <?php
 
-class Image extends Eloquent {
+class Image extends AbstractModel {
 
-	protected $guarded = array('red', 'green', 'blue');
-	protected $fillable = ['url', 'parameters'];
+	public $timestamps 		= TRUE;
+	protected $guarded 		= ['red', 'green', 'blue', 'alpha'];
 
-	protected $hidden = ['account_id'];
+	protected $states = ['queued','processing','completed','failed'];
 	
-	public static $rules = array(
-		'url' => 'required|url',
-		'parameters' => '',
-		'red' => 'between:0,255',
-		'green' => 'between:0,255',
-		'blue' => 'between:0,255',
-		'alpha' => 'between:0,255',
-		'account_id' => 'required|exists:accounts,id'
-	);
+	public static $rules = [
+		'path'			=> 'required',
+		'filename'		=> 'required|mimes:jpeg',
+		'mime'			=> 'required|mimes:jpeg',
+		'parameters' 	=> '',
+		'callback'		=> 'url',
+		'status'		=> 'in:queued,processing,completed,failed',
+		'red' 			=> 'between:0,255',
+		'green' 		=> 'between:0,255',
+		'blue' 			=> 'between:0,255',
+		'alpha' 		=> 'between:0,255',
+		'user_id' 		=> 'required|exists:users,id'
+	];
 
-	public function account()
+	public static function boot()
+    {
+        parent::boot();
+
+        // Setup event bindings...
+        static::update(function($model){
+        	if($model->hasCallback())
+        	{
+        		Queue::push('Aaronbullard\Litmus\Workers\PostToCallbackWorker', ['image_id' => $model->id]);
+        	}
+        });
+    }
+
+	public function user()
 	{
-		return $this->belongsTo('Account');
+		return $this->belongsTo('User');
+	}
+
+	public function setStatus($status)
+	{
+		if( ! in_array(self::$states, $status))
+		{
+			throw new InvalidArguementException("`$status` is not a valid state for class Image");
+		}
+
+		$this->status = $status;
+
+		return $this;
+	}
+
+	public function getFullPath()
+	{
+		return $this->path.'/'.$this->filename;
+	}
+
+	public function getRgbaString()
+	{
+		return $this->status !== 'completed' ? NULL : "rgba({$this->red}, {$this->green}, {$this->blue}, {$this->alpha})";
+	}
+
+	public function hasCallback()
+	{
+		return ! is_null($this->callback);
 	}
 
 	public function getBoundingBox()
@@ -34,19 +78,4 @@ class Image extends Eloquent {
 		return [$p->x1, $p->y1, $p->x2, $p->y2];
 	}
 
-	public function toArray()
-	{
-		$array = parent::toArray();
-		$clean = array();
-		foreach($array as $attr => $value)
-		{
-			if( $attr === 'url' )
-			{
-				$clean[$attr] = $value;
-				continue;
-			}
-			$clean[$attr] = is_numeric($value) ? (int) $value : $value;
-		}
-		return $clean;
-	}
 }

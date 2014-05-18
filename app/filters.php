@@ -35,9 +35,8 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	return NULL;
 	if (Auth::guest()) {
-		throw new Aaronbullard\Litmus\Exceptions\NotAuthorizedException("Not logged in!");
+		throw new Aaronbullard\Litmus\Exceptions\NotAuthorizedException("Not logged in!", 401);
 	}
 });
 

@@ -14,9 +14,12 @@ class CreateImagesTable extends Migration {
 	{
 		Schema::create('images', function(Blueprint $table) {
 			$table->increments('id');
-			$table->string('url');
+			$table->string('path');
+			$table->string('filename');
+			$table->string('mime');
 			$table->string('parameters')->nullable();
-			$table->string('status', 10)->default('processing');
+			$table->string('callback')->nullable();
+			$table->enum('status', ['queued', 'processing', 'completed', 'failed'])->default('queued');
 			$table->tinyInteger('red')->nullable()->unsigned();
 			$table->tinyInteger('green')->nullable()->unsigned();
 			$table->tinyInteger('blue')->nullable()->unsigned();
