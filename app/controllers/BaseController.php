@@ -8,7 +8,6 @@ class BaseController extends ApiController {
 
 	public function __construct()
 	{
-		parent::construct();
 		$this->limit = Input::has('limit') ? Input::get('limit') : 100;
 	}
 

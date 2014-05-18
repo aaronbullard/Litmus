@@ -1,8 +1,7 @@
 <?php namespace Aaronbullard\Litmus\Commands;
 
-/**
- * @see \Illuminate\View\Compilers\BladeCompiler
- */
+use Illuminate\Support\Facades\Facade;
+
 class PostToCallbackFacade extends Facade {
 
 	/**

@@ -12,6 +12,7 @@ class ImageController extends \BaseController {
 
 	public function __construct(ImageTransformer $transformer, PaginatorTransformer $paginatorTransformer)
 	{
+		parent::__construct();
 		$this->transformer 			= $transformer;
 		$this->paginatorTransformer = $paginatorTransformer;
 	}
@@ -63,6 +64,7 @@ class ImageController extends \BaseController {
 			$image->callback 	= Input::has('callback') ? Input::get('callback') : NULL;
 			$image->user_id		= Auth::id();
 
+			$image->setStatus('queued');
 			$image->validate()->save();
 
 			// Move image for storage
@@ -72,9 +74,10 @@ class ImageController extends \BaseController {
 			Queue::push('Aaronbullard\Litmus\Workers\ImageColorAnalysisWorker', ['image_id' => $image->id]);
 
 			// Respond with image id for reference
-			return $this->respondCreated([
-				'data'	=> $this->transformer->transform($image)
-			]);
+			return $this->setRedirection(URL::route('images.show', $image->id))
+						->respondCreated([
+							'data'	=> $this->transformer->transform($image)
+						]);
 		}
 		catch(ValidationException $e)
 		{

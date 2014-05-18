@@ -5,7 +5,7 @@ class Image extends AbstractModel {
 	public $timestamps 		= TRUE;
 	protected $guarded 		= ['red', 'green', 'blue', 'alpha'];
 
-	protected $states = ['queued','processing','completed','failed'];
+	protected static $states = ['queued','processing','completed','failed'];
 	
 	public static $rules = [
 		'path'			=> 'required',
@@ -26,7 +26,7 @@ class Image extends AbstractModel {
         parent::boot();
 
         // Setup event bindings...
-        static::update(function($model){
+        static::updating(function($model){
         	if($model->hasCallback())
         	{
         		Queue::push('Aaronbullard\Litmus\Workers\PostToCallbackWorker', ['image_id' => $model->id]);
@@ -41,7 +41,7 @@ class Image extends AbstractModel {
 
 	public function setStatus($status)
 	{
-		if( ! in_array(self::$states, $status))
+		if( ! in_array($status, self::$states))
 		{
 			throw new InvalidArguementException("`$status` is not a valid state for class Image");
 		}

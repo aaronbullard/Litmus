@@ -15,6 +15,7 @@ class ColorController extends \BaseController {
 	{
 		$this->transformer 			= $transformer;
 		$this->paginatorTransformer = $paginatorTransformer;
+		parent::__construct();
 	}
 
 	/**

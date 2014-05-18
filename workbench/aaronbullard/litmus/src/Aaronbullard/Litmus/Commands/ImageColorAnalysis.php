@@ -1,7 +1,7 @@
 <?php namespace Aaronbullard\Litmus\Commands;
 
 use Queue;
-use Aaronbullard\Litmus\Services\LitmusService;
+use Aaronbullard\Litmus\Services\LitmusServiceHandlerInterface;
 
 class ImageColorAnalysis extends AbstractCommand{
 	

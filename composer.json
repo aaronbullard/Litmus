@@ -12,6 +12,7 @@
 	"require": {
 		"laravel/framework": "4.1.*",
 		"iron-io/iron_mq": "1.4.*",
+		"guzzlehttp/guzzle": "~4.0",
 		"aaronbullard/api": "dev-master"
 	},
 	"require-dev": {

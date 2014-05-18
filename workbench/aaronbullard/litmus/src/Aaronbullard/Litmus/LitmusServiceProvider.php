@@ -20,9 +20,9 @@ class LitmusServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('aaronbullard/litmus');
-		$loader = \Illuminate\Foundation\AliasLoader::getInstance();
-		$loader->alias('Aaronbullard\Litmus\Commands\ImageColorAnalysisFacade', 'Aaronbullard\Litmus\Commands\ImageColorAnalysis');
-		$loader->alias('Aaronbullard\Litmus\Commands\PostToCallbackFacade', 'Aaronbullard\Litmus\Commands\PostToCallback');
+		// $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+		// $loader->alias('Aaronbullard\Litmus\Commands\ImageColorAnalysisFacade', 'Aaronbullard\Litmus\Commands\ImageColorAnalysis');
+		// $loader->alias('Aaronbullard\Litmus\Commands\PostToCallbackFacade', 'Aaronbullard\Litmus\Commands\PostToCallback');
 	}
 
 	/**
@@ -49,16 +49,17 @@ class LitmusServiceProvider extends ServiceProvider {
 
 	protected function registerImageRepositoryInterface()
 	{
-		$this->app->bind('Aaronbullard\Litmus\Repositories\ImageRepositoryInterface', function(){
-			return Repositories\EloquentImageRepository(new \Image);
+		$this->app->bind('Aaronbullard\Litmus\Repositories\EloquentImageRepository', function(){
+			return new Repositories\EloquentImageRepository(new \Image);
 		});
+		$this->app->bind('Aaronbullard\Litmus\Repositories\ImageRepositoryInterface', 'Aaronbullard\Litmus\Repositories\EloquentImageRepository');
 	}
 
 	protected function registerImageColorAnalysis()
 	{
 		$this->app->bind('Aaronbullard\Litmus\Commands\ImageColorAnalysis', function($app){
 			$imAnalysis = new Commands\ImageColorAnalysis($app['Aaronbullard\Litmus\Repositories\ImageRepositoryInterface']);
-			$imAnalysis->setLitmusHandler(new Services\LitmusServiceHandler);
+			$imAnalysis->setColorHandler(new Services\LitmusServiceHandler);
 			return $imAnalysis;
 		});
 	}
@@ -66,7 +67,9 @@ class LitmusServiceProvider extends ServiceProvider {
 	protected function registerPostToCallback()
 	{
 		$this->app->bind('Aaronbullard\Litmus\Commands\PostToCallback', function($app){
-			return new Commands\PostToCallback($app['Aaronbullard\Litmus\Repositories\ImageRepositoryInterface']);
+			$post = new Commands\PostToCallback($app['Aaronbullard\Litmus\Repositories\ImageRepositoryInterface']);
+			$post->setHttpHandler( new \GuzzleHttp\Client() );
+			return $post;
 		});
 	}
 }

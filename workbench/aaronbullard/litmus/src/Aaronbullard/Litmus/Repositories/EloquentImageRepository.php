@@ -2,15 +2,26 @@
 
 use Image;
 
-class EloquentImageRepository{
+class EloquentImageRepository implements ImageRepositoryInterface{
 	
-	public function findById($image_id)
+	protected $image;
+
+	public function __construct(Image $image)
 	{
-		return Image::findOrFail($image_id);
+		$this->image = $image;
 	}
 
-	public function save(Image $image)
+	public function findById($image_id)
 	{
-		return $this->image->save();
+		return $this->image->findOrFail($image_id);
+	}
+
+	public function save($image)
+	{
+		if( ! $image instanceof Image )
+		{
+			throw new \InvalidArguementException;
+		}
+		return $image->save();
 	}
 }
