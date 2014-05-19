@@ -13,11 +13,7 @@
 
 Route::get('/', function()
 {
-	$box = new Litmus\Entities\Box([25, 25, 75, 75]);
-
-	return $box->toJson();
-
-	return "welcome";
+	return "Nothing to see here!";
 });
 
 // Create User
@@ -28,9 +24,7 @@ Route::post('login', 'SessionController@store');
 Route::any('logout', 'SessionController@logout');
 
 
-
-
-Route::group(['before' => 'auth|owner'], function(){
+Route::group(['before' => 'auth'], function(){
 	Route::resource('users', 'UserController', ['only' => ['store', 'show', 'update', 'destroy']]);
 	Route::resource('palettes', 'PaletteController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
 	Route::resource('palettes.colors', 'ColorController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
