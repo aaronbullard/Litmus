@@ -23,6 +23,11 @@ Route::post('signup', 'UserController@store');
 Route::post('login', 'SessionController@store');
 Route::any('logout', 'SessionController@logout');
 
+// Receiver route for iron.io push queue
+Route::post('queue/receive', function()
+{
+    return Queue::marshal();
+});
 
 Route::group(['before' => 'auth'], function(){
 	Route::resource('users', 'UserController', ['only' => ['store', 'show', 'update', 'destroy']]);
