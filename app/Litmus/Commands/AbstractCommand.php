@@ -1,6 +1,6 @@
-<?php namespace Aaronbullard\Litmus\Commands;
+<?php namespace Litmus\Commands;
 
-use Aaronbullard\Litmus\Repositories\ImageRepositoryInterface;
+use Litmus\Repositories\ImageRepositoryInterface;
 
 abstract class AbstractCommand{
 

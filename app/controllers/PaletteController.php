@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Aaronbullard\Litmus\Exceptions\ValidationException;
-use Aaronbullard\Litmus\Transformers\PaletteTransformer;
-use Aaronbullard\Litmus\Transformers\PaginatorTransformer;
+use Litmus\Exceptions\ValidationException;
+use Litmus\Transformers\PaletteTransformer;
+use Litmus\Transformers\PaginatorTransformer;
 
 class PaletteController extends \BaseController {
 
@@ -13,8 +13,11 @@ class PaletteController extends \BaseController {
 
 	public function __construct(PaletteTransformer $transformer, PaginatorTransformer $paginatorTransformer)
 	{
+		parent::__construct();
 		$this->transformer 			= $transformer;
 		$this->paginatorTransformer = $paginatorTransformer;
+
+		$this->validateOwnership(new Palette);	
 	}
 
 	/**
@@ -47,8 +50,7 @@ class PaletteController extends \BaseController {
 	{
 		try{
 			$palette = (new Palette)->fill(Input::all());
-			$palette->account_id = 1;
-			$palette->user_id = 1;
+			$palette->user_id = Auth::id();
 			$palette->validate();
 			$palette->save();
 

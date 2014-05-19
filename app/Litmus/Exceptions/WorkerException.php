@@ -1,4 +1,4 @@
-<?php namespace Aaronbullard\Litmus\Exceptions;
+<?php namespace Litmus\Exceptions;
 
 class WorkerException extends BaseException{
 

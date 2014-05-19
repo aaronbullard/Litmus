@@ -1,4 +1,4 @@
-<?php namespace Aaronbullard\Litmus\ImageRecognition;
+<?php namespace Litmus\ImageRecognition;
 
 use Illuminate\Support\Facades\Facade;
 

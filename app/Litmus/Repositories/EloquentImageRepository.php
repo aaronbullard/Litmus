@@ -1,4 +1,4 @@
-<?php namespace Aaronbullard\Litmus\Repositories;
+<?php namespace Litmus\Repositories;
 
 use Image;
 

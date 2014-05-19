@@ -1,4 +1,4 @@
-<?php namespace Aaronbullard\Litmus\Commands;
+<?php namespace Litmus\Commands;
 
 class PostToCallback extends AbstractCommand{
 	

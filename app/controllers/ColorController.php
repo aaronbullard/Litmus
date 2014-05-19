@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Aaronbullard\Litmus\Exceptions\ValidationException;
-use Aaronbullard\Litmus\Transformers\ColorTransformer;
-use Aaronbullard\Litmus\Transformers\PaginatorTransformer;
+use Litmus\Exceptions\ValidationException;
+use Litmus\Transformers\ColorTransformer;
+use Litmus\Transformers\PaginatorTransformer;
 
 class ColorController extends \BaseController {
 
@@ -13,9 +13,11 @@ class ColorController extends \BaseController {
 
 	public function __construct(ColorTransformer $transformer, PaginatorTransformer $paginatorTransformer)
 	{
+		parent::__construct();
 		$this->transformer 			= $transformer;
 		$this->paginatorTransformer = $paginatorTransformer;
-		parent::__construct();
+
+		$this->validateOwnership(new Palette);		
 	}
 
 	/**

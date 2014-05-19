@@ -1,4 +1,4 @@
-<?php namespace Aaronbullard\Litmus;
+<?php namespace Litmus;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -45,16 +45,16 @@ class LitmusServiceProvider extends ServiceProvider {
 
 	protected function registerImageRepositoryInterface()
 	{
-		$this->app->bind('Aaronbullard\Litmus\Repositories\EloquentImageRepository', function(){
+		$this->app->bind('Litmus\Repositories\EloquentImageRepository', function(){
 			return new Repositories\EloquentImageRepository(new \Image);
 		});
-		$this->app->bind('Aaronbullard\Litmus\Repositories\ImageRepositoryInterface', 'Aaronbullard\Litmus\Repositories\EloquentImageRepository');
+		$this->app->bind('Litmus\Repositories\ImageRepositoryInterface', 'Litmus\Repositories\EloquentImageRepository');
 	}
 
 	protected function registerImageColorAnalysis()
 	{
-		$this->app->bind('Aaronbullard\Litmus\Commands\ImageColorAnalysis', function($app){
-			$imAnalysis = new Commands\ImageColorAnalysis($app['Aaronbullard\Litmus\Repositories\ImageRepositoryInterface']);
+		$this->app->bind('Litmus\Commands\ImageColorAnalysis', function($app){
+			$imAnalysis = new Commands\ImageColorAnalysis($app['Litmus\Repositories\ImageRepositoryInterface']);
 			$imAnalysis->setColorHandler(new Services\LitmusServiceHandler);
 			return $imAnalysis;
 		});
@@ -62,8 +62,8 @@ class LitmusServiceProvider extends ServiceProvider {
 
 	protected function registerPostToCallback()
 	{
-		$this->app->bind('Aaronbullard\Litmus\Commands\PostToCallback', function($app){
-			$post = new Commands\PostToCallback($app['Aaronbullard\Litmus\Repositories\ImageRepositoryInterface']);
+		$this->app->bind('Litmus\Commands\PostToCallback', function($app){
+			$post = new Commands\PostToCallback($app['Litmus\Repositories\ImageRepositoryInterface']);
 			$post->setHttpHandler( new \GuzzleHttp\Client() );
 			return $post;
 		});

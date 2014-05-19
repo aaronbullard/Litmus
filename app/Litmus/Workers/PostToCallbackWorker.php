@@ -1,7 +1,7 @@
-<?php namespace Aaronbullard\Litmus\Workers;
+<?php namespace Litmus\Workers;
 
 use Illuminate\Queue\Jobs\Job;
-use Aaronbullard\Litmus\Commands\PostToCallbackFacade as PostToCallback;
+use Litmus\Commands\PostToCallbackFacade as PostToCallback;
 
 class PostToCallbackWorker{
 

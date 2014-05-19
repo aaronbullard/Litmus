@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Aaronbullard\Litmus\Exceptions\ValidationException;
-use Aaronbullard\Litmus\Transformers\UserTransformer;
-use Aaronbullard\Litmus\Transformers\PaginatorTransformer;
+use Litmus\Exceptions\ValidationException;
+use Litmus\Transformers\UserTransformer;
+use Litmus\Transformers\PaginatorTransformer;
 
 class UserController extends \BaseController {
 
@@ -11,7 +11,13 @@ class UserController extends \BaseController {
 
 	public function __construct(UserTransformer $transformer)
 	{
+		parent::__construct();
 		$this->transformer = $transformer;
+
+		if(Request::segment(2) !== Auth::id())
+		{
+			return $this->respondUnauthorized();
+		}
 	}
 
 	/**
@@ -22,10 +28,12 @@ class UserController extends \BaseController {
 	public function store()
 	{
 		try{
-			$user = (new User)->fill(Input::all());
+			$user 			= new User;
+			$user->email 	= Input::get('email');
 			$user->password = Hash::make(Input::get('password'));
-			$user->validate();
-			$user->save();
+			$user->validate()->save();
+
+			Auth::loginUsingId($user->id);
 
 			return $this->respondCreated([
 				'data' => $this->transformer->transform($user)
@@ -33,7 +41,7 @@ class UserController extends \BaseController {
 		}
 		catch(ValidationException $e)
 		{
-			return $this->respondNotAcceptable($e->getMessage());
+			return $this->respondFormValidation($e->getMessage());
 		}
 		catch(Exception $e)
 		{
@@ -90,7 +98,7 @@ class UserController extends \BaseController {
 		}
 		catch(ValidationException $e)
 		{
-			return $this->respondNotAcceptable($e->getMessage());
+			return $this->respondFormValidation($e->getMessage());
 		}
 		catch(Exception $e)
 		{

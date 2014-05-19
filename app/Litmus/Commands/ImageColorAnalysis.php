@@ -1,7 +1,8 @@
-<?php namespace Aaronbullard\Litmus\Commands;
+<?php namespace Litmus\Commands;
 
 use Queue;
-use Aaronbullard\Litmus\Services\LitmusServiceHandlerInterface;
+use Litmus\Services\LitmusServiceHandlerInterface;
+use Litmus\Entities\Box;
 
 class ImageColorAnalysis extends AbstractCommand{
 	
@@ -24,7 +25,16 @@ class ImageColorAnalysis extends AbstractCommand{
 		$path = $this->image->getFullPath();
 
 		// Get image analysis
-		$rgba = $this->litmus->setParams($path)->getRgba();
+		if( is_null($this->image->parameters) )
+		{
+			$rgba = $this->litmus->setParams($path)->getRgba();
+		}
+		else
+		{
+			$box = Box::makeFromJson($this->image->parameters);
+			$rgba = $this->litmus->setParams($path, $box)->getRgba();
+		}
+			
 		
 		// Update image
 		$this->image->red 	= $rgba->red;

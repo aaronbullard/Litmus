@@ -1,7 +1,7 @@
-<?php namespace Aaronbullard\Litmus\Workers;
+<?php namespace Litmus\Workers;
 
 use Illuminate\Queue\Jobs\Job;
-use Aaronbullard\Litmus\Commands\ImageColorAnalysisFacade as ImageColorAnalysis;
+use Litmus\Commands\ImageColorAnalysisFacade as ImageColorAnalysis;
 
 class ImageColorAnalysisWorker{
 

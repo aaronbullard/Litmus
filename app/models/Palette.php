@@ -1,6 +1,6 @@
 <?php
 
-use Aaronbullard\Litmus\Exceptions\ValidationException;
+use Litmus\Exceptions\ValidationException;
 
 class Palette extends AbstractModel{
 	protected $guarded = array();

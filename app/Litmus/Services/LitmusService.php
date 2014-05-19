@@ -1,8 +1,8 @@
-<?php namespace Aaronbullard\Litmus\Services;
+<?php namespace Litmus\Services;
 
 use Exception;
-use Aaronbullard\Litmus\Entities\Rgba;
-use Aaronbullard\Litmus\Exceptions\MimeTypeException;
+use Litmus\Entities\Rgba;
+use Litmus\Exceptions\MimeTypeException;
 
 class LitmusService{
 	

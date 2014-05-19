@@ -29,17 +29,18 @@ class SessionController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($id = NULL)
 	{
-		if( Auth::logout() )
-		{
-			return $this->respondOK([
-				'data' => "You have succefully logged out."
-			]);		
-		}
+		Auth::logout();
 
-		return $this->respondBadRequest();
-		
+		return $this->respondOK([
+			'data' => "You have succefully logged out."
+		]);
+	}
+
+	public function logout()
+	{
+		return $this->destroy(Auth::id());
 	}
 
 }

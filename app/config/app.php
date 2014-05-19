@@ -109,7 +109,7 @@ return array(
 
 		'Way\Generators\GeneratorsServiceProvider',
 		'Aaronbullard\Api\ApiServiceProvider',
-		'Aaronbullard\Litmus\LitmusServiceProvider',
+		'Litmus\LitmusServiceProvider',
 
 	),
 

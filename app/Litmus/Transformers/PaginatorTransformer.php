@@ -1,4 +1,4 @@
-<?php namespace Aaronbullard\Litmus\Transformers;
+<?php namespace Litmus\Transformers;
 
 use Illuminate\Pagination\Paginator;
 use Aaronbullard\Api\Transformer;

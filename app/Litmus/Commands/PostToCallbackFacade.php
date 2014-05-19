@@ -1,4 +1,4 @@
-<?php namespace Aaronbullard\Litmus\Commands;
+<?php namespace Litmus\Commands;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -11,7 +11,7 @@ class PostToCallbackFacade extends Facade {
 	 */
 	protected static function getFacadeAccessor()
 	{
-		return 'Aaronbullard\Litmus\Commands\PostToCallback';
+		return 'Litmus\Commands\PostToCallback';
 	}
 
 }

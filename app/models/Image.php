@@ -29,7 +29,7 @@ class Image extends AbstractModel {
         static::updating(function($model){
         	if($model->hasCallback())
         	{
-        		Queue::push('Aaronbullard\Litmus\Workers\PostToCallbackWorker', ['image_id' => $model->id]);
+        		Queue::push('Litmus\Workers\PostToCallbackWorker', ['image_id' => $model->id]);
         	}
         });
     }

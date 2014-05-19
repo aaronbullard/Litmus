@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Aaronbullard\Litmus\Exceptions\ValidationException;
-use Aaronbullard\Litmus\Transformers\ImageTransformer;
-use Aaronbullard\Litmus\Transformers\PaginatorTransformer;
+use Litmus\Exceptions\ValidationException;
+use Litmus\Transformers\ImageTransformer;
+use Litmus\Transformers\PaginatorTransformer;
+use Litmus\Commands\ImageColorAnalysisFacade as ImageColorAnalysis;
 
 class ImageController extends \BaseController {
 
@@ -15,6 +16,8 @@ class ImageController extends \BaseController {
 		parent::__construct();
 		$this->transformer 			= $transformer;
 		$this->paginatorTransformer = $paginatorTransformer;
+
+		$this->validateOwnership(new Image);	
 	}
 
 	public function index()
@@ -61,6 +64,7 @@ class ImageController extends \BaseController {
 			$image->path 		= storage_path().'/images/'.$user_id;
 			$image->filename 	= Input::file('image')->getClientOriginalName();
 			$image->mime 		= $mime;
+			$image->parameters 	= Input::has('bbox') ? (new Litmus\Entities\Box(Input::get('bbox')))->toJson() : NULL;
 			$image->callback 	= Input::has('callback') ? Input::get('callback') : NULL;
 			$image->user_id		= Auth::id();
 
@@ -70,14 +74,28 @@ class ImageController extends \BaseController {
 			// Move image for storage
 			Input::file('image')->move($image->path, $image->filename);
 
-			// Send image for processing to queue
-			Queue::push('Aaronbullard\Litmus\Workers\ImageColorAnalysisWorker', ['image_id' => $image->id]);
+			if( Input::has('queue') && !Input::get('queue') )
+			{
+				// Process Image immediately
+				$command = ImageColorAnalysis::create($image->id);
+				$command->execute();
+				return $this->setRedirection(URL::route('images.show', $image->id))
+							->respondCreated([
+								'data'	=> $this->transformer->transform(Image::findOrFail($image->id))
+							]);
+			}
+			else
+			{
+				// Send image for processing to queue
+				Queue::push('Litmus\Workers\ImageColorAnalysisWorker', ['image_id' => $image->id]);
+				
+				// Respond with image id for reference
+				return $this->setRedirection(URL::route('images.show', $image->id))
+							->respondCreated([
+								'data'	=> $this->transformer->transform($image)
+							]);
 
-			// Respond with image id for reference
-			return $this->setRedirection(URL::route('images.show', $image->id))
-						->respondCreated([
-							'data'	=> $this->transformer->transform($image)
-						]);
+			}
 		}
 		catch(ValidationException $e)
 		{

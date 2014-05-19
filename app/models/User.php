@@ -6,6 +6,7 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 class User extends AbstractModel implements UserInterface, RemindableInterface {
 
 	protected $guarded = ['id', 'password'];
+	protected $hidden  = ['password'];
 
 	public static $rules = [
 		'id'			=> 'unique:users,id',
@@ -19,13 +20,6 @@ class User extends AbstractModel implements UserInterface, RemindableInterface {
 	 * @var string
 	 */
 	protected $table = 'users';
-
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	protected $hidden = array('password');
 
 	/**
 	 * Get the unique identifier for the user.

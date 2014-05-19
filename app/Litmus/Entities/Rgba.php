@@ -1,4 +1,4 @@
-<?php namespace Aaronbullard\Litmus\Entities;
+<?php namespace Litmus\Entities;
 
 class Rgba{
 

@@ -1,4 +1,4 @@
-<?php namespace Aaronbullard\Litmus\ImageRecognition;
+<?php namespace Litmus\ImageRecognition;
 
 abstract class ImageRecognition{
 	public function process($image_url, array $options = array());

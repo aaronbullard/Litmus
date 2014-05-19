@@ -1,13 +1,22 @@
-<?php namespace Aaronbullard\Litmus\Services;
+<?php namespace Litmus\Services;
+
+use Litmus\Entities\Box;
 
 class LitmusServiceHandler implements LitmusServiceHandlerInterface{
 	
 	protected $rgba;
 
-	public function setParams($image_path, $x1 = 0, $y1 = 0, $x2 = NULL, $y2 = NULL)
+	public function setParams($image_path, Box $box = NULL)
 	{
-		$this->rgba = LitmusService::getAverageColor($image_path, $x1 = 0, $y1 = 0, $x2 = NULL, $y2 = NULL);
-
+		if( isset($box) )
+		{
+			$this->rgba = LitmusService::getAverageColor($image_path, $box->x1, $box->y1, $box->x2, $box->y2);
+		}
+		else
+		{
+			$this->rgba = LitmusService::getAverageColor($image_path);
+		}
+		
 		return $this;
 	}
 
