@@ -21,19 +21,6 @@ class Image extends AbstractModel {
 		'user_id' 		=> 'required|exists:users,id'
 	];
 
-	public static function boot()
-    {
-        parent::boot();
-
-        // Setup event bindings...
-        static::updating(function($model){
-        	if($model->hasCallback())
-        	{
-        		Queue::push('Litmus\Workers\PostToCallbackWorker', ['image_id' => $model->id]);
-        	}
-        });
-    }
-
 	public function user()
 	{
 		return $this->belongsTo('User');
@@ -66,6 +53,11 @@ class Image extends AbstractModel {
 		return ! is_null($this->callback);
 	}
 
+	public function isCompleted()
+	{
+		return $this->status === 'completed';
+	}
+
 	public function getBoundingBox()
 	{
 		if( is_null($this->parameters) )
@@ -76,6 +68,15 @@ class Image extends AbstractModel {
 		$p = json_decode($this->parameters);
 
 		return [$p->x1, $p->y1, $p->x2, $p->y2];
+	}
+
+	public function deleteFile()
+	{
+		$path = $this->getFullPath();
+		if( File::exists($path) )
+		{
+			return File::delete($path);
+		}
 	}
 
 }

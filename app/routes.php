@@ -27,9 +27,6 @@ Route::post('signup', 'UserController@store');
 Route::post('login', 'SessionController@store');
 Route::any('logout', 'SessionController@logout');
 
-
-
-
 Route::group(['before' => 'auth|owner'], function(){
 	Route::resource('users', 'UserController', ['only' => ['store', 'show', 'update', 'destroy']]);
 	Route::resource('palettes', 'PaletteController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
