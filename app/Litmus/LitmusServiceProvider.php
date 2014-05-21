@@ -19,6 +19,10 @@ class LitmusServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('aaronbullard/litmus');
+
+		// Register Image Observer
+		$queue = $this->app['queue'];
+		$this->app['Image']->observe(new Observers\ImageObserver($queue));
 	}
 
 	/**
@@ -31,6 +35,7 @@ class LitmusServiceProvider extends ServiceProvider {
 		$this->registerImageRepositoryInterface();
 		$this->registerImageColorAnalysis();
 		$this->registerPostToCallback();
+		// $this->registerDeleteImageFileWorker();
 	}
 
 	/**
@@ -66,6 +71,14 @@ class LitmusServiceProvider extends ServiceProvider {
 			$post = new Commands\PostToCallback($app['Litmus\Repositories\ImageRepositoryInterface']);
 			$post->setHttpHandler( new \GuzzleHttp\Client() );
 			return $post;
+		});
+	}
+
+	protected function registerDeleteImageFileWorker()
+	{
+		$this->app->bind('Litmus\Workers\DeleteImageFileWorker', function($app){
+			$filesystem = $app['files'];
+			return new Workers\DeleteImageFileWorker($filesystem);
 		});
 	}
 }

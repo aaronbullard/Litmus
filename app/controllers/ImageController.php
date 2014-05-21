@@ -51,18 +51,27 @@ class ImageController extends \BaseController {
 			}
 
 			// Check mime type
-			$mime = Input::file('image')->getMimeType();
-			$v = Validator::make(['image' => Input::file('image')], ['image' => 'image|mimes:jpeg']);
+			$file = Input::file('image');
+			$size = $file->getSize();
+			$mime = $file->getMimeType();
+
+			$v = Validator::make(
+				[	'image' => $file,
+					'filesize' => $size
+				], [
+					'image' 	=> 'image|mimes:jpeg',
+					'filesize'	=> 'max:10000000' // 10MB
+				]);
 			if( $v->fails() )
 			{
-				throw new ValidationException($v->messages()->get('image'));
+				throw new ValidationException($v->messages()->first('image'));
 			}
 
 			// Save image and location to DB, get id, post job
 			$user_id 			= Auth::id();
 			$image 				= new Image;
 			$image->path 		= storage_path().'/images/'.$user_id;
-			$image->filename 	= Input::file('image')->getClientOriginalName();
+			$image->filename 	= time().'_'.Input::file('image')->getClientOriginalName();
 			$image->mime 		= $mime;
 			$image->parameters 	= Input::has('bbox') ? (new Litmus\Entities\Box(Input::get('bbox')))->toJson() : NULL;
 			$image->callback 	= Input::has('callback') ? Input::get('callback') : NULL;
@@ -72,7 +81,7 @@ class ImageController extends \BaseController {
 			$image->validate()->save();
 
 			// Move image for storage
-			Input::file('image')->move($image->path, $image->filename);
+			$file->move($image->path, $image->filename);
 
 			if( Input::has('queue') && !Input::get('queue') )
 			{
