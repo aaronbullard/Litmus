@@ -12,7 +12,7 @@ class Box{
 		$this->x1 = $params[0];
 		$this->y1 = $params[1];
 		$this->x2 = $params[2];
-		$this->y1 = $params[3];
+		$this->y2 = $params[3];
 
 		return $this;
 	}
